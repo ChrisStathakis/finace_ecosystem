@@ -1,0 +1,42 @@
+{% extends 'index.html' %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Portfolios</h4>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th> -  </th>
+                                    <th>Title</th>
+                                    <th>Code </th>
+                                    <th>Simply Return </td>
+                                    <th>Edit</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for ele in object_list %}
+                                    <tr>
+                                        <td> {{ ele.id}} </td>
+                                        <td> {{ ele.title }}</td>
+                                        <td> {{ ele.ticker }}</td>
+                                        <td> {{ ele.simply_return }} %</td>
+                                        <td><a href="{{ ele.get_absolute_url }}" class="btn btn-info"><i class="fa fa-edit"></i> </a> </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+{% endblock %}

@@ -1,0 +1,33 @@
+
+ <div class="card">
+     <div class="card-header">
+         <h4>Tickers</h4>
+     </div>
+     <div class="card-body">
+         <table class="table table-bordered">
+             <thead>
+             <tr>
+                 <th>Title</th>
+                 <th>Investment</th>
+                 <th>Buy Value</th>
+                 <th>Current Value</th>
+                 <th>Diff</th>
+                 <th>Percent</th>
+                 <th>-</th>
+             </tr>
+             </thead>
+             <tbody>
+             {% for ele in my_tickers %}
+             <tr>
+                 <td>{{ ele.ticker }}</td>
+                 <td>{{ ele.starting_investment|floatformat:2 }}</td>
+                 <td>{{ ele.starting_value_of_ticker|floatformat:2 }}</td>
+                 <td>{{ ele.current_value_of_ticker|floatformat:2 }}</td>
+                 <td>{{ ele.tag_diff|floatformat:2 }}</td>
+                 <td>{{ ele.tag_diff_pct|floatformat:2 }}</td>
+             </tr>
+             {% endfor %}
+             </tbody>
+         </table>
+     </div>
+ </div>

@@ -1,0 +1,168 @@
+{% extends 'index.html' %}
+
+
+{% block content %}
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>{{ instance.title }} | {{ instance.ticker }} | {{ instance.price }}</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-8">
+                                <canvas id="myChart"></canvas>
+                            </div>
+                            
+                            <div class="col-4">
+                                <div class="card text-black bg-secondary mb-3">
+                                    <div class="card-header">
+                                        <h4>Predictions </h4>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                                          
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Info</h4>
+                    </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <th>Simply Return</th>
+                                    <th>{{ instance.simply_return }}</th>
+                                </tr>
+
+                                <tr>
+                                    <th>Log Return</th>
+                                    <th>{{ instance.log_return }}</th>
+                                </tr>
+
+                                <tr>
+                                    <th>Beta</th>
+                                    <th>{{ instance.beta }}</th>
+                                </tr>
+
+                                <tr>
+                                    <th>Market Variance</th>
+                                    <th>{{ instance.market_variance }}</th>
+                                </tr>
+
+                                <tr>
+                                    <th>Simply Return</th>
+                                    <th>{{ instance.simply_return }}</th>
+                                </tr>
+
+                                <tr>
+                                    <th>Simply Return</th>
+                                    <th>{{ instance.simply_return }}</th>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+             <div class="col-3">
+                 <div class="card">
+                    <div class="card-header">
+                        <h4>Feed</h4>
+                    </div>
+                    <div class="card-body">
+                        <table class="table" style="display: block; width: 100%; height: 600px; overflow: auto;">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Description</th>
+                                    <th>ID</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for ele in feed %}
+                                    <tr>
+                                        <td>{{ ele.published  }}</td>
+                                        <td>{{ ele.title  }}</td>
+                                        <td>{{ price.rss_id  }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+             </div>
+             <div class="col-3">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Prices</h4>
+                    </div>
+                    <div class="card-body">
+                        <table class="table" style="display: block; width: 100%; height: 600px; overflow: auto;">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Price</th>
+                                    <th>Percent</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for price in prices %}
+                                    <tr>
+                                        <td>{{ price.date  }}</td>
+                                        <td>{{ price.close  }}</td>
+                                        <td>{{ price.pct_change  }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}
+
+
+{% block extra_js %} 
+<script>
+    const ctx = document.getElementById('myChart');
+  
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: [{% for ele in prices_chart %} {% if forloop.last %} "{{ ele.0 }}" {% else %} "{{ ele.0 }}",  {% endif %}{% endfor %}],
+        datasets: [
+        {
+            label: '# Prices',
+            backgroundColor: 'green',
+		    borderColor: 'green',
+			fill: false,
+            data: [{% for ele in prices_chart %} {% if forloop.last %} {{ ele.1 }} {% else %} {{ ele.1 }},  {% endif %}{% endfor %}]
+         
+        }
+        ]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  </script>
+{% endblock %}

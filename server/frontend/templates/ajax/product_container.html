@@ -1,0 +1,20 @@
+
+
+<thead>
+  <tr>
+    <th>Title</th>
+    <th>Code</th>
+    <th>percent</th>
+    <th>Add</th>
+  </tr>
+</thead>
+<tbody>
+  {% for ticker in tickers %}
+    <tr>
+      <td>{{ ticker.title }}</td>
+      <td>{{ ticker.ticker }}</td>
+      <td>{{ ticker.simply_return }}</td>
+      <td> <a href="{% url 'create_item_portfolio' object.id ticker.id  %}" class="btn btn-success"> Add </a> </td>
+    </tr>
+  {% endfor %}
+</tbody>

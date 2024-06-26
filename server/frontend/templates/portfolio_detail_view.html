@@ -1,0 +1,155 @@
+{% extends 'index.html' %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>{{ object.title }}</h4>
+                    </div>
+                </div>
+            </div>
+
+            <div id='ticker_container' class="col-12">
+               {% include "ajax/tickers_container.html" %}
+            </div>
+
+            <br />
+
+            <div class="col-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Add Ticker</h4>
+                    </div>
+                    <div class="card-body">
+                        <input data-href="{% url 'search_tickers_json_view' object.id %}" id='search_tickers' type="text" class="form-control" name="q" placeholder="Search">
+                        <table id="ticker_search_container"  class="table">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Code</th>
+                                    <th>percent</th>
+                                    <th>Add</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for ticker in tickers %}
+                                    <tr>
+                                        <td>{{ ticker.title }}</td>
+                                        <td>{{ ticker.ticker }}</td>
+                                        <td>{{ ticker.simply_return }}</td>
+                                        <td> <a href="{% url 'create_item_portfolio' object.id ticker.id  %}" class="btn btn-success"> Add </a> </td>
+                                    </tr>
+
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-8">
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h4> Details </h4>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <td>Starting Investment</td>
+                                    <td>Current Value</td>
+                                    <td>+/-</td>
+                                    <td>%</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td id='starting_investment'>{{ object.starting_investment }} </td>
+                                    <td id='current_value'>{{ object.current_value }}</td>
+                                    <td id='show_diff'> {{ object.show_diff }} </td>
+                                    <td id='show_diff_percent'> {{ object.show_diff_percent }} </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+{% block extra_js %}
+
+
+    <script>
+        $("#search_tickers").keyup(function(evt){
+            evt.preventDefault();
+            console.log('lets begin!');
+            const controller = $(this);
+            const q = controller.val();
+            const href = controller.attr("data-href");
+
+            $.ajax({
+                method: 'GET',
+                dataType:"json",
+                url: href + '?q=' + q,
+
+                success: function(data){
+                    console.log('succes')
+                    $('#ticker_search_container').html(data.result)
+                }
+            })
+            
+            
+        })
+    </script>
+
+
+    <script>
+    
+        const roomName = "{{ object.id }}";
+        console.log('roomName', roomName);
+
+        const tickerSocket = new WebSocket(
+            'ws://' 
+            + window.location.host
+            + '/ws/tickers/refresh/'
+            + roomName
+            + '/'
+        );
+
+        tickerSocket.onmessage  = function(e) {
+            console.log('onmessage', e.data);
+            const data = JSON.parse(e.data);
+            console.log('data', data['message']);
+            const instance = data['message'];
+            $('#starting_investment').html(instance.starting_investment);
+            $('#current_value').html(instance.current_value);
+            $('#show_diff').html(instance.current_value);
+            $('#show_diff_percent').html(instance.current_value);
+        }
+        
+       
+        setInterval(function(){
+            console.log('send message')
+            tickerSocket.send(JSON.stringify({
+                'message': 'works?'
+            }))
+        }, 10 * 1000)
+
+        
+        
+
+        
+        
+
+    </script>
+
+{% endblock %}

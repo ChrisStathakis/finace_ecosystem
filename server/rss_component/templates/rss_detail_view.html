@@ -1,0 +1,78 @@
+{% extends 'index.html' %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>{{ instance }}</h4>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Rss ID:</th>
+                                    <td>{{ instance.rss_id }}</td>
+                                </tr>
+
+                                <tr>
+                                    <th>Published:</th>
+                                    <td>{{ instance.published }}</td>
+                                </tr>
+
+                                <tr>
+                                    <th>Analysed:</th>
+                                    <td>
+                                        {% if instance.is_analysed %}
+                                            <i style="color: green" class="fa fa-thumbs-up" aria-hidden="true"></i>
+                                        {% else %}
+                                            <i style="color: red" class="fa fa-thumbs-down" aria-hidden="true"></i>
+                                        {% endif %}
+
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                     <th>Positive:</th>
+                                    <td>
+                                        {% if instance.is_positive %}
+                                            <i style="color: green" class="fa fa-thumbs-up green" aria-hidden="true"></i>
+                                        {% else %}
+                                            <i style="color: red" class="fa fa-thumbs-down" aria-hidden="true"></i>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th>Summary:</th>
+                                    <td>{{ instance.summary }}
+                                        <span class="label label-success">Success Label</span>
+                                    </td>
+                                </tr>
+
+                            </thead>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Companies</h4>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group">
+                            {% for company in instance.companies %}
+                                <li class="list-group-item">{{ company }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

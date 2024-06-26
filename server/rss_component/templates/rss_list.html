@@ -1,0 +1,53 @@
+{% extends "index.html" %}
+
+
+{% block content %}
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Rss Feed</h4>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                     <th>Title</th>
+                                     <th>Tags</th>
+                                     <th>Is positive</th>
+                                     <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for ele in object_list %}
+                                    <tr>
+                                        <td>{{ ele.title }}</td>
+                                        <td>{{ ele.tag_tickers }}</td>
+                                        <td>{{ ele.is_positive }}</td>
+                                        <td><a href="{{ ele.get_absolute_url }}" class="btn btn-success">Details</a> </td>
+                                    </tr>
+
+                                {% endfor %}
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Analysis</h4>
+                    </div>
+                    <div class="card-body">
+                        <a href="{% url 'rss:refresh_rss' %}" class="btn btn-info"> Refresh List</a>
+                        <a href="{% url 'rss:analysis_rss' %}" class="btn btn-info"> Analysis</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
