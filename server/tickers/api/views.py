@@ -10,12 +10,14 @@ from .serializers import TickerSerializer, PortfolioSerializer, UserTickerBaseSe
 from ..models import Ticker, Portfolio, UserTicker, TickerDataFrame
 from .permissions import IsAuthenticatedCustom
 
+
 @api_view(['GET'])
 def ticker_homepage_api_view(request, format=None):
     return Response({
         'tickers': reverse('api_tickers:tickers_list', request=request, format=format),
         "portfolios": reverse("api_tickers:portfolio_list", request=request, format=format),
         "ticker_dataframe": reverse("api_tickers:ticker_dataframe", request=request, format=format),
+        "user_ticker_list": reverse("api_tickers:user_ticker_list", request=request, format=format)
 
     })
 
@@ -30,13 +32,21 @@ class PortfolioListApiView(ListCreateAPIView):
 
 class PortfolioUpdateRetrieveApiView(RetrieveUpdateDestroyAPIView):
     serializer_class = PortfolioSerializer
+    permission_classes = [IsAuthenticatedCustom, ]
 
     def get_queryset(self):
-        user = self.request.user
-        if user:
-            return Portfolio.objects.filter(user=user)
-        return Portfolio.objects.none()
+        return Portfolio.objects.filter(user=self.request.user)
 
+
+class UserTickerListApiView(ListCreateAPIView):
+    serializer_class = UserTickerBaseSerializer
+    permission_classes = [IsAuthenticatedCustom, ]
+    filter_backends = [DjangoFilterBackend, ]
+    filterset_fields = ['portfolio', ]
+
+
+    def get_queryset(self):
+        return UserTicker.objects.filter(portfolio__user=self.request.user)
 
 class TickerListApiView(ListAPIView):
     queryset = Ticker.objects.all()

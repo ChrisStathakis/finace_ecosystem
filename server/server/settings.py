@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'import_export',
     'django_celery_beat',
     'django_celery_results',
+    'django_filters',
 
 
     'frontend',

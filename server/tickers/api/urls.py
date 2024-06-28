@@ -1,6 +1,7 @@
 from django.urls import path
 
 from .views import (TickerListApiView, ticker_homepage_api_view, PortfolioListApiView,
+                    PortfolioUpdateRetrieveApiView, UserTickerListApiView,
                     TickerRetrieveApiView, TickerDataFrameListApiView
                     )
 
@@ -11,6 +12,8 @@ urlpatterns = [
     path('tickers/list/', TickerListApiView.as_view(), name="tickers_list"),
     path("detail/<int:pk>/", TickerRetrieveApiView.as_view(), name="ticker_detail"),
     path("portfolios/list/", PortfolioListApiView.as_view(), name="portfolio_list"),
-    path("tickers/dataframe/", TickerDataFrameListApiView.as_view(), name="ticker_dataframe")
+    path("portfolio/detail/<int:pk>/", PortfolioUpdateRetrieveApiView.as_view(), name="portfolio_update"),
+    path("tickers/dataframe/", TickerDataFrameListApiView.as_view(), name="ticker_dataframe"),
+    path("user-tickers/list/", UserTickerListApiView.as_view(), name="user_ticker_list"),
 
 ]

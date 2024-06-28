@@ -5,6 +5,7 @@ const initialState = {
     portfolios: [],
     port_detail: {},
     port_tickers: []
+    
 }
 
 
@@ -23,7 +24,11 @@ const portfolioSlice = createSlice({
         },
         create_portfolio_action: (state, action) => {
             state.portfolios = [action.payload, ...state.portfolios]
-        }
+        },
+        create_port_ticker_action: (state, action) => {
+            state.port_tickers = [action.payload, ...state.port_tickers]
+        },
+        
     }
 });
 
