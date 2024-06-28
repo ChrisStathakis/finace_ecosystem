@@ -5,10 +5,16 @@ import tickerServices from "../../data/services/ticker.services";
 import portfolioService from "../../data/services/portfolioServices";
 import NavbarComponent from "../navbar";
 import TopNavbarComponent from "../TopNavbar";
+import AddTickerToPortfolio from "./AddTickerToPortfolio";
 
 
 export default function PortfolioDetailComponent(){
+    const [showAddTicker, setShowAddTicker] = React.useState(false);
+    const [selectedTicker, setSelectedTicker] = React.useState(0);
+    const [q, setQ] = React.useState("");
+
     const dispatch = useDispatch();
+
     const port_manager = useSelector(state=>state.portfolio);
     const ticker_manager = useSelector(state => state.tickers);
 
@@ -27,6 +33,16 @@ export default function PortfolioDetailComponent(){
         }
        
     }, [portfolio]);
+
+    const closeCreateWindow = () => {setShowAddTicker(false)}
+    const selectAddTicker = (id) => {setSelectedTicker(id); setShowAddTicker(true);};
+    const handleSearh = (e) => {
+        e.preventDefault();
+        setQ(e.target.value);
+        if (e.length > 1){
+            tickerServices.fetchTickers(q, dispatch);
+        }
+    }
 
     return (
         <div>
@@ -78,9 +94,11 @@ export default function PortfolioDetailComponent(){
                     <hr />
                     <div className="row">
                         <div className="col-4">
+                            {showAddTicker ? <AddTickerToPortfolio closeWindow={closeCreateWindow} ticker={selectedTicker} /> :
                             <div className="card">
                                 <div className="card-header">
                                    <h5>Add Ticker</h5>
+                                   <input onChange={(e)=> handleSearh(e)} type="text" className="form-control" placeholder="Search" style={{backgroundColor: '#f0f8ff'}}/>
                                 </div>
                                 <div className="card-body">
                                     <table className="table">
@@ -88,6 +106,7 @@ export default function PortfolioDetailComponent(){
                                             <tr>
                                                 <th>Ticker</th>
                                                 <th>Code</th>
+                                                <th>-</th>
                                                 <th>-</th>
                                             </tr>
                                         </thead>
@@ -97,7 +116,8 @@ export default function PortfolioDetailComponent(){
                                                     <tr>
                                                         <td>{ele.title}</td>
                                                         <td>{ele.ticker}</td>
-                                                        <td><button className="btn btn-success">Add</button></td>
+                                                        <td><button onClick={() => selectAddTicker(ele.id)} className="btn btn-success">Add</button></td>
+                                                        <td><button onClick={() => selectAddTicker(ele.id)} className="btn btn-primary">Detail</button></td>
                                                     </tr>
                                                 )
                                             })}
@@ -105,6 +125,7 @@ export default function PortfolioDetailComponent(){
                                     </table>
                                 </div>
                             </div>
+                            }
                         </div>
                     </div>
                 </div>

@@ -32,5 +32,9 @@ const portfolioSlice = createSlice({
     }
 });
 
-export const {fetch_port_tickers_action, fetch_portfolio_action, fetch_portfolios_action, create_portfolio_action } = portfolioSlice.actions;
+export const {
+    fetch_port_tickers_action, fetch_portfolio_action, fetch_portfolios_action, create_portfolio_action, 
+    create_port_ticker_action 
+} = portfolioSlice.actions;
+
 export default portfolioSlice.reducer;

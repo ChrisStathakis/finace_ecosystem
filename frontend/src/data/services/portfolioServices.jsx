@@ -1,6 +1,6 @@
 import axiosInstance from "../axiosInstance";
 import { PORTFOLIO_DETAIL_ENDPOINT, PORTFOLIO_LIST_ENDPOINT, USER_TICKERS_LIST_ENDPOINT } from "../endpoints";
-import { create_portfolio_action, fetch_port_tickers_action, fetch_portfolio_action, fetch_portfolios_action } from "../slices/portfolioSlice";
+import { create_port_ticker_action, create_portfolio_action, fetch_port_tickers_action, fetch_portfolio_action, fetch_portfolios_action } from "../slices/portfolioSlice";
 
 
 
@@ -47,10 +47,19 @@ function fetch_user_tickers(id, dispatch){
         )
 }
 
+function create_user_ticker(data, dispatch){
+    axiosInstance.post(USER_TICKERS_LIST_ENDPOINT, data).then(
+        (response)=>{
+            dispatch(create_port_ticker_action(response.data))
+        }
+    )
+}
+
 
 export default {
     fetch_portfolio,
     fetch_portfolios,
     createPortfolio,
-    fetch_user_tickers
+    fetch_user_tickers,
+    create_user_ticker
 }
