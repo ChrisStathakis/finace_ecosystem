@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { RSS_FEED_TICKER_ENDPOINT, TICKERS_LIST_ENDPOINT, TICKER_DATAFRAME_ENDPOINT, TICKER_DETAIL_ENDPOINT } from "../endpoints";
+import { PREDICT_TICKER_ENDPOINT, RSS_FEED_TICKER_ENDPOINT, TICKERS_LIST_ENDPOINT, TICKER_DATAFRAME_ENDPOINT, TICKER_DETAIL_ENDPOINT } from "../endpoints";
 import { fetch_rss_feed_action, fetch_ticker_action, fetch_ticker_dataframe_action, fetch_tickers_action } from "../slices/tickerSlice";
 
 
@@ -48,6 +48,15 @@ const fetchRssFeed = (id, dispatch) => {
                 dispatch(fetch_rss_feed_action(response.data));
             }
         )
+};
+
+const fetchPredictTicker = (id) => {
+    const endpoint = `${PREDICT_TICKER_ENDPOINT}/${id}/`;
+    axios.get(endpoint).then(
+        (response) => {
+            return response.data.my_predict;
+        }
+    )
 }
 
 
@@ -55,5 +64,7 @@ export default {
     fetchTickers,
     fetchTicker,
     fetchTickerDataframe,
-    fetchRssFeed
+    fetchRssFeed,
+    fetchPredictTicker
+    
 }

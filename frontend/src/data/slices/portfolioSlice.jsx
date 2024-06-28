@@ -28,13 +28,16 @@ const portfolioSlice = createSlice({
         create_port_ticker_action: (state, action) => {
             state.port_tickers = [action.payload, ...state.port_tickers]
         },
+        update_port_ticker_action: (state, action) => {
+            state.port_detail = action.payload;
+        }
         
     }
 });
 
 export const {
     fetch_port_tickers_action, fetch_portfolio_action, fetch_portfolios_action, create_portfolio_action, 
-    create_port_ticker_action 
+    create_port_ticker_action, update_port_ticker_action
 } = portfolioSlice.actions;
 
 export default portfolioSlice.reducer;

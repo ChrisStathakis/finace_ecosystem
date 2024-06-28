@@ -12,14 +12,11 @@ class PortfolioSerializer(serializers.ModelSerializer):
 
 
                   ]
-
-
 class TickerDataFrameSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = TickerDataFrame
         fields = ["ticker", "date", "close", "pct_change"]
-
 
 
 class UserTickerBaseSerializer(serializers.ModelSerializer):
@@ -42,3 +39,12 @@ class TickerSerializer(serializers.ModelSerializer):
                   ]
 
 
+class TickerPredictionSerializer(serializers.ModelSerializer):
+    my_predict = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Ticker
+        fields = ['id', "my_predict"]
+
+    def get_my_predict(self, obj):
+        return obj.predict_next_days()

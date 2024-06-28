@@ -1,12 +1,14 @@
 from rest_framework.decorators import api_view
 from rest_framework.generics import ListAPIView, ListCreateAPIView, RetrieveUpdateDestroyAPIView, RetrieveAPIView
 from rest_framework.response import Response
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework import filters
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.reverse import reverse
 
-from .serializers import TickerSerializer, PortfolioSerializer, UserTickerBaseSerializer, TickerDataFrameSerializer
+from .serializers import (TickerSerializer, PortfolioSerializer, UserTickerBaseSerializer, TickerDataFrameSerializer,
+                          TickerPredictionSerializer
+                          )
 from ..models import Ticker, Portfolio, UserTicker, TickerDataFrame
 from .permissions import IsAuthenticatedCustom
 
@@ -44,9 +46,19 @@ class UserTickerListApiView(ListCreateAPIView):
     filter_backends = [DjangoFilterBackend, ]
     filterset_fields = ['portfolio', ]
 
-
     def get_queryset(self):
         return UserTicker.objects.filter(portfolio__user=self.request.user)
+
+
+class UserTickerUpdateRetrieveApiView(RetrieveUpdateDestroyAPIView):
+    queryset = UserTicker.objects.all()
+    serializer_class = UserTickerBaseSerializer
+    permission_classes = [IsAuthenticated, ]
+
+    def get_queryset(self):
+        qs = UserTicker.objects.filter(portfolio__user=self.request.user)
+        return qs
+
 
 class TickerListApiView(ListAPIView):
     queryset = Ticker.objects.all()
@@ -62,11 +74,16 @@ class TickerRetrieveApiView(RetrieveAPIView):
     permission_classes = [AllowAny, ]
 
 
+class TickerPredictionsApiView(RetrieveAPIView):
+    queryset = Ticker.objects.all()
+    serializer_class = TickerPredictionSerializer
+
+
+
 class TickerDataFrameListApiView(ListAPIView):
     queryset = TickerDataFrame.objects.all()
     serializer_class = TickerDataFrameSerializer
     permission_classes = [AllowAny, ]
-    
 
     def get_queryset(self):
         qs = self.queryset

@@ -156,14 +156,13 @@ class StockManager:
 
     def predict_the_future(self, days: int = 5):
         data = self.data
-        for _ in range(days):
-            last_day = data.iloc[-1]
-            last_day["Close"] = last_day["Close"] * 1.05
-            X_test = last_day.drop(['Close']).values.reshape(1, -1)
-            y_test = last_day["Close"] * 1.05
-            scaled_next_day_features = self.scaler.transform(X_test)
-            next_day_prediction = self.model.predict(scaled_next_day_features)
-            print("Predict", next_day_prediction)
+        last_day = data.iloc[-1]
+        last_day["Close"] = last_day["Close"] * 1.05
+        X_test = last_day.drop(['Close']).values.reshape(1, -1)
+        y_test = last_day["Close"] * 1.05
+        scaled_next_day_features = self.scaler.transform(X_test)
+        next_day_prediction = self.model.predict(scaled_next_day_features)
+        return next_day_prediction[0][0]
 
        
 

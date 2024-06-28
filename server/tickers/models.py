@@ -169,7 +169,7 @@ class Ticker(models.Model):
             new_df = yf.download(self.ticker, start=last_day, end=datetime.now())
             new_df.reset_index(inplace=True)
             new_df['pct_change'] = ((new_df['Close'] - new_df['Close'].shift(1)) / new_df['Close'].shift(1))
-            print(df)
+
             for _, row in new_df.iterrows():
                 pct_change = row['pct_change'] if isinstance(row['pct_change'], decimal.Decimal) else 0
                 TickerDataFrame.objects.create(date=row['Date'],
@@ -205,18 +205,19 @@ class Ticker(models.Model):
         ticker_var = sec_returns[self.ticker].var() * 250
         indi_var = sec_returns[self.indices].var() * 250
 
+        return "kolos"
 
     def predict_next_days(self, days: int = 3, ):
         stock_manager = StockManager(ticker=self.ticker)
         stock_manager.load_df()
         stock_manager.scale_data()
-        stock_manager.build_model(epochs=10)
-        stock_manager.predict_the_future(days=days)
+        stock_manager.build_model(epochs=50)
+        return stock_manager.predict_the_future(days=days)
 
 
     @staticmethod
     def create_ticker_database():
-        dataframe  = openpyxl.load_workbook("tickers/media/companies.xlsx")
+        dataframe = openpyxl.load_workbook("tickers/media/companies.xlsx")
         dataframe1 = dataframe.active
         for row in dataframe1:
             print(row[0].value, row[1].value, row[2].value)

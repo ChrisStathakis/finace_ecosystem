@@ -40,6 +40,8 @@ export const options = {
 
 
 export default function TickerDetailComponent(){
+    const [predict, setPredict] = React.useState(0);
+
     const tickerManager = useSelector(state => state.tickers);
     const dispatch = useDispatch();
 
@@ -53,12 +55,13 @@ export default function TickerDetailComponent(){
 
     React.useEffect(()=>{
         tickerServices.fetchTickerDataframe(tickerID, dispatch);
-        
+        tickerServices.fetchRssFeed(tickerID, dispatch);
+        setPredict(tickerServices.fetchPredictTicker(tickerID));
+
     }, [tickerID])
 
-    React.useEffect(()=>{
-        tickerServices.fetchRssFeed(tickerID, dispatch);
-    }, [tickerID]);
+
+    
 
     React.useEffect(()=>{
         for (let i = 0; i < tickerDataframe.length; i++) {
@@ -159,6 +162,10 @@ export default function TickerDetailComponent(){
                             <tr>
                                 <th>Log Return</th>
                                 <th>{ticker.log_return} %</th>
+                            </tr>
+                            <tr>
+                                <th>Predict</th>
+                                <th>{predict}</th>
                             </tr>
                  
                         </thead>
