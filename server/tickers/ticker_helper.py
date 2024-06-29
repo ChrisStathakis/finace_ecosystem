@@ -100,7 +100,7 @@ class TickerHelper:
 
         market_variance = indice_return.var()
         covariance = stock_return.cov(indice_return)
-        print(market_variance, covariance)
+      
 
         beta = covariance / market_variance if market_variance != 0 else 0
 

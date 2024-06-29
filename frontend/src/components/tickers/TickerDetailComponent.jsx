@@ -12,6 +12,10 @@ import {
   } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import tickerServices from "../../data/services/ticker.services";
+import axiosInstance from "../../data/axiosInstance";
+import axios from "axios";
+import { PREDICT_TICKER_ENDPOINT } from "../../data/endpoints";
+
 
 ChartJS.register(
     CategoryScale,
@@ -56,8 +60,22 @@ export default function TickerDetailComponent(){
     React.useEffect(()=>{
         tickerServices.fetchTickerDataframe(tickerID, dispatch);
         tickerServices.fetchRssFeed(tickerID, dispatch);
-        setPredict(tickerServices.fetchPredictTicker(tickerID));
 
+    }, [tickerID])
+
+    React.useEffect(()=>{
+        const new_prediction = async () => {
+            try {
+                const endpoint = `${PREDICT_TICKER_ENDPOINT}/${tickerID}/`;
+                const response = await axios.get(endpoint)
+                return response.data.my_predict;
+                
+            } catch {
+                console.log("error", console.error());
+                return 0
+            }
+        }
+        setPredict(new_prediction());
     }, [tickerID])
 
 

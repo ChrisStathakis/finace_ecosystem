@@ -19,6 +19,7 @@ const initialState = {
         previous: "",
         results: []
     },
+    main_page_tickers: []
 }
 
 
@@ -39,10 +40,17 @@ const tickerSlice = createSlice({
         },
         fetch_rss_feed_action: (state, action) => {
             state.rss_feed = action.payload;
+        },
+        fetch_main_page_tickers_action: (state, action) => {
+            console.log(action.payload);
+            state.main_page_tickers = action.payload.results;
         }
     }
 });
 
 
-export const { fetch_tickers_action, fetch_ticker_action, fetch_ticker_dataframe_action, fetch_rss_feed_action } = tickerSlice.actions;
+export const { fetch_tickers_action, fetch_ticker_action, fetch_ticker_dataframe_action,
+     fetch_rss_feed_action, fetch_main_page_tickers_action
+
+    } = tickerSlice.actions;
 export default tickerSlice.reducer;

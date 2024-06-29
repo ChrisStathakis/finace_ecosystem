@@ -64,8 +64,9 @@ class TickerListApiView(ListAPIView):
     queryset = Ticker.objects.all()
     serializer_class = TickerSerializer
     permission_classes = [AllowAny,]
-    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
     search_fields = ['title', "ticker"]
+    ordering_fields = ["simply_return", "title"]
 
 
 class TickerRetrieveApiView(RetrieveAPIView):
