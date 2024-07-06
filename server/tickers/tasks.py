@@ -1,3 +1,5 @@
+import datetime
+
 from server.celery import app
 from celery import shared_task
 from django.shortcuts import get_object_or_404
@@ -8,15 +10,32 @@ import json
 from django.core.serializers import serialize
 import logging
 from .models import Ticker, UserTicker, Portfolio
-
+from .StockManager import StockManager
 logger = logging.getLogger(__name__)
+
+@shared_task
+def test_task_and_celery():
+    print("process started")
+    tickers = Ticker.objects.all()[:5]
+    for ticker in tickers:
+        print("ticker")
+        stock_manager = StockManager(ticker = ticker)
+        ticker.predict = stock_manager.predict_the_future()
+        ticker.date_predict = datetime.datetime.now()
+        ticker.save()
 
 
 @shared_task
 def daily_update_data_task():
+    print("process started")
     tickers = Ticker.objects.all()
     for ticker in tickers:
+        print("ticker")
+        stock_manager = StockManager(ticker=ticker)
+        # ticker.predict = stock_manager.predict_the_future()
+        # ticker.date_predict = datetime.datetime.now()
         ticker.save()
+
 
 
 @shared_task

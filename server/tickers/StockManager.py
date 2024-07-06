@@ -91,8 +91,6 @@ def generate_features(df: pd.DataFrame):
     return df_new
 
 
-
-
 class StockManager:
 
     def __init__(self, ticker: str) -> None:
@@ -153,9 +151,8 @@ class StockManager:
         print(f'R^2: {r2_score(self.y_test, predictions):.3f}')
 
         self.model = model
-    
 
-    def predict_the_future(self, days: int = 5):
+    def predict_the_future(self,):
         data = self.data
         last_day = data.iloc[-1]
         last_day["Close"] = last_day["Close"] * 1.05

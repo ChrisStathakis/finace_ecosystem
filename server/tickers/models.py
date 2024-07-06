@@ -74,7 +74,7 @@ class Ticker(models.Model):
     sharp = models.DecimalField(max_digits=30, decimal_places=8, default=0)
 
     prediction = models.DecimalField(max_digits=10, decimal_places=3, default=0)
-
+    date_predict = models.DateField(blank=True, null=True)
 
     def __str__(self):
         return self.title
@@ -89,7 +89,9 @@ class Ticker(models.Model):
         self.beta = data['beta']
         self.log_return = data['log_return']
         self.market_variance = data['market_variance']
-    
+        self.prediction = decimal.Decimal(self.predict_next_day())
+
+        self.date_predict = datetime.now()
         # self._refresh_ticker(is_updated=True)
         if self.id:
             self._create_dataframe()
@@ -203,19 +205,17 @@ class Ticker(models.Model):
         cov = sec_returns.cov() * 250
         self.coverage = cov.iloc[0][1]
         self.market_variance = sec_returns[self.indices].var() * 250
-
-
         ticker_var = sec_returns[self.ticker].var() * 250
         indi_var = sec_returns[self.indices].var() * 250
 
-        return "kolos"
+        return "done"
 
-    def predict_next_days(self, days: int = 3, ):
+    def predict_next_day(self):
         stock_manager = StockManager(ticker=self.ticker)
         stock_manager.load_df()
         stock_manager.scale_data()
         stock_manager.build_model(epochs=50)
-        return stock_manager.predict_the_future(days=days)
+        return stock_manager.predict_the_future()
 
 
     @staticmethod
