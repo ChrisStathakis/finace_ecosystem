@@ -127,6 +127,7 @@ class StockManager:
 
     
     def scale_data(self):
+        print(self.X_test)
         scaler = self.scaler
         self.X_train_scaled = scaler.fit_transform(self.X_train)
         self.X_test_scaled = scaler.transform(self.X_test)

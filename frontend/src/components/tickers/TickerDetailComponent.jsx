@@ -63,6 +63,7 @@ export default function TickerDetailComponent(){
 
     }, [tickerID])
 
+    
     React.useEffect(()=>{
         const new_prediction = async () => {
             try {
@@ -78,7 +79,7 @@ export default function TickerDetailComponent(){
         setPredict(new_prediction());
     }, [tickerID])
 
-
+   
     
 
     React.useEffect(()=>{

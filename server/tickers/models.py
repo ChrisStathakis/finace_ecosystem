@@ -73,6 +73,9 @@ class Ticker(models.Model):
     standard_deviation = models.DecimalField(max_digits=30, decimal_places=8, default=0)
     sharp = models.DecimalField(max_digits=30, decimal_places=8, default=0)
 
+    prediction = models.DecimalField(max_digits=10, decimal_places=3, default=0)
+
+
     def __str__(self):
         return self.title
     
