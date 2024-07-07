@@ -160,6 +160,7 @@ class StockManager:
         y_test = last_day["Close"] * 1.05
         scaled_next_day_features = self.scaler.transform(X_test)
         next_day_prediction = self.model.predict(scaled_next_day_features)
+        print(next_day_prediction, type(next_day_prediction))
         return next_day_prediction[0][0]
 
        

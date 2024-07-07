@@ -43,7 +43,7 @@ export const options = {
 
 
 
-export default function TickerDetailComponent(){
+export default function TickerDetailComponent(props){
     const [predict, setPredict] = React.useState(0);
 
     const tickerManager = useSelector(state => state.tickers);
@@ -89,6 +89,19 @@ export default function TickerDetailComponent(){
 
     return(
         <div className="container-fluid py-4">
+            <div className="row">
+                <div className="col-8">
+                    <div style={{maxHeight:"5%"}} className="card">
+                        <div className="card-header"><h4>{ticker.title}</h4></div>
+                       
+                    </div>
+                </div>
+                <div className="col-4">
+                    <div style={{maxHeight:"5%"}} className="card">
+                        <div className="card-header"><button onClick={props.closeWindow} className="btn btn-secondary">Back</button></div>
+                    </div>
+                </div>
+            </div>
             <div className="row">
                 <div className="col-8">
                     <Line options={options} data={data} />

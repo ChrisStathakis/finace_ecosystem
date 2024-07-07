@@ -23,7 +23,9 @@ class TickerAdmin(ImportExportModelAdmin):
         (
             'Values',
             {
-                "fields": ['simply_return', 'price']
+                "fields": [('simply_return', 'price'),
+                           ('date_predict', 'prediction')
+                           ]
             }
         )
 

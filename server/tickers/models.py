@@ -89,9 +89,9 @@ class Ticker(models.Model):
         self.beta = data['beta']
         self.log_return = data['log_return']
         self.market_variance = data['market_variance']
-        self.prediction = decimal.Decimal(self.predict_next_day())
-
-        self.date_predict = datetime.now()
+        self.prediction = float(self.predict_next_day())
+      
+        self.date_predict = datetime.now() + timedelta(days=1)
         # self._refresh_ticker(is_updated=True)
         if self.id:
             self._create_dataframe()
@@ -150,7 +150,24 @@ class Ticker(models.Model):
                                               )
 
     def _create_dataframe(self):
-        qs = self.ticker_df
+        qs = self.ticker_df.all()
+        qs.delete()
+
+        df: pd.DataFrame = yf.download(self.ticker, start='2010-01-01', end=datetime.now())
+        df.reset_index(inplace=True)
+        df['pct_change'] = ((df['Close'] - df['Close'].shift(1)) / df['Close'].shift(1))
+        print(df)
+        for _, row in df.iterrows():
+            pct_change = row['pct_change'] if isinstance(row['pct_change'], decimal.Decimal) else 0
+            try:
+                TickerDataFrame.objects.create(date=row['Date'],
+                                                close=Decimal(row['Close']),
+                                                pct_change=pct_change,
+                                                ticker=self
+                                                )
+            except:
+                continue
+        """
         if not qs.exists():
             df: pd.DataFrame = yf.download(self.ticker, start='2010-01-01', end=datetime.now())
             df.reset_index(inplace=True)
@@ -182,6 +199,7 @@ class Ticker(models.Model):
                                                pct_change=pct_change,
                                                ticker=self
                                                )
+        """
 
     def calculate_percent_difference(self):
         pass
@@ -237,6 +255,7 @@ class TickerDataFrame(models.Model):
 
     class Meta:
         ordering = ['-date', ]
+        unique_together = ["ticker", "date"]
 
     def __str__(self):
         return self.date

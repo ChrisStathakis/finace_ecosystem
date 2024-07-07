@@ -5,16 +5,19 @@ import portfolioServices from "../../data/services/portfolioServices";
 
 
 export default function AddTickerToPortfolioComponent(props){
+    // props : we pass the ticker id as ticker
+
     const dispatch = useDispatch();
     const portfolio_manager = useSelector(state => state.portfolio);
 
 
     const [starting_investment, setStartingInvestment] = React.useState(0);
-    const qty = 0
 
-    const handleSubmit = () => {
+
+    const handleSubmit = (e) => {
+        e.preventDefaut();
         const data = {
-            qty: qty,
+            qty: 0,
             starting_investment: starting_investment,
             ticker: props.ticker,
             portfolio: portfolio_manager.portfolio.id
@@ -32,22 +35,23 @@ export default function AddTickerToPortfolioComponent(props){
             </div>
 
             <div className="card-body">
-                <form className="form ustify-content-center align-items-center">
-                
-                    <h5>Add the invest</h5>
+                <hr />
+                <form method="POST" className="form">
+                    <div className="form-group">
+                        <label for="exampleInputEmail1">Invest</label>
+                    
+                        <input 
+                            value={starting_investment} 
+                            onChange={(e)=> setStartingInvestment(e.target.value)}
+                            type="number" 
+                            className="form-control"
+                            style={{backgroundColor: "#ffca7b"}}
+                            step="0.01"
+                        />
+                    </div>
                     <br />
-                    <input 
-                        value={starting_investment} 
-                        onChange={(e)=> setStartingInvestment(e.target.value)}
-                        type="number" 
-                        className="form-control"
-                        style={{maxWidth:"30%", paddingLeft:"10%"}}
-                        step="0.01"
-                    />
-                    
               
-                    
-                    <button className="btn btn-primary" onClick={handleSubmit}>Buy</button>
+                    <button className="btn btn-primary" onClick={(e)=> handleSubmit(e)}>Buy</button>
                 </form>
             </div>
             
@@ -55,4 +59,4 @@ export default function AddTickerToPortfolioComponent(props){
     )
 
 
-}
+};

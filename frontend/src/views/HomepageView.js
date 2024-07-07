@@ -35,7 +35,7 @@ export default function  HomepageView() {
             <NavbarComponent />
             <main className="main-content border-radius-lg ">
                 <TopNavbarComponent />
-                {showList ?<TickerListComponent handleClick={handleSelectTicker} /> : <TickerDetailComponent /> }
+                {showList ?<TickerListComponent handleClick={handleSelectTicker} /> : <TickerDetailComponent closeWindow={()=> setShowList(true)} /> }
                 
             </main>
         </div>

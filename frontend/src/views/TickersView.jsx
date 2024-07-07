@@ -23,7 +23,7 @@ export default function TickersView(){
             <NavbarComponent search_type="tickers" />
             <main className="main-content border-radius-lg ">
                 <TopNavbarComponent search_type="tickers" />
-                {showList ?  <TickerListComponent handleClick={handleSelectedTicker} /> : <TickerDetailComponent />}
+                {showList ?  <TickerListComponent handleClick={handleSelectedTicker} /> : <TickerDetailComponent closeWindow={setShowList(true)} />}
             </main>
 
         </div>
