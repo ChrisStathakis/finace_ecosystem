@@ -9,21 +9,22 @@ export default function AddTickerToPortfolioComponent(props){
 
     const dispatch = useDispatch();
     const portfolio_manager = useSelector(state => state.portfolio);
-
+    console.log("portofolio", portfolio_manager.portfolio)
 
     const [starting_investment, setStartingInvestment] = React.useState(0);
 
 
-    const handleSubmit = (e) => {
-        e.preventDefaut();
+    const handleSubmit = () => {
+        
         const data = {
             qty: 0,
             starting_investment: starting_investment,
             ticker: props.ticker,
             portfolio: portfolio_manager.portfolio.id
         }
-        portfolioServices.create_user_ticker(data, dispatch);
-        props.closeWindow();
+        console.log("data", data)
+        // portfolioServices.create_user_ticker(data, dispatch);
+        // props.closeWindow();
     }
 
     return (
@@ -36,7 +37,7 @@ export default function AddTickerToPortfolioComponent(props){
 
             <div className="card-body">
                 <hr />
-                <form method="POST" className="form">
+                <form  className="form">
                     <div className="form-group">
                         <label for="exampleInputEmail1">Invest</label>
                     
@@ -51,7 +52,7 @@ export default function AddTickerToPortfolioComponent(props){
                     </div>
                     <br />
               
-                    <button className="btn btn-primary" onClick={(e)=> handleSubmit(e)}>Buy</button>
+                    <button className="btn btn-primary" onClick={handleSubmit()}>Buy</button>
                 </form>
             </div>
             

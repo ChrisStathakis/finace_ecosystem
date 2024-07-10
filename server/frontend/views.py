@@ -13,6 +13,7 @@ from rss_component.models import RssFeed
 def homepage_view(request):
     # refresh_ticker_data.delay()
     # daily_update_data_task.delay()
+
     context = dict()
     tickers = Ticker.objects.all()
     context['total_earnings'] = Portfolio.my_query.total_earnings()

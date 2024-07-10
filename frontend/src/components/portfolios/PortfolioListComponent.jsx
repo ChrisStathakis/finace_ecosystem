@@ -1,10 +1,12 @@
 import * as React from "react";
+import { useNavigate } from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import portfolioServices from "../../data/services/portfolioServices";
 
 
 export default function PortfolioListComponent(props){
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const portfolio_manager = useSelector(state => state.portfolio)
     const { portfolios } = portfolio_manager
 
@@ -13,8 +15,8 @@ export default function PortfolioListComponent(props){
     },[])
 
     const handleSelectedPortfolio = (id) => {
-        portfolioServices.fetch_portfolio(id, dispatch);
-        props.showDetail()
+       const url = `/portfolio/${id}`;
+       navigate(url);
     }
 
     return (

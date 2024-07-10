@@ -10,6 +10,7 @@ import RssViewList from './views/RssViewList.jsx';
 import UserView from './views/UserView.jsx';
 import LoginView from './views/LoginView.jsx';
 import LogoutComponent from './components/LogoutComponent.jsx';
+import PortfolioDetailView from './views/PortfolioDetailView.jsx';
 
 
 const router = createBrowserRouter([
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
   {
     path:"/logout",
     element: <LogoutComponent />
+  },
+  {
+    path:"/portfolio/:id/",
+    element: <PortfolioDetailView />
   }
 ])
 
