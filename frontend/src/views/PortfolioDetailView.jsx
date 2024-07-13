@@ -1,13 +1,26 @@
 import * as React from "react";
 import NavbarComponent from "../components/navbar";
 import TopNavbarComponent from "../components/TopNavbar";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
+import portfolioServices from "../data/services/portfolioServices"
+import { useDispatch, useSelector } from "react-redux";
 
 export default function PortfolioDetailView(){
-    const location = useLocation();
-    const pathname = location.pathname;
-    console.log(pathname)
+    const { id } = useParams(); 
+    const dispatch = useDispatch();
+
+    const portfolio_manager = useSelector(state => state.portfolio);
+    const ticker_manager = useSelector(state => state.tickers);
+
+    const portofolio = portfolio_manager.port_detail;
+    const items = portfolio_manager.port_tickers;
+    const tickers = ticker_manager.tickers;
+
+    React.useEffect(()=>{
+        portfolioServices.fetch_portfolio(id, dispatch);
+        portfolioServices.fetch_user_tickers(id, dispatch);
+    }, [])
 
 
     return (
@@ -24,18 +37,91 @@ export default function PortfolioDetailView(){
                                 </div>
                                 <div className="card-body">
                                     <table className="table table-bordered">
-
+                                        <thead>
+                                            <tr>
+                                                <th>TICKER</th>
+                                                <th>CODE</th>
+                                                <th>STARTING VALUE</th>
+                                                <th>QTY</th>
+                                                <th>CURRENT VALUE</th>
+                                                <th>+/-</th>
+                                                <th>+/- %</th>
+                                                <th>-</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {items.map((ele)=>{
+                                                return (
+                                                    <tr>
+                                                        <td>{ ele.ticker }</td>
+                                                        <td>{ ele.ticker.ticker }</td>
+                                                        <td>{ ele.starting_investment }</td>
+                                                        <td>{ ele.qty }</td>
+                                                        <td>{ ele.current_value }</td>
+                                                        <td>{ ele.ticker }</td>
+                                                        <td>{ ele.ticker }</td>
+                                                        <td>
+                                                            <button className="btn btn-info">Edit</button>
+                                                            <button className="btn btn-danger">Close </button>
+                                                        </td>
+                                                    </tr>
+                                                )
+                                            })}
+                                        </tbody>
+                                        
                                     </table>
                                 </div>
                             </div>
                         </div>
                     </div>
-
+                    <br /> <br />
                     <div className="row">
+
                         <div className="col-4">
                             <div className="card">
-
+                                <div className="card-header">
+                                    <h4>{portofolio.title}</h4>
+                                </div>
+                                <div className="card-body">
+                                    <ul class="list-group">
+                                        <li class="list-group-item">Current Value: {portofolio.current_value}</li>
+                                        <li class="list-group-item">Starting Investment: {portofolio.starting_investment}</li>
+                                        <li class="list-group-item">A third item</li>
+                                        <li class="list-group-item">Variance: {portofolio.variance}</li>
+                                        <li class="list-group-item">Annual Returns: {portofolio.annual_returns}</li>
+                                    </ul>
+                                </div>
                             </div>
+                        </div>
+
+                        <div className="col-8">
+                            <div className="card">
+                            <table className="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>TICKER</th>
+                                        <th>CODE</th>
+                                        <th>PRICE</th>
+                                        <th>ANNUAL RETURN</th>
+                                        <th>+/-</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {tickers.results.map((ele)=>{
+                                        return (
+                                            <tr>
+                                                <td>{ele.title}</td>
+                                                <td>{ele.ticker}</td>
+                                                <td>{ele.price}</td>
+                                                <td>{ele.annual_returns}</td>
+                                                <td></td>
+                                            </tr>
+                                        )
+                                    })}
+                                </tbody>
+                            </table>
+                            </div>
+                            
                         </div>
                     </div>
                 </div>

@@ -39,7 +39,7 @@ const router = createBrowserRouter([
     element: <LogoutComponent />
   },
   {
-    path:"/portfolio/:id/",
+    path:"/port/:id",
     element: <PortfolioDetailView />
   }
 ])

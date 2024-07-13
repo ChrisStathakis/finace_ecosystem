@@ -15,7 +15,7 @@ export default function PortfolioListComponent(props){
     },[])
 
     const handleSelectedPortfolio = (id) => {
-       const url = `/portfolio/${id}`;
+       const url = `/port/${id}`;
        navigate(url);
     }
 

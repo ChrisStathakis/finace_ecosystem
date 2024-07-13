@@ -12,6 +12,8 @@ class PortfolioSerializer(serializers.ModelSerializer):
 
 
                   ]
+
+
 class TickerDataFrameSerializer(serializers.ModelSerializer):
 
     class Meta:
