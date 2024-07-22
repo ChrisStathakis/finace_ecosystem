@@ -8,7 +8,7 @@ import TopNavbarComponent from "../TopNavbar";
 import AddTickerToPortfolio from "./AddTickerToPortfolio";
 
 
-export default function PortfolioDetailComponent(){
+export default function PortfolioDetailComponent(props){
     const [showAddTicker, setShowAddTicker] = React.useState(false);
     const [selectedTicker, setSelectedTicker] = React.useState(0);
     const [q, setQ] = React.useState("");
@@ -46,9 +46,10 @@ export default function PortfolioDetailComponent(){
 
     return (
         <div>
-            <NavbarComponent />
+            <NavbarComponent search_type="tickers"  />
             <main className="main-content border-radius-lg">
-                <TopNavbarComponent />
+                <TopNavbarComponent search_type="rss" />
+
                 <div className="container-fluid py-4">
                     <div className="row">
                         <div className="col-4">
@@ -129,6 +130,7 @@ export default function PortfolioDetailComponent(){
                         </div>
                     </div>
                 </div>
+                
             </main>
         </div>
     )

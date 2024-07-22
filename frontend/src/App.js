@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import {
   createBrowserRouter,
   RouterProvider,
+  createRoutesFromElements, Route
 } from "react-router-dom";
 import './App.css';
 import HomepageView from './views/HomepageView';
@@ -11,12 +12,16 @@ import UserView from './views/UserView.jsx';
 import LoginView from './views/LoginView.jsx';
 import LogoutComponent from './components/LogoutComponent.jsx';
 import PortfolioDetailView from './views/PortfolioDetailView.jsx';
+import ErrorPage from './views/ErrorPage.jsx';
+
+
 
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <HomepageView />
+    element: <HomepageView />,
+    errorElement: <ErrorPage />
   },
   {
     path: "/tickers",
@@ -39,8 +44,9 @@ const router = createBrowserRouter([
     element: <LogoutComponent />
   },
   {
-    path:"/port/:id",
-    element: <PortfolioDetailView />
+    path:"/port",
+    element: <PortfolioDetailView />,
+    errorElement: <ErrorPage />
   }
 ])
 

@@ -21,14 +21,17 @@ class TickerDataFrameSerializer(serializers.ModelSerializer):
         fields = ["ticker", "date", "close", "pct_change"]
 
 
+
+
+
 class UserTickerBaseSerializer(serializers.ModelSerializer):
+    title = serializers.CharField(source="ticker.title")
+    code = serializers.CharField(source="ticker.ticker")
 
     class Meta:
         model = UserTicker
-        fields = [
-            'id', 'ticker', 'portfolio', "starting_investment",
-            "qty"
-        ]
+        fields = ["id", 'title', "ticker", "portfolio", "starting_investment", "qty", "code", "current_value"]
+
 
 
 class TickerSerializer(serializers.ModelSerializer):
@@ -39,6 +42,8 @@ class TickerSerializer(serializers.ModelSerializer):
                   'camp', 'price', 'simply_return', 'log_return', 'standard_deviation',
                   'sharp'
                   ]
+        
+
 
 
 class TickerPredictionSerializer(serializers.ModelSerializer):

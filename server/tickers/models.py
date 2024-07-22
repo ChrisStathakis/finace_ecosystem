@@ -348,7 +348,7 @@ class UserTicker(models.Model):
     weight = models.DecimalField(max_digits=30, decimal_places=2, default=0)
 
     def save(self, *args, **kwargs):
-        self.qty = self.starting_investment/self.starting_value_of_ticker or 0
+        self.qty = self.starting_investment/self.starting_value_of_ticker if self.starting_value_of_ticker !=0 else 0
         self.current_value_of_ticker = self.ticker.price
         self.current_value = self.qty * self.current_value_of_ticker
         super().save(*args, **kwargs)
@@ -360,3 +360,5 @@ class UserTicker(models.Model):
         return ((self.current_value_of_ticker/self.starting_value_of_ticker))* 100 or 0
 
 
+    def tag_ticker_title(self):
+        return f"{self.ticker.title}"
