@@ -1,8 +1,9 @@
 import axios from "axios";
-import { ACCESS_TOKEN_ENDPOINT, CURRENT_USER_ENDPOINT } from "../endpoints";
+import { ACCESS_TOKEN_ENDPOINT, CURRENT_USER_ENDPOINT, PROFILE_ENDPOINT } from "../endpoints";
 import { login_action, user_action } from "../slices/userSlice";
 import { ACCESS_TOKEN, REFRESH_TOKEN, IS_AUTHENTICATED } from "../actionTypes";
 import axiosInstance from "../axiosInstance.jsx";
+import { fetch_profile_action } from "../slices/profileSlice.jsx";
 
 
 
@@ -37,11 +38,21 @@ function current_user(dispatch){
                 dispatch(user_action(response.data))
             }
         )
+};
+
+function profile(dispatch){
+    axiosInstance.get(PROFILE_ENDPOINT)
+        .then(
+            (response) => {
+                dispatch(fetch_profile_action(response.data))
+            }
+        )
 }
 
 
 export default {
     login,
     logout,
-    current_user
+    current_user,
+    profile
 }

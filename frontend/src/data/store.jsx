@@ -5,6 +5,8 @@ import searchSlice from "./slices/searchSlice";
 import rssSlice from "./slices/rssSlice";
 import userSlice from "./slices/userSlice";
 import portfolioSlice from "./slices/portfolioSlice";
+import profileSlice from "./slices/profileSlice";
+
 
 const store = configureStore({
     reducer: {
@@ -12,7 +14,8 @@ const store = configureStore({
         search: searchSlice,
         rss: rssSlice,
         user: userSlice,
-        portfolio: portfolioSlice
+        portfolio: portfolioSlice,
+        profile: profileSlice
     }
 })
 

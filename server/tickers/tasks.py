@@ -13,16 +13,7 @@ from .models import Ticker, UserTicker, Portfolio
 from .StockManager import StockManager
 logger = logging.getLogger(__name__)
 
-@shared_task
-def test_task_and_celery():
-    print("process started")
-    tickers = Ticker.objects.all()[:5]
-    for ticker in tickers:
-        print("ticker")
-        stock_manager = StockManager(ticker = ticker)
-        ticker.predict = stock_manager.predict_the_future()
-        ticker.date_predict = datetime.datetime.now()
-        ticker.save()
+
 
 
 @shared_task
@@ -30,15 +21,24 @@ def daily_update_data_task():
     print("process started")
     tickers = Ticker.objects.all()
     for ticker in tickers:
-        print("ticker")
-        stock_manager = StockManager(ticker=ticker)
-        # ticker.predict = stock_manager.predict_the_future()
-        # ticker.date_predict = datetime.datetime.now()
-        ticker.save()
-
+        try:
+            print("ticker", ticker)
+            stock_manager = StockManager(ticker=ticker)
+            # ticker.predict = stock_manager.predict_the_future()
+            # ticker.date_predict = datetime.datetime.now()
+            ticker.save()
+        except:
+            ticker.delete()
 
 
 @shared_task
+def update_user_tickers():
+    user_tickers = UserTicker.objects.all()
+    for ticker in user_tickers:
+        ticker.ticker.save()
+        ticker.save()
+
+@shared_task 
 def refresh_ticker_data():
     logger.info("==work!")
     print("--------------worked--------------------------------------------")
@@ -50,6 +50,7 @@ def refresh_ticker_data():
         except Exception as e:
             print("Failed:" + ele.title)
             print("Exception: ", e)
+            ele.delete()
     
     serialized_data = serialize('json', tickers)
     channel_layer = get_channel_layer()

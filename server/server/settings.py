@@ -181,14 +181,20 @@ CELERY_TASK_TIME_LIMIT = 30 * 60
 CELERY_RESULT_BACKEND = 'django-db'
 CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers.DatabaseScheduler'
 
+
 """
 CELERY_BEAT_SCHEDULE = {
     'refresh_rss_daily': {
         'task': 'rss_component.tasks.refresh_rss',
-        'schedule': timedelta(seconds=30) # 86400
+        'schedule': timedelta(seconds=60*60*24) # 86400
+    },
+    "refresh_ticker_hourly": {
+        "task": "tickers.tasks.daily_update_data_task",
+        "schedule": timedelta(seconds=60*60)
     }
 }
 """
+
 
 
 CELERY_BEAT_LOG_FILE = 'celery_beat.log'

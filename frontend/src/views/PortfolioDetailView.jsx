@@ -19,7 +19,7 @@ export default function PortfolioDetailView(){
     const ticker_manager = useSelector(state => state.tickers);
     const portfolio_id = portfolio_manager.portfolio_id;
 
-    const portofolio = portfolio_manager.port_detail;
+    const portfolio = portfolio_manager.port_detail;
     const items = portfolio_manager.port_tickers;
     const tickers = ticker_manager.tickers;
     const ticker = ticker_manager.selectedTicker;
@@ -108,16 +108,26 @@ export default function PortfolioDetailView(){
                         <div className="col-4">
                             <div className="card">
                                 <div className="card-header">
-                                    <h4>{portofolio.title}</h4>
+                                    <h4>{portfolio.title}</h4>
                                 </div>
                                 <div className="card-body">
                                     <ul class="list-group">
-                                        <li class="list-group-item">Current Value: {portofolio.current_value}</li>
-                                        <li class="list-group-item">Starting Investment: {portofolio.starting_investment}</li>
-                                        <li class="list-group-item">A third item</li>
-                                        <li class="list-group-item">Variance: {portofolio.variance}</li>
-                                        <li class="list-group-item">Annual Returns: {portofolio.annual_returns}</li>
+                                        <li class="list-group-item">Current Value: {portfolio.current_value}</li>
+                                        <li class="list-group-item">Starting Investment: {portfolio.starting_investment}</li>
+                                        <li class="list-group-item">Diff: {portfolio.difference}</li>
+                                        <li class="list-group-item">Diff %: {portfolio.diff_percent}</li>
+                                        <li class="list-group-item">Annual Returns: {portfolio.annual_returns}</li>
                                     </ul>
+                                </div>
+                            </div>
+
+                            <hr />
+                            <div className="card">
+                                <div className="card-header">
+                                    <h4>Analysis</h4>
+                                </div>
+                                <div className="card-body">
+                                    
                                 </div>
                             </div>
                         </div>

@@ -9,17 +9,20 @@ import TopNavbarComponent from "../components/TopNavbar";
 import PortfolioListComponent from "../components/portfolios/PortfolioListComponent";
 import PortfolioCreateComponent from "../components/portfolios/PortofolioCreateComponent";
 import PortfolioDetailComponent from "../components/portfolios/PortfolioDetailComponent";
+import authServices from "../data/services/authServices";
 
 export default function UserView(){
     const [showList, setShowList] = React.useState(true);
     const [showDetail, setShowDetail] = React.useState(false);
     
-
-    const dispatch = useDispatch();
-    const user_manager = useSelector(state => state.user)
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const user_manager = useSelector(state => state.user)
+    const profile_manager = useSelector(state => state.profile)
     const isAuthenticated = user_manager.isAuthenticated;
     const user = user_manager.user;
+    const profile = profile_manager
 
     React.useEffect(()=>{
         if (isAuthenticated !== "true"){
@@ -34,6 +37,9 @@ export default function UserView(){
         
     }, [isAuthenticated])
 
+    React.useEffect(()=> {
+        authServices.profile();
+    }, [])
 
     
     const handleCreateView = () => {setShowList(!showList)}
@@ -52,6 +58,13 @@ export default function UserView(){
                             <div className="card">
                                 <div className="card-header">
                                     <h4>{user.username}</h4>
+                                </div>
+                                <div className="card-body">
+                                    <ul>
+                                        <li>Starting Value: {profile_manager.starting_value}</li>
+                                        <li>Current Value: {profile_manager.current_value}</li>
+                                        
+                                    </ul>
                                 </div>
                             </div>
                         </div>

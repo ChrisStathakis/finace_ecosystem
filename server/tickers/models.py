@@ -89,12 +89,11 @@ class Ticker(models.Model):
         self.beta = data['beta']
         self.log_return = data['log_return']
         self.market_variance = data['market_variance']
-        self.prediction = float(self.predict_next_day())
+        # self.prediction = float(self.predict_next_day())
       
-        self.date_predict = datetime.now() + timedelta(days=1)
+        # self.date_predict = datetime.now() + timedelta(days=1)
         # self._refresh_ticker(is_updated=True)
-        if self.id:
-            self._create_dataframe()
+        
         super().save(*args, **kwargs)
 
     def _refresh_ticker(self, is_updated: bool = True):
@@ -334,13 +333,14 @@ class Portfolio(models.Model):
 class UserTicker(models.Model):
     updated = models.DateTimeField(blank=True, null=True)
     date_buy = models.DateTimeField(blank=True, null=True)
-    is_buy = models.BooleanField(default=False)
+ 
     is_sell = models.BooleanField(default=False)
     ticker = models.ForeignKey(Ticker, on_delete=models.CASCADE, null=True)
     portfolio = models.ForeignKey(Portfolio, on_delete=models.CASCADE, null=True, related_name='port_tickers')
 
     starting_investment = models.DecimalField(max_digits=30, decimal_places=8, default=0)
     current_value = models.DecimalField(max_digits=30, decimal_places=8, default=0)
+    close_value = models.DecimalField(max_digits=10, decimal_places=2, default=0)
 
     qty = models.DecimalField(max_digits=15, decimal_places=2, default=0)
     starting_value_of_ticker = models.DecimalField(max_digits=30, decimal_places=8, default=0)
@@ -348,16 +348,20 @@ class UserTicker(models.Model):
     weight = models.DecimalField(max_digits=30, decimal_places=2, default=0)
 
     def save(self, *args, **kwargs):
-        self.qty = self.starting_investment/self.starting_value_of_ticker if self.starting_value_of_ticker !=0 else 0
-        self.current_value_of_ticker = self.ticker.price
-        self.current_value = self.qty * self.current_value_of_ticker
+        if not self.is_sell:
+            self.qty = self.starting_investment/self.starting_value_of_ticker if self.starting_value_of_ticker != 0 else 0
+            self.current_value_of_ticker = self.ticker.price
+            self.current_value = Decimal(self.qty) * Decimal(self.current_value_of_ticker)
+        else:
+            self.close_value = self.current_value
         super().save(*args, **kwargs)
+        self.portfolio.save()
 
     def tag_diff(self):
         return (self.current_value_of_ticker - self.starting_value_of_ticker) * self.qty
 
     def tag_diff_pct(self):
-        return ((self.current_value_of_ticker/self.starting_value_of_ticker))* 100 or 0
+        return ((self.current_value_of_ticker/self.starting_value_of_ticker))* 100 if self.starting_value_of_ticker != 0 else 0
 
 
     def tag_ticker_title(self):

@@ -7,7 +7,7 @@ from datetime import datetime
 from decimal import Decimal
 from .models import Ticker, TickerDataFrame, Indices, UserTicker
 
-"""
+
 @receiver(post_save, sender=Ticker)
 def create_dataframe_sql_data(sender, instance: Ticker, **kwargs):
     TickerDataFrame.objects.all().delete()
@@ -15,7 +15,7 @@ def create_dataframe_sql_data(sender, instance: Ticker, **kwargs):
     df.reset_index(inplace=True)
     for _, row in df.iterrows():
         TickerDataFrame.objects.create(date=row['Date'],close=Decimal(row['Close']),ticker=instance)
-"""
+
 
 
 @receiver(post_save, sender=Ticker)
@@ -23,3 +23,13 @@ def update_user_tickers(sender, instance: Ticker, **kwargs):
     user_tickers = UserTicker.objects.filter(ticker=instance)
     for tic in user_tickers:
         tic.save()
+
+
+
+@receiver(post_save, sender=UserTicker)
+def create_and_update_user_ticker(sender, instance: UserTicker, created,  **kwargs):
+    if created:
+        ticker = instance.ticker
+        instance.starting_value_of_ticker = ticker.price
+        instance.qty = instance.starting_investment/instance.starting_value_of_ticker if instance.starting_value_of_ticker !=0 else 0
+        instance.save()
