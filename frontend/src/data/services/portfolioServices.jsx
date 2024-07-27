@@ -1,5 +1,5 @@
 import axiosInstance from "../axiosInstance";
-import { PORTFOLIO_DETAIL_ENDPOINT, PORTFOLIO_LIST_ENDPOINT, USER_TICKERS_LIST_ENDPOINT, USER_TICKER_DETAIL_ENDPOINT } from "../endpoints";
+import { PORTFOLIO_DETAIL_ENDPOINT, PORTFOLIO_LIST_ENDPOINT, USER_TICKERS_LIST_ENDPOINT, USER_TICKER_CREATE_ENDPOINT, USER_TICKER_DETAIL_ENDPOINT, USER_TICKER_UPDATE_ENDPOINT } from "../endpoints";
 import { create_port_ticker_action, create_portfolio_action, fetch_port_tickers_action, fetch_portfolio_action,
          fetch_portfolios_action, selectPortfolioAction, update_port_ticker_action
  } from "../slices/portfolioSlice";
@@ -47,10 +47,21 @@ function fetch_user_tickers(id, dispatch){
                 dispatch(fetch_port_tickers_action(response.data));
             }
         )
-}
+};
+
+function fetch_user_active_tickers(id, dispatch){
+    const endpoint = `${USER_TICKERS_LIST_ENDPOINT}?portfolio=${id}&is_sell=false`;
+    axiosInstance.get(endpoint)
+        .then(
+            (response)=>{
+                dispatch(fetch_port_tickers_action(response.data));
+            }
+        )
+};
 
 function create_user_ticker(data, dispatch){
-    axiosInstance.post(USER_TICKERS_LIST_ENDPOINT, data).then(
+    console.log("href", USER_TICKER_CREATE_ENDPOINT)
+    axiosInstance.post(USER_TICKER_CREATE_ENDPOINT, data).then(
         (response)=>{
             dispatch(create_port_ticker_action(response.data))
         }
@@ -58,10 +69,17 @@ function create_user_ticker(data, dispatch){
 }
 
 function edit_user_ticker(data, dispatch) {
-    axiosInstance.put(USER_TICKER_DETAIL_ENDPOINT, data)
+    console.log("Begins")
+    console.log(data);
+    console.log(data.id)
+    const endpoint = `${USER_TICKER_UPDATE_ENDPOINT}/${data["id"]}/`;
+    
+    console.log(endpoint);
+    axiosInstance.put(endpoint, data)
         .then(
             (response) => {
                 dispatch(update_port_ticker_action(response.data))
+                fetch_portfolio(data.portfolio, dispatch);
             }
         )
 };
@@ -78,5 +96,6 @@ export default {
     fetch_user_tickers,
     create_user_ticker,
     edit_user_ticker,
-    select_portfolio
+    select_portfolio,
+    fetch_user_active_tickers
 }

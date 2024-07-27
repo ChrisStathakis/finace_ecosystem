@@ -2,6 +2,8 @@ import axios from 'axios';
 import { jwtDecode } from "jwt-decode";
 import { BASE_URL, REFRESH_TOKEN_ENDPOINT } from './endpoints';
 import { ACCESS_TOKEN, REFRESH_TOKEN } from './actionTypes';
+import store from "./store"
+import { logout_action } from './slices/userSlice';
 
 // Function to refresh the token
 async function refreshToken() {
@@ -74,7 +76,9 @@ axiosInstance.interceptors.response.use(
                 originalRequest.headers['Authorization'] = `Bearer ${newAccessToken}`;
                 return axiosInstance(originalRequest);
             } catch (refreshError) {
-                // Handle token refresh failure (e.g., redirect to login)
+                store.dispatch(logout_action());
+                window.location.href = "/login";
+                
                 return Promise.reject(refreshError);
             }
         }

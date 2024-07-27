@@ -8,6 +8,7 @@ export const PROFILE_ENDPOINT = BASE_URL + "profile/";
 
 export const TICKERS_LIST_ENDPOINT = BASE_URL +  "tickers/tickers/list/";
 export const TICKER_DETAIL_ENDPOINT = BASE_URL + "tickers/detail";
+
 export const TICKER_DATAFRAME_ENDPOINT = BASE_URL + "tickers/tickers/dataframe/";
 export const RSS_FEED_TICKER_ENDPOINT = BASE_URL + "rss-feed/";
 export const RSS_FEED_DETAIL_ENDPOINT = BASE_URL + "rss-feed/detail";
@@ -17,4 +18,7 @@ export const PORTFOLIO_LIST_ENDPOINT = BASE_URL + "tickers/portfolios/list/";
 export const PORTFOLIO_DETAIL_ENDPOINT = BASE_URL + "tickers/portfolio/detail";
 export const USER_TICKERS_LIST_ENDPOINT = BASE_URL + "tickers/user-tickers/list/";
 export const USER_TICKER_DETAIL_ENDPOINT = BASE_URL + "tickers/user-tickers/detail";
+export const USER_TICKER_UPDATE_ENDPOINT = BASE_URL + "tickers/user-tickers/update";
+export const USER_TICKER_CREATE_ENDPOINT = BASE_URL + "tickers/user-tickers/create/";
+
 export const PREDICT_TICKER_ENDPOINT = BASE_URL + "tickers/tickers/prediction";

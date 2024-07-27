@@ -13,9 +13,11 @@ export default function LoginView(){
 
     const user_manager = useSelector(state=>state.user);
     const isAuthenticated = user_manager.isAuthenticated;
+    console.log("Is Authenticated", isAuthenticated)
 
     React.useEffect(()=>{
-        console.log("is Authenticated", isAuthenticated)
+        
+        console.log("is Authenticated1", isAuthenticated)
         if (isAuthenticated === "true"){
                 navigate("/")
         }

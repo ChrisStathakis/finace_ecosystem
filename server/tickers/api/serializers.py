@@ -10,9 +10,9 @@ class PortfolioSerializer(serializers.ModelSerializer):
         model = Portfolio
         fields = ['id', "is_public", "date_investment", 
                   "title", "user", "annual_returns", "variance",
-                  "starting_investment", "current_value", "maximum_cash",
-                  "difference", "diff_percent"
-
+                  "starting_investment", "current_value", 
+                  "difference", "diff_percent", "withdraw_value"
+                  
                   ]
 
 
@@ -22,6 +22,15 @@ class TickerDataFrameSerializer(serializers.ModelSerializer):
         model = TickerDataFrame
         fields = ["ticker", "date", "close", "pct_change"]
 
+
+
+class UserTickerEditSerializier(serializers.ModelSerializer):
+
+    class Meta:
+        model = UserTicker
+        fields = ["id", "ticker", "portfolio", 
+                  "starting_investment", "qty", "current_value", "is_sell"
+                  ]
 
 
 
@@ -36,7 +45,10 @@ class UserTickerBaseSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserTicker
         fields = ["id", 'title', "ticker", "portfolio", "starting_investment", "qty", 
-                  "code", "current_value", "difference", "diff_percent"]
+                  "code", "current_value", "difference", "diff_percent",
+                  "is_sell",
+                  
+                  ]
 
 
 

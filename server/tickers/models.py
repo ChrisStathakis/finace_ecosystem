@@ -18,7 +18,7 @@ import pandas as pd
 import openpyxl
 from .helpers import read_stock_data, get_stock_data
 from .StockManager import StockManager
-
+from accounts.models import Profile
 from .manager import PortfolioManager
 User = get_user_model()
 from .ticker_helper import TickerHelper
@@ -270,7 +270,7 @@ class Portfolio(models.Model):
     variance = models.DecimalField(max_digits=200, decimal_places=150, default=0)
     starting_investment = models.DecimalField(max_digits=15, decimal_places=2, default=0)
     current_value = models.DecimalField(max_digits=15, decimal_places=4, default=0)
-    maximum_cash = models.DecimalField(max_digits=15, decimal_places=4, default=0)
+    withdraw_value = models.DecimalField(max_digits=15, decimal_places=4, default=0)
 
     expected_portfolio_return = models.DecimalField(max_digits=15, decimal_places=4, default=0)
     expected_portfolio_volatility = models.DecimalField(max_digits=15, decimal_places=4, default=0)
@@ -289,9 +289,15 @@ class Portfolio(models.Model):
                 # self.calculate_data()
                 self.starting_investment: float = qs.aggregate(Sum('starting_investment'))['starting_investment__sum']
                 self.current_value: float = qs.aggregate(Sum('current_value'))['current_value__sum'] if qs.exists() else 0
+                self.withdraw_value = qs.aggregate(Sum("close_value"))["close_value__sum"] 
                 # self.expected_portfolio_return, self.expected_portfolio_variance, self.expected_portfolio_volatility = self.calculate_returns_and_volatility()
 
         super().save(*args, **kwargs)
+        user = self.user
+        profile_qs = Profile.objects.filter(user=user).all()
+        if profile_qs.exists():
+            profile_qs.first().save()
+
 
     def show_diff(self):
         return self.current_value - self.starting_investment
@@ -328,6 +334,19 @@ class Portfolio(models.Model):
 
     def get_edit_url(self):
         return reverse('portfolio', kwargs={'port_id': self.id})
+    
+
+    def effecient_frontier(self):
+        tickers =  [ticker.ticker for ticker in self.tickers.filter(is_buy=False, is_sell=False)]
+        assets = [ticker.tic for ticker in tickers]
+
+        df = pd.DataFrame()
+        for ticker in assets:
+            new_df = read_stock_data(ticker)
+            df = new_df if df.empty else df.join(new_df, how="outer")
+
+        log_returns = 
+
 
 
 class UserTicker(models.Model):

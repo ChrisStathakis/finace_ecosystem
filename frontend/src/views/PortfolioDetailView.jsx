@@ -5,12 +5,13 @@ import NavbarComponent from "../components/navbar";
 import TopNavbarComponent from "../components/TopNavbar";
 import portfolioServices from "../data/services/portfolioServices"
 import tickerServices from "../data/services/ticker.services";
+import { current } from "@reduxjs/toolkit";
 
 
 export default function PortfolioDetailView(){
     const [addTickerForm, setAddTickerForm] = React.useState(false);
     const [showEditTicker, setShowEditTicker] = React.useState(false);
-    
+    const [searchName, setSearchName ] = React.useState("");
     const [qty, setQty] = React.useState(0);
 
     const dispatch = useDispatch();
@@ -27,10 +28,14 @@ export default function PortfolioDetailView(){
     React.useEffect(()=>{
         if (portfolio_id !== null){
             portfolioServices.fetch_portfolio(portfolio_id, dispatch);
-            portfolioServices.fetch_user_tickers(portfolio_id, dispatch);
+            portfolioServices.fetch_user_active_tickers(portfolio_id, dispatch);
         }
         
     }, [portfolio_id])
+
+    React.useEffect(()=>{
+        tickerServices.fetchTickers(searchName, dispatch);
+    }, [searchName])
 
     const selectTicker = (id) => {
         console.log("id", id)
@@ -38,18 +43,29 @@ export default function PortfolioDetailView(){
         tickerServices.fetchTicker(id, dispatch);
     }
 
+    const sellTicker = (data) => {
+        const new_data = {...data, is_sell: true};
+        console.log("Data", new_data)
+        portfolioServices.edit_user_ticker(new_data, dispatch);
+    }
+
     const addTickerToPortfolio = (e) => {
         e.preventDefault();
         const data = {
             starting_investment: qty,
-            ticker: ticker.id,
+            ticker: Number(ticker.id),
             portfolio: portfolio_id,
             qty: 0,
-            starting_value_of_ticker: ticker.price
+            starting_value_of_ticker: ticker.price,
+            current_value: ticker.price,
+            is_sell: false,
+            price: 0
         }
-        console.log("data", data)
-        portfolioServices.create_user_ticker(data, dispatch)
-    }
+        console.log("Data to add", data);
+        portfolioServices.create_user_ticker(data, dispatch);
+    };
+
+    
 
     return (
         <div>
@@ -89,8 +105,7 @@ export default function PortfolioDetailView(){
                                                         <td>{ ele.ticker }</td>
                                                         <td>{ ele.ticker }</td>
                                                         <td>
-                                                            <button className="btn btn-info">Edit</button>
-                                                            <button className="btn btn-danger">Close </button>
+                                                            <button onClick={() => sellTicker(ele)} className="btn btn-danger">Close </button>
                                                         </td>
                                                     </tr>
                                                 )
@@ -114,6 +129,7 @@ export default function PortfolioDetailView(){
                                     <ul class="list-group">
                                         <li class="list-group-item">Current Value: {portfolio.current_value}</li>
                                         <li class="list-group-item">Starting Investment: {portfolio.starting_investment}</li>
+                                        <li class="list-group-item">Sells: {portfolio.withdraw_value}</li>
                                         <li class="list-group-item">Diff: {portfolio.difference}</li>
                                         <li class="list-group-item">Diff %: {portfolio.diff_percent}</li>
                                         <li class="list-group-item">Annual Returns: {portfolio.annual_returns}</li>
@@ -152,6 +168,9 @@ export default function PortfolioDetailView(){
                         : 
                         
                             <div className="card">
+                                <div className="card-header">
+                                    <input onChange={(e)=> setSearchName(e.target.value)} value={searchName} className="form-control" placeholder="Search....." />
+                                </div>
                                 <table className="table table-bordered">
                                     <thead>
                                         <tr>

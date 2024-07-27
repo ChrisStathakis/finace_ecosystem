@@ -38,7 +38,7 @@ export default function UserView(){
     }, [isAuthenticated])
 
     React.useEffect(()=> {
-        authServices.profile();
+        authServices.profile(dispatch);
     }, [])
 
     

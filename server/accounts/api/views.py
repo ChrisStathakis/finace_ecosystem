@@ -21,4 +21,4 @@ class ProfileApiView(APIView):
         user = request.user
         profile = Profile.objects.filter(user=user).first()
         serializer = ProfileSerializer(profile)
-        return Response(serializer)
+        return Response(serializer.data)

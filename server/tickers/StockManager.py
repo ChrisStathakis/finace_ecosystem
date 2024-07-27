@@ -163,6 +163,12 @@ class StockManager:
         print(next_day_prediction, type(next_day_prediction))
         return next_day_prediction[0][0]
 
+
+    
+
+
        
+
+
 
 
