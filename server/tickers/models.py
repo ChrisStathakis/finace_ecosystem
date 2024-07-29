@@ -336,16 +336,38 @@ class Portfolio(models.Model):
         return reverse('portfolio', kwargs={'port_id': self.id})
     
 
-    def effecient_frontier(self):
-        tickers =  [ticker.ticker for ticker in self.tickers.filter(is_buy=False, is_sell=False)]
-        assets = [ticker.tic for ticker in tickers]
+    def efficient_frontier(self):
+        tickers = [ticker.ticker for ticker in self.port_tickers.filter(is_sell=False)]
+        assets = [ticker.ticker for ticker in tickers]
 
         df = pd.DataFrame()
         for ticker in assets:
             new_df = read_stock_data(ticker)
             df = new_df if df.empty else df.join(new_df, how="outer")
 
-        log_returns = 
+        log_returns = np.log(df/df.shift(1))
+        mean = log_returns.mean() * 250
+        cov = log_returns.cov()
+        corr = log_returns.corr()
+
+        num_assets = len(assets)
+        pfolio_returns, pfolio_volatilies, total_weights, total_money = [], [], [], []
+
+        for x in range(1, 1000):
+            weights = np.random.random(num_assets)
+            weights /= np.sum(weights)
+            pfolio_returns.append(np.sum(weights * log_returns.mean()) * 250)
+            pfolio_volatilies.append(np.sqrt(np.dot(weights.T, np.dot(log_returns.cov() * 250, weights))))
+            total_weights.append(weights)
+
+            current_money = []
+            for weight in weights:
+                current_money.append(round(float(self.starting_investment) * float(round(weight, 4)), 2))
+            total_money.append(current_money)
+
+        pfolio_returns = np.array(pfolio_returns)
+        pfolio_volatilies = np.array(pfolio_volatilies)
+        return [total_weights, pfolio_volatilies, pfolio_returns, total_money]
 
 
 

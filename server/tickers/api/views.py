@@ -19,9 +19,23 @@ def ticker_homepage_api_view(request, format=None):
         'tickers': reverse('api_tickers:tickers_list', request=request, format=format),
         "portfolios": reverse("api_tickers:portfolio_list", request=request, format=format),
         "ticker_dataframe": reverse("api_tickers:ticker_dataframe", request=request, format=format),
-        "user_ticker_list": reverse("api_tickers:user_ticker_list", request=request, format=format)
+        "user_ticker_list": reverse("api_tickers:user_ticker_list", request=request, format=format),
+        "efficient_frontier": reverse("api_tickers:efficient_frontier", request = request, format = format),
 
     })
+
+
+@api_view(["GET"])
+def efficient_frontier_view(request, format=None):
+    user = request.user
+    if not user.is_authenticated:
+        return Response({'message': "You have to login"})
+    portfolios = Portfolio.objects.filter(user=user)
+    results = dict()
+    for port in portfolios:
+        results[f"{port.title}"] = port.efficient_frontier()
+    print("results",  results)
+    return Response({"portfolios": results})
 
 
 class PortfolioListApiView(ListCreateAPIView):
