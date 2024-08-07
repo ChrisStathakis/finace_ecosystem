@@ -11,21 +11,9 @@ from tickers.helpers import read_stock_data, get_stock_data
 User = get_user_model()
 
 
-class Strategy(models.Model):
-    CHOICES = (
-        ('a', 'Moving Average Trading Strategy'),
-    )
-
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    category = models.CharField(max_length=1, choices=CHOICES)
-
-    class Meta:
-        unique_together = ["user", "category"]
-
-
-class StrategyTicker(models.Model):
-    ticker = models.ForeignKey(Ticker, on_delete=models.CASCADE)
-    strategy = models.ForeignKey(Strategy, on_delete=models.CASCADE)
+class TickerAvalysis(models.Model):
+    ticker = models.ForeignKey(Ticker, on_delete=models.CASCADE, unique=True)
+    
 
     def __str__(self):
         return self.ticker.title
@@ -39,4 +27,72 @@ class StrategyTicker(models.Model):
             updated=is_updated
         )
 
-    def EMA(self, average_length=50):
+    def EMA(self, average_length: int = 50):
+        """
+            Exponential Moving Average
+            Its better for trends cause give more weight on recent data
+        """
+        data = self.get_dataframe()
+        return data.ewm(span=average_length, adjust=False).mean()
+    
+
+    def MACD(self, fast_period=12, slow_period=26, signal_period=9):
+        """
+            Moving Average Convergence Divergence
+            Designed to capture short to medium-term trends in daily price data.
+        
+        """
+        data = read_stock_data(self.ticker.ticker)
+
+        ema_fast = data['Close'].ewm(span=fast_period, adjust=False).mean()
+    
+        # Calculate the long-term EMA
+        ema_slow = data['Close'].ewm(span=slow_period, adjust=False).mean()
+
+        # Calculate the MACD line
+        macd = ema_fast - ema_slow
+        
+        # Calculate the signal line
+        signal = macd.ewm(span=signal_period, adjust=False).mean()
+        
+        # Calculate the MACD histogram
+        histogram = macd - signal
+        
+        return macd, signal, histogram
+
+
+
+    def generate_signals(self):
+        buy_signals, sell_signals = [], []
+        macd, signal, histogram = self.MACD()
+
+        for i in range(1, len(macd)):
+            if macd[i] > signal[i] and macd[i-1] <= signal[i-1]:
+                buy_signals.append(i)
+            elif macd[i] < signal[i] and macd[i-1] >= signal[i-1]:
+                sell_signals.append(i)
+    
+        return buy_signals, sell_signals, histogram
+    
+
+    def calculate_historic_rsi(self, period=14):
+        """
+        Traditionally, RSI values of 70 or above indicate that an asset is becoming 
+        overbought or overvalued, while an RSI of 30 or below suggests an oversold or 
+        undervalued condition.
+        """
+        data = read_stock_data(self.ticker.ticker)
+        close_delta = data["Close"].diff()
+
+        up = close_delta.clip(lower=0)
+        down = -1 * close_delta.clip(upper=0)
+
+
+        # Calculate the EWMA
+        ma_up = up.ewm(com = period - 1, adjust=True, min_periods = period).mean()
+        ma_down = down.ewm(com = period - 1, adjust=True, min_periods = period).mean()
+        
+        rsi = ma_up / ma_down
+        rsi = 100 - (100/(1 + rsi))
+        
+        return rsi

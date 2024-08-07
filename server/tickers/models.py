@@ -1,14 +1,11 @@
 import decimal
 
 from django.db import models
-from django.db.models import Sum, Count, Avg
+from django.db.models import Sum
 from django.contrib.auth import get_user_model
-from django.contrib import messages
 from django.urls import reverse
 from django.db.models import Q
-import yfinance as yf
-import pandas as pd
-from datetime import timedelta
+
 from datetime import datetime
 import numpy as np
 from decimal import Decimal
@@ -19,10 +16,10 @@ import openpyxl
 from .helpers import read_stock_data, get_stock_data
 from .StockManager import StockManager
 from accounts.models import Profile
-from .manager import PortfolioManager
-User = get_user_model()
+from .manager import PortfolioManager, TickerManager
 from .ticker_helper import TickerHelper
 
+User = get_user_model()
 
 class Indices(models.Model):
     title = models.CharField(max_length=100, unique=True)
@@ -75,6 +72,9 @@ class Ticker(models.Model):
 
     prediction = models.DecimalField(max_digits=10, decimal_places=3, default=0)
     date_predict = models.DateField(blank=True, null=True)
+
+    objects = models.Manager()
+    my_query = TickerManager()
 
     def __str__(self):
         return self.title

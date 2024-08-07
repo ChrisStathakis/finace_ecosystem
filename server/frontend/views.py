@@ -4,21 +4,15 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from tickers.models import Portfolio, Ticker, UserTicker, TickerDataFrame
 
+from strategies.models import TickerAvalysis
 from tickers.tasks import update_ticker_from_detail_page
 from tickers.forms import PortfolioBaseForm, UserTickerForm
 from rss_component.models import RssFeed
 
 
-@login_required()
 def homepage_view(request):
-    # refresh_ticker_data.delay()
-    # daily_update_data_task.delay()
-
     context = dict()
-    tickers = Ticker.objects.all()
-    context['total_earnings'] = Portfolio.my_query.total_earnings()
-    context['simply_return'] = Portfolio.my_query.total_simply_return()
-    context["tickers"] = tickers
+    context["tickers"] = Ticker.my_query.first_page_tickers()
     return render(request, 'index.html', context=context)
 
 
@@ -38,7 +32,8 @@ def ticker_detail_view(request, pk):
     feed = RssFeed.objects.filter(tickers=instance)
     prices = TickerDataFrame.objects.filter(ticker=instance)[:30]
     prices_chart = [[price.date.split(" ")[0], price.close] for price in reversed(prices)]
-    
+
+
     return render(
                 request,
                 'ticker_detail.html',
@@ -47,9 +42,14 @@ def ticker_detail_view(request, pk):
                     "feed": feed,
                     "prices": prices,
                     "prices_chart": prices_chart
-
                 }
                 )
+
+
+def update_ticker_portfolio_view(request, pk):
+    instance = get_object_or_404(Ticker, id=pk)
+    instance.save()
+    return HttpResponseRedirect(redirect_to=instance.get_absolute_url())
 
 
 @method_decorator(login_required, name='dispatch')

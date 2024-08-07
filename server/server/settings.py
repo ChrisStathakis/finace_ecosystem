@@ -54,8 +54,9 @@ INSTALLED_APPS = [
     'frontend',
     'tickers',
     'accounts',
-    'chat',
-    'rss_component'
+    'rss_component',
+    "strategies",
+    "chat"
 
 
 ]
