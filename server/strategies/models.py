@@ -11,9 +11,8 @@ from tickers.helpers import read_stock_data, get_stock_data
 User = get_user_model()
 
 
-class TickerAvalysis(models.Model):
+class TickerAnalysis(models.Model):
     ticker = models.ForeignKey(Ticker, on_delete=models.CASCADE, unique=True)
-    
 
     def __str__(self):
         return self.ticker.title

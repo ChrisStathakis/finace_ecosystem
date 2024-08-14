@@ -3,7 +3,9 @@ import pandas as pd
 import os
 import datetime
 import numpy as np
-
+import requests
+from bs4 import BeautifulSoup
+import spacy
 
 class TickerHelper:
 
@@ -11,6 +13,23 @@ class TickerHelper:
         self.ticker = ticker
         self.market = market
         self.price = 0
+        self.nlp = spacy.load("en_core_web_sm")
+
+
+    def analyze_ticker_wiki(self):
+        url = "https://en.wikipedia.org/wiki/Tesla,_Inc."
+        response = requests.get(url)
+        soup = BeautifulSoup(response.content, 'html.parser')
+
+        # Find the main content div
+        content = soup.find(id = "mw-content-text")
+
+        # Extract text from paragraphs
+        text = ''.join([p.get_text() for p in content.find_all('p')])
+        doc = self.nlp(text)
+        for token in doc:
+            print(token.text)
+            print(token.tag_)
 
     def download_data(self,
                       ticker='',

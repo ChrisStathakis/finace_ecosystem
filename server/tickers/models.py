@@ -43,7 +43,14 @@ class TickerCategory(models.Model):
 
     def __str__(self):
         return self.title
-    
+
+
+class Tags(models.Model):
+    title = models.CharField(max_length=240)
+
+    def __str__(self):
+        return self.title
+
 
 class Ticker(models.Model):
     INDICES = (

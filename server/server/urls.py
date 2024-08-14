@@ -20,7 +20,7 @@ from django.urls import path, include
 from rest_framework_simplejwt import views as jwt_views
 from frontend.api.views import homepage_api_view
 from accounts.views import login_view
-from tickers.views import initial_data_view
+from tickers.views import initial_data_view, ticker_play_area_view
 
 urlpatterns = [
 
@@ -44,6 +44,7 @@ urlpatterns = [
 
 
     path("initial-data/", initial_data_view),
+    path("play-area/<int:pk>/", ticker_play_area_view),
 
     # channels
     path('chat/', include("chat.urls")),

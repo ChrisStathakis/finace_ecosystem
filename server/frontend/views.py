@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from tickers.models import Portfolio, Ticker, UserTicker, TickerDataFrame
 
-from strategies.models import TickerAvalysis
+from strategies.models import TickerAnalysis
 from tickers.tasks import update_ticker_from_detail_page
 from tickers.forms import PortfolioBaseForm, UserTickerForm
 from rss_component.models import RssFeed
