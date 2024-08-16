@@ -16,20 +16,23 @@ class TickerHelper:
         self.nlp = spacy.load("en_core_web_sm")
 
 
-    def analyze_ticker_wiki(self):
-        url = "https://en.wikipedia.org/wiki/Tesla,_Inc."
+    def analyze_ticker_wiki(self, url):
         response = requests.get(url)
         soup = BeautifulSoup(response.content, 'html.parser')
 
         # Find the main content div
-        content = soup.find(id = "mw-content-text")
+        content = soup.find(id="mw-content-text")
 
         # Extract text from paragraphs
         text = ''.join([p.get_text() for p in content.find_all('p')])
         doc = self.nlp(text)
-        for token in doc:
-            print(token.text)
-            print(token.tag_)
+        results = []
+        for ent in doc.ents:
+            if ent.label_ in ["PERSON", "ORG"]:
+                results.append([ent.text, ent.label_])
+        
+        return results
+            
 
     def download_data(self,
                       ticker='',

@@ -1,15 +1,15 @@
 import decimal
-
 from django.db import models
 from django.db.models import Sum
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 from django.db.models import Q
-
 from datetime import datetime
 import numpy as np
 from decimal import Decimal
 
+import requests
+from bs4 import BeautifulSoup
 import yfinance as yf
 import pandas as pd
 import openpyxl
@@ -20,6 +20,7 @@ from .manager import PortfolioManager, TickerManager
 from .ticker_helper import TickerHelper
 
 User = get_user_model()
+
 
 class Indices(models.Model):
     title = models.CharField(max_length=100, unique=True)
@@ -47,6 +48,10 @@ class TickerCategory(models.Model):
 
 class Tags(models.Model):
     title = models.CharField(max_length=240)
+    label = models.CharField(max_length=240)
+
+    class Meta:
+        unique_together = ["title", "label"]
 
     def __str__(self):
         return self.title
@@ -76,7 +81,7 @@ class Ticker(models.Model):
     log_return = models.DecimalField(max_digits=30, decimal_places=8, default=0, help_text='Log Return')
     standard_deviation = models.DecimalField(max_digits=30, decimal_places=8, default=0)
     sharp = models.DecimalField(max_digits=30, decimal_places=8, default=0)
-
+    wikipedia_url = models.URLField(blank=True, null=True)
     prediction = models.DecimalField(max_digits=10, decimal_places=3, default=0)
     date_predict = models.DateField(blank=True, null=True)
 
@@ -87,6 +92,7 @@ class Ticker(models.Model):
         return self.title
     
     def save(self, *args, **kwargs):
+        self.find_wikipedia_url()
         market = self.indices if self.indices else "^GSPC"
         helper = TickerHelper(self.ticker, market)
      
@@ -102,6 +108,24 @@ class Ticker(models.Model):
         # self._refresh_ticker(is_updated=True)
         
         super().save(*args, **kwargs)
+
+
+    def find_wikipedia_url(self):
+        if not self.wikipedia_url:
+            url = f"https://en.wikipedia.org/w/index.php?search={self.ticker.replace(' ', '+')}"
+            response = requests.get(url)
+            if "may refer to:" not in response.text and "disambiguation" not in response.text:
+                return response.url
+            else:
+                return self.wikipedia_url
+        return self.wikipedia_url
+
+    def create_tags(self):
+        ticker_helper = TickerHelper(ticker=self.ticker)
+        results = ticker_helper.analyze_ticker_wiki(self.wikipedia_url)
+        for result in results:
+            new_result = get_object_or_404(Tags, title=result[0], )
+            
 
     def _refresh_ticker(self, is_updated: bool = True):
         indice, ticker = self.indices, self.ticker
