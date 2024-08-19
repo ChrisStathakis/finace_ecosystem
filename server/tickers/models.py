@@ -84,7 +84,7 @@ class Ticker(models.Model):
     wikipedia_url = models.URLField(blank=True, null=True)
     prediction = models.DecimalField(max_digits=10, decimal_places=3, default=0)
     date_predict = models.DateField(blank=True, null=True)
-
+    ticker_tags = models.ManyToManyField(Tags)
     objects = models.Manager()
     my_query = TickerManager()
 
@@ -109,6 +109,12 @@ class Ticker(models.Model):
         
         super().save(*args, **kwargs)
 
+    @staticmethod
+    def search_entities(entities: list):
+        tags = Tags.objects.filter(title__in=entities)
+        tickers_tag = Ticker.objects.filter(ticker_tags__in=tags)
+        tickers = Ticker.objects.filter(title__in=entities)
+        return tickers | tickers_tag
 
     def find_wikipedia_url(self):
         if not self.wikipedia_url:
@@ -124,8 +130,7 @@ class Ticker(models.Model):
         ticker_helper = TickerHelper(ticker=self.ticker)
         results = ticker_helper.analyze_ticker_wiki(self.wikipedia_url)
         for result in results:
-            new_result = get_object_or_404(Tags, title=result[0], )
-            
+            new_result = Tags.objects.ticker_tags(title=result[0], label=result[1])
 
     def _refresh_ticker(self, is_updated: bool = True):
         indice, ticker = self.indices, self.ticker
@@ -163,7 +168,6 @@ class Ticker(models.Model):
         df: pd.DataFrame = yf.download(self.ticker, start='2010-01-01', end=datetime.now())
         df.reset_index(inplace=True)
         df['pct_change'] = ((df['Close'] - df['Close'].shift(1)) / df['Close'].shift(1))
-        print(df)
         for _, row in df.iterrows():
             try:
                 pct_change = row['pct_change']

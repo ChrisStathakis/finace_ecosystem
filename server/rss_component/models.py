@@ -8,10 +8,12 @@ from tickers.models import Ticker
 from .rss_helper import WordEditor
 from .rss_analyzer import RssAnalyzer
 
-RSS_URL = ["https://feeds.content.dowjones.io/public/rss/mw_topstories",
-            "https://www.ft.com/rss/home/uk",
-            "https://feeds.a.dj.com/rss/RSSMarketsMain.xml"
-            ]
+
+RSS_URL = [
+    "https://feeds.content.dowjones.io/public/rss/mw_topstories",
+    "https://www.ft.com/rss/home/uk",
+    "https://feeds.a.dj.com/rss/RSSMarketsMain.xml"
+]
 
 
 
@@ -21,13 +23,18 @@ def find_words(text: str) -> list:
 
 
 class RssFeed(models.Model):
+    CHOICES = (
+        ("P", "POSITIVE"),
+        ("N", "NEGATIVE"),
+        ("A", "NEUTRAL")
+    )
     title = models.CharField(max_length=255)
     rss_id = models.CharField(max_length=200, unique=True)
     published = models.DateTimeField()
     summary = models.TextField()
     tickers = models.ManyToManyField(Ticker)
     is_analysed = models.BooleanField(default=False)
-    is_positive = models.BooleanField(default=False)
+    is_positive = models.CharField(choices=CHOICES, default="A")
 
     def __str__(self):
         return self.title
@@ -37,6 +44,7 @@ class RssFeed(models.Model):
 
     @staticmethod
     def create_data():
+        # downloads the new rss. Its better for use every day or some hours period
         for endpoint in RSS_URL:
             d = feedparser.parse(endpoint)
 
@@ -55,30 +63,25 @@ class RssFeed(models.Model):
                     except:
                         continue
 
-    def rss_find_ticker(self):
-        analyzer = RssAnalyzer()
-        tickers_str = analyzer.find_tickers(title=self.title)
-        qs = Ticker.objects.filter(title__in=tickers_str)
-        print(qs)
-        print(tickers_str, qs)
-        for ticker in qs:
-            self.tickers.add(ticker)
-        self.save()
-        print("Find Ticker is done")
 
-        
     @staticmethod
     def analysis_rss_feed():
-        qs = RssFeed.objects.filter(is_analysed=False)
+        """
+            We call all the no analysed rss, after that we initialize the analyzer and
+            we check if any ticker is relevant  and if is positive etc
+        """
+        qs = RssFeed.objects.all() # filter(is_analysed=False)
         analyzer = RssAnalyzer()
-        analyzer.load_dataset()
-        analyzer.train_dataset()
         for ele in qs:
-            result = analyzer.predict_rss(ele)
-            print(f'{ele.title} -----  Predict{result}')
-            ele.rss_find_ticker()
-        
-
+            print(analyzer.finbert_sentimental_analysis(ele.title))
+            print(ele.id, ele.title)
+            is_positive = analyzer.sentimental_analysis_text(ele.title)
+            ele.is_positive = is_positive
+            entities = analyzer.find_entities(ele.title)
+            qs = Ticker.search_entities(entities)
+            for ticker in qs:
+                ele.tickers.add(ticker)
+            ele.save()
 
 
     def get_absolute_url(self):

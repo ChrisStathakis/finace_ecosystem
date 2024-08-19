@@ -15,8 +15,8 @@
                             <thead>
                                 <tr>
                                      <th>Title</th>
-                                     <th>Tags</th>
-                                     <th>Is positive</th>
+                                     <th>Tickers</th>
+                                     <th>Status</th>
                                      <th></th>
                                 </tr>
                             </thead>
@@ -25,7 +25,7 @@
                                     <tr>
                                         <td>{{ ele.title }}</td>
                                         <td>{{ ele.tag_tickers }}</td>
-                                        <td>{{ ele.is_positive }}</td>
+                                        <td>{{ ele.get_is_positive_display }}</td>
                                         <td><a href="{{ ele.get_absolute_url }}" class="btn btn-success">Details</a> </td>
                                     </tr>
 
