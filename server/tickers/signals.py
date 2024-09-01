@@ -30,6 +30,7 @@ def update_user_tickers(sender, instance: Ticker, **kwargs):
 def create_and_update_user_ticker(sender, instance: UserTicker, created,  **kwargs):
     if created:
         ticker = instance.ticker
-        instance.starting_value_of_ticker = ticker.price
+        instance.starting_value_of_ticker = instance.ticker.price if instance.starting_value_of_ticker == 0 \
+            else instance.starting_value_of_ticker
         instance.qty = instance.starting_investment/instance.starting_value_of_ticker if instance.starting_value_of_ticker !=0 else 0
         instance.save()

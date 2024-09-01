@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 from django.db.models import Sum
 from django.contrib.auth import get_user_model
 from django.urls import reverse
@@ -12,6 +13,7 @@ from tickers.models import Ticker, TickerDataFrame
 
 
 User = get_user_model()
+CURRENCY = settings.CURRENCY
 
 
 class Portfolio(models.Model):
@@ -52,6 +54,7 @@ class Portfolio(models.Model):
         profile_qs = Profile.objects.filter(user=user).all()
         if profile_qs.exists():
             profile_qs.first().save()
+
 
     def show_diff(self):
         return self.current_value - self.starting_investment
@@ -149,12 +152,20 @@ class UserTicker(models.Model):
         super().save(*args, **kwargs)
         self.portfolio.save()
 
+    def tag_starting_price(self):
+        return f"{self.starting_value_of_ticker} {CURRENCY}"
+
+    def tag_current_price(self):
+        return f"{self.current_value_of_ticker} {CURRENCY}"
+
+    def tag_starting_value(self):
+
     def tag_diff(self):
         return (self.current_value_of_ticker - self.starting_value_of_ticker) * self.qty
 
     def tag_diff_pct(self):
-        return ((
-                    self.current_value_of_ticker / self.starting_value_of_ticker)) * 100 if self.starting_value_of_ticker != 0 else 0
+        return ((self.current_value_of_ticker / self.starting_value_of_ticker)) * 100 \
+            if self.starting_value_of_ticker != 0 else 0
 
     def tag_ticker_title(self):
         return f"{self.ticker.title}"
