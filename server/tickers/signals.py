@@ -5,8 +5,8 @@ import pandas as pd
 import yfinance as yf
 from datetime import datetime
 from decimal import Decimal
-from .models import Ticker, TickerDataFrame, Indices, UserTicker
-
+from .models import Ticker, TickerDataFrame
+from portfolio.models import UserTicker
 
 @receiver(post_save, sender=Ticker)
 def create_dataframe_sql_data(sender, instance: Ticker, **kwargs):

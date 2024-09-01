@@ -3,7 +3,9 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.template.loader import render_to_string
-from tickers.models import Portfolio, Ticker
+from tickers.models import Ticker
+from portfolio.models import Portfolio
+
 
 
 @login_required

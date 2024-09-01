@@ -18,7 +18,7 @@ class Portfolio(models.Model):
     is_public = models.BooleanField(default=False)
     date_investment = models.DateField(null=True, blank=True)
     title = models.CharField(max_length=200)
-    user = models.OneToOneRel(User, on_delete=models.CASCADE, related_name='portfolios')
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     annual_returns = models.DecimalField(max_digits=15, decimal_places=2, default=0)
 
     variance = models.DecimalField(max_digits=200, decimal_places=150, default=0)

@@ -37,6 +37,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h4>Info</h4>
+                        <p>Wiki Page: {{ instance.wikipedia_url }}</p>
                     </div>
                     <div class="card-body">
                         <table class="table">
@@ -75,7 +76,7 @@
                     </div>
                 </div>
             </div>
-             <div class="col-3">
+            <div class="col-3">
                  <div class="card">
                     <div class="card-header">
                         <h4>Feed</h4>
@@ -102,7 +103,7 @@
                     </div>
                 </div>
              </div>
-             <div class="col-3">
+            <div class="col-3">
                 <div class="card">
                     <div class="card-header">
                         <h4>Prices</h4>
@@ -127,6 +128,54 @@
                             </tbody>
                         </table>
                         
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                 <div class="card">
+                    <div class="card-header">
+                        <h4>Tags</h4>
+                        <ul>
+                            {% for tag in instance.ticker_tags.all %}
+                            <li> {{ tag.title }}  </li>
+                            {% endfor %}
+                        </ul>
+
+                    </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <th>Simply Return</th>
+                                    <th>{{ instance.simply_return }}</th>
+                                </tr>
+
+                                <tr>
+                                    <th>Log Return</th>
+                                    <th>{{ instance.log_return }}</th>
+                                </tr>
+
+                                <tr>
+                                    <th>Beta</th>
+                                    <th>{{ instance.beta }}</th>
+                                </tr>
+
+                                <tr>
+                                    <th>Market Variance</th>
+                                    <th>{{ instance.market_variance }}</th>
+                                </tr>
+
+                                <tr>
+                                    <th>Simply Return</th>
+                                    <th>{{ instance.simply_return }}</th>
+                                </tr>
+
+                                <tr>
+                                    <th>Simply Return</th>
+                                    <th>{{ instance.simply_return }}</th>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

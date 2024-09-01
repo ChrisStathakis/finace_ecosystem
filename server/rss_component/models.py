@@ -73,9 +73,9 @@ class RssFeed(models.Model):
         qs = RssFeed.objects.all() # filter(is_analysed=False)
         analyzer = RssAnalyzer()
         for ele in qs:
-            print(analyzer.finbert_sentimental_analysis(ele.title))
+            print(analyzer.textblob_sentimental_analysis(ele.title))
             print(ele.id, ele.title)
-            is_positive = analyzer.sentimental_analysis_text(ele.title)
+            is_positive = analyzer.textblob_sentimental_analysis(ele.title)
             ele.is_positive = is_positive
             entities = analyzer.find_entities(ele.title)
             qs = Ticker.search_entities(entities)

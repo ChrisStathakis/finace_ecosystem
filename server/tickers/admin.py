@@ -1,7 +1,8 @@
 from django.contrib import admin
 
-from .models import Ticker, TickerDataFrame, Portfolio, UserTicker
+from .models import Ticker, TickerDataFrame, Tags
 from import_export.admin import ImportExportModelAdmin
+from portfolio.models import Portfolio, UserTicker
 
 
 @admin.register(Portfolio)
@@ -17,7 +18,9 @@ class TickerAdmin(ImportExportModelAdmin):
         (
             'General',
             {
-                "fields": [('title', 'ticker'), ]
+                "fields": [('title', 'ticker'),
+                           ("wikipedia_url", ),
+                           ]
             }
         ),
         (
@@ -40,4 +43,9 @@ class TickerDataFrameAdmin(admin.ModelAdmin):
 
 @admin.register(UserTicker)
 class UserTickerAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Tags)
+class TagsAdmin(admin.ModelAdmin):
     pass

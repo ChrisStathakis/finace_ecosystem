@@ -2,8 +2,9 @@ from django.shortcuts import render, get_object_or_404, HttpResponseRedirect, re
 from django.views.generic import ListView, CreateView, UpdateView, DetailView
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from tickers.models import Portfolio, Ticker, UserTicker, TickerDataFrame
-
+from portfolio.models import Portfolio
+from tickers.models import  Ticker, TickerDataFrame
+from portfolio.models import UserTicker, Portfolio
 from strategies.models import TickerAnalysis
 from tickers.tasks import update_ticker_from_detail_page
 from tickers.forms import PortfolioBaseForm, UserTickerForm
@@ -52,53 +53,3 @@ def update_ticker_portfolio_view(request, pk):
     return HttpResponseRedirect(redirect_to=instance.get_absolute_url())
 
 
-@method_decorator(login_required, name='dispatch')
-class PortfolioListView(ListView):
-    model = Portfolio
-    paginate_by = 20
-    template_name = 'portfolio_list.html'
-
-    def get_queryset(self):
-        user = self.request.user
-        return self.model.my_query.user_portfolios(user)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['form'] = PortfolioBaseForm(self.request.POST or None, initial={'user': self.request.user})
-        return context
-
-
-@method_decorator(login_required, name='dispatch')
-class PortfolioDetailView(DetailView):
-    model = Portfolio
-    template_name = 'portfolio_detail_view.html'
-    pk_url_kwarg = "port_id"
-
-    def get_queryset(self):
-        user = self.request.user
-        return self.model.my_query.user_portfolios(user)
-
-    def get_context_data(self, **kwargs):
-        # refresh_portfolio_tickers.delay(self.object.id)
-        context = super().get_context_data(**kwargs)
-        context['tickers'] = Ticker.objects.all()[:20]
-        context['my_tickers'] = UserTicker.objects.filter(portfolio=self.object)
-        return context
-
-
-@login_required
-def create_portfolio_item_view(request, dk, pk):
-    portfolio = get_object_or_404(Portfolio, id=dk)
-    ticker = get_object_or_404(Ticker, id=pk)
-    context = dict()
-    context['form'] = form = UserTickerForm(request.POST or None, initial={
-        'ticker': ticker,
-        'portfolio': portfolio
-    })
-
-    context['page_title'] = f'Add {ticker} to {portfolio}'
-    context['back_url'] = portfolio.get_edit_url()
-    if form.is_valid():
-        form.save()
-        return HttpResponseRedirect(portfolio.get_edit_url())
-    return render(request, 'form.html', context)

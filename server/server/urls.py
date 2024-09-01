@@ -48,6 +48,7 @@ urlpatterns = [
 
     # channels
     path('chat/', include("chat.urls")),
+    path("portfolio/", include("portfolio.urls"))
 
     
 

@@ -1,11 +1,12 @@
 import yfinance as yf
+import spacy
 import pandas as pd
 import os
 import datetime
 import numpy as np
 import requests
 from bs4 import BeautifulSoup
-import spacy
+
 
 class TickerHelper:
 
@@ -32,7 +33,6 @@ class TickerHelper:
                 results.append([ent.text, ent.label_])
         
         return results
-            
 
     def download_data(self,
                       ticker='',
@@ -108,6 +108,11 @@ class TickerHelper:
         # group => the code of the market you want to go against
         group, tic = [self.market, self.ticker]
         stock_data, indice_data = [self.read_data(self.ticker), self.read_market()]
+        print("--------")
+        print(stock_data)
+        print("--------")
+        print(indice_data)
+        print("--------")
         stock_return, indice_return = [stock_data[tic].pct_change(), indice_data[group].pct_change()]
 
         indice_data['daily_rtn'] = indice_return
@@ -137,6 +142,9 @@ class TickerHelper:
             "market_variance": market_variance,
 
         }
+
+
+
 
 
 

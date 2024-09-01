@@ -9,7 +9,8 @@ from asgiref.sync import async_to_sync
 import json
 from django.core.serializers import serialize
 import logging
-from .models import Ticker, UserTicker, Portfolio
+from .models import Ticker
+from portfolio.models import Portfolio, UserTicker
 from .StockManager import StockManager
 logger = logging.getLogger(__name__)
 
@@ -18,7 +19,7 @@ logger = logging.getLogger(__name__)
 
 @shared_task
 def daily_update_data_task():
-    print("process started")
+    
     tickers = Ticker.objects.all()
     for ticker in tickers:
         try:

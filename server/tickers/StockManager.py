@@ -100,7 +100,7 @@ class StockManager:
 
     def load_df(self):
         ten_year_ago = datetime.now() - relativedelta(years=10)
-        split_date = datetime.now() - relativedelta(years=2)
+
         data = yf.download(self.ticker, start=ten_year_ago, end=datetime.now())
         data = add_original_feature(data)
         data = add_avg_price(data)
@@ -111,17 +111,23 @@ class StockManager:
         data = data.dropna(axis=0)
         data.dropna()
         self.data = data
-        
-        train_data = data[:split_date]
-        test_data = data[split_date:]
+        last_20_percent = int(len(data) * 0.2)
+        train_data = data.head(len(data) - last_20_percent)
+        test_data = data.tail(last_20_percent)
 
 
-        self.X_train = train_data.drop(["Close"], axis=1).values
+        self.X_train = train_data.drop(columns=["Close", "Adj Close"]).values
         self.y_train = train_data['Close'].values
 
-        self.X_test = test_data.drop(['Close'], axis=1).values
+        self.X_test = test_data.drop(columns=["Close", "Adj Close"]).values
         self.y_test = test_data['Close'].values
-
+        print("--------------------")
+        print(self.X_test, self.y_test, train_data, test_data)
+        print("-------------------- Train data")
+        print(train_data.head())
+        print("-------------------- Test data")
+        print(test_data.head())
+        print("--------------------")
 
     
     def scale_data(self):
@@ -131,9 +137,10 @@ class StockManager:
         self.X_test_scaled = scaler.transform(self.X_test)
 
 
-    def build_model(self, epochs: int = 100):
+    def build_model(self, epochs: int = 10):
         model = self.model = Sequential([
-            Dense(64, activation='relu', input_shape=(self.X_train_scaled.shape[1],)),
+            Dense(64, activation='relu',
+            input_shape=(self.X_train_scaled.shape[1],)),
             Dense(64, activation='relu'),
             Dense(1)
         ])
@@ -153,12 +160,12 @@ class StockManager:
         self.model = model
 
     def predict_the_future(self,):
-        data = self.data
-        last_day = data.iloc[-1]
-        last_day["Close"] = last_day["Close"] * 1.05
-        X_test = last_day.drop(['Close']).values.reshape(1, -1)
-        y_test = last_day["Close"] * 1.05
-        scaled_next_day_features = self.scaler.transform(X_test)
+        # data = self.data
+        # last_day = data.iloc[-1]
+        # last_day["Close"] = last_day["Close"] * 1.05
+        # X_test = last_dacd y.drop(['Close']).values.reshape(1, -1)
+       
+        scaled_next_day_features = self.scaler.transform(self.X_test)
         next_day_prediction = self.model.predict(scaled_next_day_features)
         print(next_day_prediction, type(next_day_prediction))
         return next_day_prediction[0][0]

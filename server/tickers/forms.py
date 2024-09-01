@@ -1,5 +1,5 @@
 from django import forms
-from .models import Portfolio, UserTicker
+from portfolio.models import Portfolio, UserTicker
 
 
 class BaseForm(forms.Form):

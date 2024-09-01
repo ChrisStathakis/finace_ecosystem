@@ -40,7 +40,7 @@
                                         <td>{{ ticker.title }}</td>
                                         <td>{{ ticker.ticker }}</td>
                                         <td>{{ ticker.simply_return }}</td>
-                                        <td> <a href="{% url 'create_item_portfolio' object.id ticker.id  %}" class="btn btn-success"> Add </a> </td>
+                                        <td> <a href="{% url 'port:add_item' object.id ticker.id  %}" class="btn btn-success"> Add </a> </td>
                                     </tr>
 
                                 {% endfor %}
@@ -55,6 +55,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h4> Details </h4>
+                       
                     </div>
                     <div class="card-body">
                         <table class="table table-bordered">

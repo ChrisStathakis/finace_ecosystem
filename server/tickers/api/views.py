@@ -9,7 +9,9 @@ from rest_framework.reverse import reverse
 from .serializers import (TickerSerializer, PortfolioSerializer, UserTickerBaseSerializer, TickerDataFrameSerializer,
                           TickerPredictionSerializer, UserTickerEditSerializier
                           )
-from ..models import Ticker, Portfolio, UserTicker, TickerDataFrame
+from ..models import Ticker, TickerDataFrame
+from portfolio.models import Portfolio, UserTicker
+
 from .permissions import IsAuthenticatedCustom
 
 

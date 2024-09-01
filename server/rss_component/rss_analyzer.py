@@ -1,8 +1,7 @@
 import pandas as pd
-from transformers import AutoModelForSequenceClassification, AutoTokenizer, pipeline
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 import spacy
-
+from textblob import TextBlob
 
 
 class RssAnalyzer:
@@ -31,19 +30,14 @@ class RssAnalyzer:
         """
 
         vs = self.analyzer.polarity_scores(text)
-        print(vs)
         return "N" if vs['neg'] > 0.6 else "P" if vs['pos'] > 0.6 else "A"
 
 
-    def finbert_sentimental_analysis(self, text):
-        # Load the tokenizer and model for FinBERT
-        model_name = "yiyanghkust/finbert-tone"
-        tokenizer = AutoTokenizer.from_pretrained(model_name)
-        model = AutoModelForSequenceClassification.from_pretrained(model_name)
-
-        # Initialize the sentiment-analysis pipeline
-        sentiment_model = pipeline("sentiment-analysis", model=model, tokenizer=tokenizer)
-        return sentiment_model(text)
+    def textblob_sentimental_analysis(self, text):
+        # textblob sentimental_analysis
+        blob = TextBlob(text)
+        sentiment = blob.sentiment.polarity
+        return "P" if sentiment > 0 else "N" if sentiment < 0  else "A"
 
 
 

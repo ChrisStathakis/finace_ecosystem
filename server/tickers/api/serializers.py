@@ -1,6 +1,6 @@
 from rest_framework import serializers
-from ..models import Ticker, TickerDataFrame, Portfolio, UserTicker
-
+from ..models import Ticker, TickerDataFrame
+from portfolio.models import Portfolio, UserTicker
 
 class PortfolioSerializer(serializers.ModelSerializer):
     difference = serializers.DecimalField(max_digits=10, decimal_places=2, source="show_diff")
