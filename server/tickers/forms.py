@@ -1,5 +1,5 @@
 from django import forms
-from portfolio.models import Portfolio, UserTicker
+from portfolio.models import Ticker
 
 
 class BaseForm(forms.Form):
@@ -9,16 +9,9 @@ class BaseForm(forms.Form):
             field.widget.attrs['class'] = 'form-control'
 
 
-class PortfolioBaseForm(BaseForm, forms.ModelForm):
+class TickerForm(BaseForm, forms.ModelForm):
 
     class Meta:
-        model = Portfolio
-        fields = ['title', 'user', ]
+        model = Ticker
+        fields = ['title', "ticker", "indices"]
 
-
-class UserTickerForm(BaseForm, forms.ModelForm):
-
-    class Meta:
-        model = UserTicker
-        fields = ['ticker', 'portfolio', 'starting_investment', 'starting_value_of_ticker']
-        widgets = {'ticker': forms.HiddenInput(), 'portfolio': forms.HiddenInput()}

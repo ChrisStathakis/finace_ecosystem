@@ -7,24 +7,36 @@
          <table class="table table-bordered">
              <thead>
              <tr>
+                 <th>Date</th>
                  <th>Title</th>
                  <th>Investment</th>
-                 <th>Buy Value</th>
                  <th>Current Value</th>
-                 <th>Diff</th>
-                 <th>Percent</th>
+                 <th>+/-</th>
+                 <th>Buy Price</th>
+                 <th>Current Price</th>
+                 <th>+/-</th>
+                 <th>-</th>
                  <th>-</th>
              </tr>
              </thead>
              <tbody>
              {% for ele in my_tickers %}
              <tr>
+                 <td>{{ ele.timestamp }}</td>
                  <td>{{ ele.ticker }}</td>
-                 <td>{{ ele.starting_investment|floatformat:2 }}</td>
-                 <td>{{ ele.starting_value_of_ticker|floatformat:2 }}</td>
-                 <td>{{ ele.current_value_of_ticker|floatformat:2 }}</td>
-                 <td>{{ ele.tag_diff|floatformat:2 }}</td>
-                 <td>{{ ele.tag_diff_pct|floatformat:2 }}</td>
+
+                 <td>{{ ele.tag_starting_value}}</td>
+                 <td>{{ ele.tag_current_value }}</td>
+                 <td>{{ ele.tag_diff_value }}</td>
+
+                 <td>{{ ele.tag_starting_price }}</td>
+                 <td>{{ ele.tag_current_price }}</td>
+                 <td>{{ ele.tag_diff_price }}</td>
+
+                 <td>{{ ele.tag_diff_pct }}</td>
+                 <th><a href="{% url 'port:sell' ele.id %}" class="btn btn-warning">SELL</a> </th>
+                 <th><a href="{% url 'port:delete' ele.id %}" class="btn btn-danger">DELETE</a> </th>
+
              </tr>
              {% endfor %}
              </tbody>

@@ -1,3 +1,5 @@
+import datetime
+
 from django.db import models
 from django.conf import settings
 from django.db.models import Sum
@@ -20,7 +22,7 @@ class Portfolio(models.Model):
     is_public = models.BooleanField(default=False)
     date_investment = models.DateField(null=True, blank=True)
     title = models.CharField(max_length=200)
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="port")
     annual_returns = models.DecimalField(max_digits=15, decimal_places=2, default=0)
 
     variance = models.DecimalField(max_digits=200, decimal_places=150, default=0)
@@ -40,15 +42,14 @@ class Portfolio(models.Model):
 
     def save(self, *args, **kwargs):
         if self.id:
-            qs: models.QuerySet = self.port_tickers.all()
-            if qs.exists():
-                # self.calculate_data()
-                self.starting_investment: float = qs.aggregate(Sum('starting_investment'))['starting_investment__sum']
-                self.current_value: float = qs.aggregate(Sum('current_value'))[
-                    'current_value__sum'] if qs.exists() else 0
-                self.withdraw_value = qs.aggregate(Sum("close_value"))["close_value__sum"]
-                # self.expected_portfolio_return, self.expected_portfolio_variance, self.expected_portfolio_volatility = self.calculate_returns_and_volatility()
+            qs: models.QuerySet = self.port_tickers.filter(is_sell=False)
 
+            # self.calculate_data()
+            self.starting_investment: float = qs.aggregate(Sum('starting_investment'))['starting_investment__sum'] or 0
+            self.current_value: float = qs.aggregate(Sum('current_value'))[
+                    'current_value__sum'] if qs.exists() else 0 or 0
+            self.withdraw_value = qs.aggregate(Sum("close_value"))["close_value__sum"] or 0
+                # self.expected_portfolio_return, self.expected_portfolio_variance, self.expected_portfolio_volatility = self.calculate_returns_and_volatility()
         super().save(*args, **kwargs)
         user = self.user
         profile_qs = Profile.objects.filter(user=user).all()
@@ -126,7 +127,8 @@ class Portfolio(models.Model):
 
 
 class UserTicker(models.Model):
-    updated = models.DateTimeField(blank=True, null=True)
+    timestamp = models.DateField(auto_now=True)
+    date = models.DateTimeField(auto_now_add=True)
     date_buy = models.DateTimeField(blank=True, null=True)
 
     is_sell = models.BooleanField(default=False)
@@ -153,19 +155,28 @@ class UserTicker(models.Model):
         self.portfolio.save()
 
     def tag_starting_price(self):
-        return f"{self.starting_value_of_ticker} {CURRENCY}"
+        return f"{round(self.starting_value_of_ticker, 2)} {CURRENCY}"
 
     def tag_current_price(self):
-        return f"{self.current_value_of_ticker} {CURRENCY}"
+        return f"{round(self.current_value_of_ticker, 2)} {CURRENCY}"
 
     def tag_starting_value(self):
+        return (f"{round(self.starting_investment, 2)} {CURRENCY}")
 
-    def tag_diff(self):
-        return (self.current_value_of_ticker - self.starting_value_of_ticker) * self.qty
+    def tag_current_value(self):
+        return (f"{round(self.current_value, 2)} {CURRENCY}")
+
+    def tag_diff_value(self):
+        return f"{round(self.current_value - self.starting_investment, 2)} {CURRENCY}"
+
+    def tag_diff_price(self):
+        return f"{round(self.current_value_of_ticker - self.starting_value_of_ticker, 2)} {CURRENCY}"
 
     def tag_diff_pct(self):
-        return ((self.current_value_of_ticker / self.starting_value_of_ticker)) * 100 \
-            if self.starting_value_of_ticker != 0 else 0
+        first_step = self.current_value / self.starting_investment
+        first_step = first_step - 1
+        return f"{round(first_step*100, 2)} %"
+
 
     def tag_ticker_title(self):
         return f"{self.ticker.title}"

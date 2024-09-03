@@ -96,7 +96,8 @@ class Ticker(models.Model):
     def save(self, *args, **kwargs):
 
         self.wikipedia_url = self.find_wikipedia_url()
-        self.create_tags()
+        if self.id:
+            self.create_tags()
         market = self.indices if self.indices else "^GSPC"
         helper = TickerHelper(self.ticker, market)
      
@@ -172,7 +173,7 @@ class Ticker(models.Model):
             return None
 
     def get_absolute_url(self):
-        return reverse('ticker_detail', kwargs={'pk': self.id })
+        return reverse('tickers:detail', kwargs={'pk': self.id })
 
     @staticmethod
     def filter_data(qs, request):

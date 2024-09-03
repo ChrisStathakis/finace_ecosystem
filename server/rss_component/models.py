@@ -32,7 +32,7 @@ class RssFeed(models.Model):
     rss_id = models.CharField(max_length=200, unique=True)
     published = models.DateTimeField()
     summary = models.TextField()
-    tickers = models.ManyToManyField(Ticker)
+    tickers = models.ManyToManyField(Ticker, related_name="rss")
     is_analysed = models.BooleanField(default=False)
     is_positive = models.CharField(choices=CHOICES, default="A")
 

@@ -19,12 +19,13 @@ from django.urls import path, include
 
 from rest_framework_simplejwt import views as jwt_views
 from frontend.api.views import homepage_api_view
-from accounts.views import login_view
+from accounts.views import login_view, profile_view
 from tickers.views import initial_data_view, ticker_play_area_view
 
 urlpatterns = [
 
     path('admin/', admin.site.urls),
+    path("profile/", profile_view, name="profile_view"),
     path('', include('frontend.urls')),
     path('rss/', include('rss_component.urls')),
 
@@ -48,7 +49,8 @@ urlpatterns = [
 
     # channels
     path('chat/', include("chat.urls")),
-    path("portfolio/", include("portfolio.urls"))
+    path("portfolio/", include("portfolio.urls")),
+    path("tickers/", include("tickers.urls")),
 
     
 

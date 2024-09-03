@@ -1,0 +1,30 @@
+{% extends "index.html" %}
+
+
+{% block content %}
+     <div class="container-fluid">
+        <div class="row">
+            <div class="col-4"></div>
+            <div class="col-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>CREATE TICKER</h4>
+                    </div>
+
+                    <div class="card-body">
+                        <form method="post" class="form">
+                            {% csrf_token %}
+                            {{ form }}
+                            <hr />
+                            <button type="submit" class="btn btn-success">
+                                <i class="fa fa-save"></i> SAVE
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+     </div>
+
+{% endblock %}
