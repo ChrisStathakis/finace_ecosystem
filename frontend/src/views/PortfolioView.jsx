@@ -6,9 +6,11 @@ import TopNavbarComponent from "../components/TopNavbar";
 import portfolioServices from "../data/services/portfolioServices"
 import tickerServices from "../data/services/ticker.services";
 import { current } from "@reduxjs/toolkit";
+import CreateTickerComponent from "../components/tickers/CreateTickerComponent";
 
 
-export default function PortfolioDetailView(){
+export default function PortfolioView(){
+    const [createTicker, setCreateTicker] = React.useState(false)
     const [addTickerForm, setAddTickerForm] = React.useState(false);
     const [showEditTicker, setShowEditTicker] = React.useState(false);
     const [searchName, setSearchName ] = React.useState("");
@@ -18,7 +20,8 @@ export default function PortfolioDetailView(){
 
     const portfolio_manager = useSelector(state => state.portfolio);
     const ticker_manager = useSelector(state => state.tickers);
-    const portfolio_id = portfolio_manager.portfolio_id;
+    const profile_manager = useSelector(state => state.profile)
+    const portfolio_id = profile_manager.portfolio_id;
 
     const portfolio = portfolio_manager.port_detail;
     const items = portfolio_manager.port_tickers;
@@ -26,7 +29,9 @@ export default function PortfolioDetailView(){
     const ticker = ticker_manager.selectedTicker;
 
     React.useEffect(()=>{
-        if (portfolio_id !== null){
+        console.log("port", portfolio_id, typeof portfolio_id)
+        console.log(profile_manager)
+        if (portfolio_id !== "undefined"){
             portfolioServices.fetch_portfolio(portfolio_id, dispatch);
             portfolioServices.fetch_user_active_tickers(portfolio_id, dispatch);
         }
@@ -38,7 +43,7 @@ export default function PortfolioDetailView(){
     }, [searchName])
 
     const selectTicker = (id) => {
-        console.log("id", id)
+        
         setAddTickerForm(true);
         tickerServices.fetchTicker(id, dispatch);
     }
@@ -78,6 +83,8 @@ export default function PortfolioDetailView(){
                             <div className="card">
                                 <div className="card-header">
                                     <h4>Items</h4>
+                                    <button onClick={()=> setCreateTicker(true)} className="btn btn-info">Create Ticker</button>
+                                    {createTicker ? <CreateTickerComponent closeWindow={()=> setCreateTicker(false)} /> : null}
                                 </div>
                                 <div className="card-body">
                                     <table className="table table-bordered">

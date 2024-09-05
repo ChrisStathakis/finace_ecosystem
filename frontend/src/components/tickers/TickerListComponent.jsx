@@ -1,10 +1,12 @@
 import * as React from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import tickersService from "../../data/services/ticker.services";
+import CreateTickerComponent from "./CreateTickerComponent";
 
 
 
 export default function TickerListComponent(props){
+    const [showCreateView, setShowCreateView] = React.useState(false);
     const tickerManager = useSelector(state => state.tickers);
     const dispatch = useDispatch();
 
@@ -26,10 +28,13 @@ export default function TickerListComponent(props){
                             <div className="card">
                                 <div className="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                                     <div className="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
-                                        <h6 className="text-white text-capitalize ps-3">Authors table</h6>
+                                        <h6 className="text-white text-capitalize ps-3">Tickers</h6>
+                                        
                                     </div>
                                 </div>
                                 <div className="card-body px-0 pb-2">
+                                    <button onClick={() => setShowCreateView(true)} className="btn btn-primary">CREATE TICKER</button>
+                                    {showCreateView ? <CreateTickerComponent closeWindow={()=> setShowCreateView(false)} /> : null}
                                     <div className="table-responsive p-0">
                                         <table className="table align-items-center mb-0">
                                         <thead>

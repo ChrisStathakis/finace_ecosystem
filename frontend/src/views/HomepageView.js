@@ -8,6 +8,7 @@ import tickerServices from '../data/services/ticker.services';
 import TickerDetailComponent from '../components/tickers/TickerDetailComponent';
 
 import tickersServices from '../data/services/ticker.services';
+import authServices from '../data/services/authServices';
 
 
 
@@ -18,6 +19,11 @@ export default function  HomepageView() {
     const dispatch = useDispatch();
     const navigate = "";
     const ticker_manager = useSelector(state => state.tickers);
+  
+
+    React.useEffect(()=>{
+        authServices.profile(dispatch);
+    }, [])
 
     React.useEffect(()=>{
         tickersServices.fetch_main_page_tickers(dispatch);

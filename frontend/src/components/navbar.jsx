@@ -57,6 +57,16 @@ export default function NavbarComponent(){
                         </a>
                     </li>
                     <li className="nav-item">
+                        <a className="nav-link text-white " href="/portfolio">
+                            
+                            <div className="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                                <i className="material-icons opacity-10">dashboard</i>
+                            </div>
+                            
+                            <span className="nav-link-text ms-1">Portfolio</span>
+                        </a>
+                    </li>
+                    <li className="nav-item">
                         <a className="nav-link text-white " href="/user">
                             
                             <div className="text-white text-center me-2 d-flex align-items-center justify-content-center">

@@ -33,5 +33,8 @@ class Profile(models.Model):
         earnings = self.current_value - self.starting_value
         return f"{round(earnings, 2)} {CURRENCY}"
 
+    @property
+    def portfolio_id(self):
+        return self.user.port.id
 
 

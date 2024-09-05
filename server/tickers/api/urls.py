@@ -4,7 +4,7 @@ from .views import (TickerListApiView, ticker_homepage_api_view, PortfolioListAp
                     PortfolioUpdateRetrieveApiView, UserTickerListApiView,
                     TickerRetrieveApiView, TickerDataFrameListApiView, UserTickerRetrieveApiView,
                     UserTickerUpdateDeleteApiView, TickerPredictionsApiView, UserTickerCreateApiView,
-                    efficient_frontier_view
+                    efficient_frontier_view, TickerCreateApiView
                     )
 
 app_name = 'api_tickers'
@@ -14,6 +14,7 @@ urlpatterns = [
 
     path("/efficient-frontier/", efficient_frontier_view, name="efficient_frontier"),
     path('tickers/list/', TickerListApiView.as_view(), name="tickers_list"),
+    path("ticker/create/", TickerCreateApiView.as_view(), name="ticker_create"),
     path("detail/<int:pk>/", TickerRetrieveApiView.as_view(), name="ticker_detail"),
     path("tickers/dataframe/", TickerDataFrameListApiView.as_view(), name="ticker_dataframe"),
     path("tickers/prediction/<int:pk>/", TickerPredictionsApiView.as_view(), name="ticker_prediction"),

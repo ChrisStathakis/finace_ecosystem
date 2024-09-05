@@ -2,6 +2,14 @@ from rest_framework import serializers
 from ..models import Ticker, TickerDataFrame
 from portfolio.models import Portfolio, UserTicker
 
+
+class TickerCreateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Ticker
+        fields = ['title', 'ticker', 'indices']
+
+
 class PortfolioSerializer(serializers.ModelSerializer):
     difference = serializers.DecimalField(max_digits=10, decimal_places=2, source="show_diff")
     diff_percent = serializers.DecimalField(max_digits=10, decimal_places=2, source="show_diff_percent")
@@ -34,13 +42,11 @@ class UserTickerEditSerializier(serializers.ModelSerializer):
 
 
 
-
 class UserTickerBaseSerializer(serializers.ModelSerializer):
     title = serializers.CharField(source="ticker.title")
     code = serializers.CharField(source="ticker.ticker")
-    difference = serializers.DecimalField(source="tag_diff", decimal_places=2, max_digits=10)
-    diff_percent = serializers.DecimalField(source="tag_diff_pct", decimal_places=2, max_digits=10
-                                            )
+    difference = serializers.DecimalField(source="diff_value", decimal_places=2, max_digits=10)
+    diff_percent = serializers.DecimalField(source="diff_pct", decimal_places=2, max_digits=10)
 
     class Meta:
         model = UserTicker
@@ -49,7 +55,6 @@ class UserTickerBaseSerializer(serializers.ModelSerializer):
                   "is_sell",
                   
                   ]
-
 
 
 class TickerSerializer(serializers.ModelSerializer):

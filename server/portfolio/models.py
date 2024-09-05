@@ -169,6 +169,9 @@ class UserTicker(models.Model):
     def tag_diff_value(self):
         return f"{round(self.current_value - self.starting_investment, 2)} {CURRENCY}"
 
+    def diff_value(self):
+        return self.current_value - self.starting_investment
+
     def tag_diff_price(self):
         return f"{round(self.current_value_of_ticker - self.starting_value_of_ticker, 2)} {CURRENCY}"
 
@@ -177,6 +180,10 @@ class UserTicker(models.Model):
         first_step = first_step - 1
         return f"{round(first_step*100, 2)} %"
 
+    def diff_pct(self):
+        first_step = self.current_value / self.starting_investment
+        first_step = first_step - 1
+        return first_step*100
 
     def tag_ticker_title(self):
         return f"{self.ticker.title}"

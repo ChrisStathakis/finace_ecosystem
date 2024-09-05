@@ -7,7 +7,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.reverse import reverse
 
 from .serializers import (TickerSerializer, PortfolioSerializer, UserTickerBaseSerializer, TickerDataFrameSerializer,
-                          TickerPredictionSerializer, UserTickerEditSerializier
+                          TickerPredictionSerializer, UserTickerEditSerializier, TickerCreateSerializer
                           )
 from ..models import Ticker, TickerDataFrame
 from portfolio.models import Portfolio, UserTicker
@@ -38,6 +38,11 @@ def efficient_frontier_view(request, format=None):
         results[f"{port.title}"] = port.efficient_frontier()
     print("results",  results)
     return Response({"portfolios": results})
+
+
+class TickerCreateApiView(CreateAPIView):
+    serializer_class = TickerCreateSerializer
+    permission_classes = [IsAuthenticated, ]
 
 
 class PortfolioListApiView(ListCreateAPIView):

@@ -11,8 +11,8 @@ import RssViewList from './views/RssViewList.jsx';
 import UserView from './views/UserView.jsx';
 import LoginView from './views/LoginView.jsx';
 import LogoutComponent from './components/LogoutComponent.jsx';
-import PortfolioDetailView from './views/PortfolioDetailView.jsx';
 import ErrorPage from './views/ErrorPage.jsx';
+import PortfolioView from './views/PortfolioView.jsx';
 
 
 
@@ -44,8 +44,8 @@ const router = createBrowserRouter([
     element: <LogoutComponent />
   },
   {
-    path:"/port",
-    element: <PortfolioDetailView />,
+    path:"/portfolio",
+    element: <PortfolioView />,
     errorElement: <ErrorPage />
   }
 ])
