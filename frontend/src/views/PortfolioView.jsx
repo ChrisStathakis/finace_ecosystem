@@ -7,9 +7,11 @@ import portfolioServices from "../data/services/portfolioServices"
 import tickerServices from "../data/services/ticker.services";
 import { current } from "@reduxjs/toolkit";
 import CreateTickerComponent from "../components/tickers/CreateTickerComponent";
+import AddTickerToPortfolioComponent from "../components/portfolios/AddTickerToPortfolio";
 
 
 export default function PortfolioView(){
+    const [selectTickerId, setSelectTickerID] = React.useState(0);
     const [createTicker, setCreateTicker] = React.useState(false)
     const [addTickerForm, setAddTickerForm] = React.useState(false);
     const [showEditTicker, setShowEditTicker] = React.useState(false);
@@ -28,6 +30,7 @@ export default function PortfolioView(){
     const tickers = ticker_manager.tickers;
     const ticker = ticker_manager.selectedTicker;
 
+
     React.useEffect(()=>{
         console.log("port", portfolio_id, typeof portfolio_id)
         console.log(profile_manager)
@@ -42,10 +45,10 @@ export default function PortfolioView(){
         tickerServices.fetchTickers(searchName, dispatch);
     }, [searchName])
 
+
     const selectTicker = (id) => {
-        
         setAddTickerForm(true);
-        tickerServices.fetchTicker(id, dispatch);
+        setSelectTickerID(id);
     }
 
     const sellTicker = (data) => {
@@ -70,6 +73,9 @@ export default function PortfolioView(){
         portfolioServices.create_user_ticker(data, dispatch);
     };
 
+    const handleDelete = (id) => {
+        portfolioServices.delete_user_ticker(id, portfolio_id, dispatch);
+    }
     
 
     return (
@@ -90,6 +96,7 @@ export default function PortfolioView(){
                                     <table className="table table-bordered">
                                         <thead>
                                             <tr>
+                                                <th>--</th>
                                                 <th>TICKER</th>
                                                 <th>CODE</th>
                                                 <th>STARTING VALUE</th>
@@ -104,6 +111,7 @@ export default function PortfolioView(){
                                             {items.map((ele)=>{
                                                 return (
                                                     <tr>
+                                                        <td><button onClick={() => handleDelete(ele.id)} className="btn btn-danger">DELETE</button></td>
                                                         <td>{ ele.title }</td>
                                                         <td>{ ele.code }</td>
                                                         <td>{ ele.starting_investment }</td>
@@ -112,7 +120,7 @@ export default function PortfolioView(){
                                                         <td>{ ele.ticker }</td>
                                                         <td>{ ele.ticker }</td>
                                                         <td>
-                                                            <button onClick={() => sellTicker(ele)} className="btn btn-danger">Close </button>
+                                                            <button onClick={() => sellTicker(ele)} className="btn btn-success">Close </button>
                                                         </td>
                                                     </tr>
                                                 )
@@ -156,22 +164,8 @@ export default function PortfolioView(){
                         </div>
 
                         <div className="col-8">
-                            {addTickerForm ?
-                            <div className="card">
-                                <div className="card-header">
-                                    <h4>{ticker.title}</h4>
-                                    <button onClick={() => setAddTickerForm(false)} className="btn btn-warning">Close</button>
-                                </div>
-                                <div className="card-body"> 
-                                    <form className="form">
-                                        <div className="form-group">
-                                            <label>Add the Invest</label>
-                                            <input value={qty} onChange={(e)=> setQty(e.target.value)} style={{borderBlockColor: "grey"}} type="number" step="0.001" className="form-control"  />
-                                        </div>
-                                        <button onClick={(e)=> addTickerToPortfolio(e)}  className="btn btn-success">Add to Portfolio</button>
-                                    </form>
-                                </div>
-                            </div>
+                            {addTickerForm ? <AddTickerToPortfolioComponent ticker={selectTickerId} />
+                            
                         : 
                         
                             <div className="card">

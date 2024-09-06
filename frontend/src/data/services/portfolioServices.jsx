@@ -1,5 +1,5 @@
 import axiosInstance from "../axiosInstance";
-import { PORTFOLIO_DETAIL_ENDPOINT, PORTFOLIO_LIST_ENDPOINT, USER_TICKERS_LIST_ENDPOINT, USER_TICKER_CREATE_ENDPOINT, USER_TICKER_DETAIL_ENDPOINT, USER_TICKER_UPDATE_ENDPOINT } from "../endpoints";
+import { PORTFOLIO_DETAIL_ENDPOINT, PORTFOLIO_LIST_ENDPOINT, USER_TICKERS_LIST_ENDPOINT, USER_TICKER_CREATE_ENDPOINT, USER_TICKER_DELETE_ENDPOINT, USER_TICKER_DETAIL_ENDPOINT, USER_TICKER_UPDATE_ENDPOINT } from "../endpoints";
 import { create_port_ticker_action, create_portfolio_action, fetch_port_tickers_action, fetch_portfolio_action,
          fetch_portfolios_action, selectPortfolioAction, update_port_ticker_action
  } from "../slices/portfolioSlice";
@@ -84,6 +84,17 @@ function edit_user_ticker(data, dispatch) {
         )
 };
 
+function delete_user_ticker(id, port_id, dispatch){
+    const endpoint =  `${USER_TICKER_DELETE_ENDPOINT}/${id}/`;
+    axiosInstance.delete(endpoint)
+        .then(
+            (resp) => {
+                fetch_portfolio(port_id, dispatch);
+                fetch_user_tickers(port_id, dispatch);
+            }
+        )
+}
+
 function select_portfolio(port_id, dispatch){
     dispatch(selectPortfolioAction(port_id))
 }
@@ -97,5 +108,6 @@ export default {
     create_user_ticker,
     edit_user_ticker,
     select_portfolio,
-    fetch_user_active_tickers
+    fetch_user_active_tickers,
+    delete_user_ticker
 }

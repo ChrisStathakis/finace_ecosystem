@@ -33,6 +33,7 @@ const portfolioSlice = createSlice({
         update_port_ticker_action: (state, action) => {
             state.port_detail = action.payload;
         },
+       
         selectPortfolioAction: (state, action) => {
             state.portfolio_id = action.payload;
             localStorage.setItem(PORTFOLIO_ID, action.payload);

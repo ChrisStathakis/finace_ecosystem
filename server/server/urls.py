@@ -42,6 +42,7 @@ urlpatterns = [
     path("api/", include("accounts.api.urls")),
     path('api/tickers/', include('tickers.api.urls')),
     path("api/rss-feed/", include("rss_component.api.urls")),
+    path("api/portfolio/", include("portfolio.api.urls")),
 
 
     path("initial-data/", initial_data_view),

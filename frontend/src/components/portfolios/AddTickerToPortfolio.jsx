@@ -9,15 +9,16 @@ export default function AddTickerToPortfolioComponent(props){
 
     const dispatch = useDispatch();
     const portfolio_manager = useSelector(state => state.portfolio);
-    console.log("portofolio", portfolio_manager.portfolio)
+
 
     const [starting_investment, setStartingInvestment] = React.useState(0);
-
+    const [price, setPrice] = React.useState(0);
 
     const handleSubmit = () => {
         
         const data = {
             qty: 0,
+            starting_value_of_ticker: price,
             starting_investment: starting_investment,
             ticker: props.ticker,
             portfolio: portfolio_manager.portfolio.id
@@ -44,6 +45,14 @@ export default function AddTickerToPortfolioComponent(props){
                         <input 
                             value={starting_investment} 
                             onChange={(e)=> setStartingInvestment(e.target.value)}
+                            type="number" 
+                            className="form-control"
+                            style={{backgroundColor: "#ffca7b"}}
+                            step="0.01"
+                        />
+                        <input 
+                            value={price} 
+                            onChange={(e)=> setPrice(e.target.value)}
                             type="number" 
                             className="form-control"
                             style={{backgroundColor: "#ffca7b"}}
