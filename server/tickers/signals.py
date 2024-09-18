@@ -5,7 +5,8 @@ import pandas as pd
 import yfinance as yf
 from datetime import datetime
 from decimal import Decimal
-from .models import Ticker, TickerDataFrame, Indices, UserTicker
+from .models import Ticker, TickerDataFrame
+from portfolio.models import UserTicker, Portfolio
 
 
 @receiver(post_save, sender=Ticker)

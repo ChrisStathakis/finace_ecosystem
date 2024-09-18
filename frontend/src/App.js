@@ -28,6 +28,10 @@ const router = createBrowserRouter([
     element: <TickerView />
   },
   {
+    path:"/portfolio",
+    element: <PortfolioDetailView />
+  },
+  {
     path:"/rss",
     element: <RssViewList />
   },

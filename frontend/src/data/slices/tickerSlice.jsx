@@ -44,13 +44,17 @@ const tickerSlice = createSlice({
         fetch_main_page_tickers_action: (state, action) => {
             console.log(action.payload);
             state.main_page_tickers = action.payload.results;
+        },
+        create_ticker_action: (state, action) => {
+            state.tickers.results = [...state.tickers.results, action.payload];
+            state.tickers.count = state.count + 1; 
         }
     }
 });
 
 
 export const { fetch_tickers_action, fetch_ticker_action, fetch_ticker_dataframe_action,
-     fetch_rss_feed_action, fetch_main_page_tickers_action
+     fetch_rss_feed_action, fetch_main_page_tickers_action, create_ticker_action
 
     } = tickerSlice.actions;
 export default tickerSlice.reducer;

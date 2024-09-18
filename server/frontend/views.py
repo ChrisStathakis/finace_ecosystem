@@ -2,11 +2,11 @@ from django.shortcuts import render, get_object_or_404, HttpResponseRedirect, re
 from django.views.generic import ListView, CreateView, UpdateView, DetailView
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from tickers.models import Portfolio, Ticker, UserTicker, TickerDataFrame
-
+from tickers.models import Ticker, TickerDataFrame
+from portfolio.models import Portfolio, UserTicker
 from strategies.models import TickerAnalysis
 from tickers.tasks import update_ticker_from_detail_page
-from tickers.forms import PortfolioBaseForm, UserTickerForm
+from portfolio.forms import PortfolioBaseForm, UserTickerForm
 from rss_component.models import RssFeed
 
 

@@ -56,7 +56,8 @@ INSTALLED_APPS = [
     'accounts',
     'rss_component',
     "strategies",
-    "chat"
+    "chat",
+    "portfolio"
 
 
 ]

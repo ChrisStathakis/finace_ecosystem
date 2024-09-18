@@ -9,7 +9,8 @@ from asgiref.sync import async_to_sync
 import json
 from django.core.serializers import serialize
 import logging
-from .models import Ticker, UserTicker, Portfolio
+from .models import Ticker
+from portfolio.models import UserTicker, Portfolio
 from .StockManager import StockManager
 logger = logging.getLogger(__name__)
 
@@ -37,6 +38,7 @@ def update_user_tickers():
     for ticker in user_tickers:
         ticker.ticker.save()
         ticker.save()
+
 
 @shared_task 
 def refresh_ticker_data():
