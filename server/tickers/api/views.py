@@ -16,13 +16,10 @@ from ..models import Ticker, TickerDataFrame
 def ticker_homepage_api_view(request, format=None):
     return Response({
         'tickers': reverse('api_tickers:tickers_list', request=request, format=format),
-        "portfolios": reverse("api_port:list", request=request, format=format),
         "ticker_dataframe": reverse("api_tickers:ticker_dataframe", request=request, format=format),
-        "user_ticker_list": reverse("api_tickers:user_ticker_list", request=request, format=format),
-        "efficient_frontier": reverse("api_tickers:efficient_frontier", request = request, format = format),
+        "create": reverse("api_tickers:ticker_create", request=request, format=format)
 
     })
-
 
 
 class TickerCreateApiView(CreateAPIView):

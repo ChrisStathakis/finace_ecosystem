@@ -4,10 +4,20 @@ from rest_framework.generics import (DestroyAPIView, ListCreateAPIView, Retrieve
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from rest_framework.reverse import reverse
 from django_filters.rest_framework import DjangoFilterBackend
 from .permissions import IsAuthenticatedCustom
 from ..models import UserTicker, Portfolio
 from .serializers import UserTickerSerializer, PortfolioSerializer, UserTickerBaseSerializer, UserTickerEditSerializer
+
+
+@api_view(['GET'])
+def ticker_homepage_api_view(request, format=None):
+    return Response({
+        "portfolios": reverse("api_port:list", request=request, format=format),
+        "user_ticker_list": reverse("api_port:user_ticker_list", request=request, format=format),
+        "efficient_frontier": reverse("api_port:efficient_frontier", request = request, format = format),
+    })
 
 
 class PortfolioListApiView(ListCreateAPIView):

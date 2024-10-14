@@ -66,6 +66,7 @@ class Ticker(models.Model):
         ('^GDAXI', 'GERMAN_DAX'),
         ('^FTSE', 'LONDON_FTSE')
     )
+    created = models.BooleanField(default=False)
     ticker_category = models.ForeignKey(TickerCategory, blank=True, null=True, on_delete=models.SET_NULL)
     updated = models.DateTimeField(blank=True, null=True)
     title = models.CharField(max_length=200, null=True)
@@ -98,9 +99,10 @@ class Ticker(models.Model):
         self.wikipedia_url = self.find_wikipedia_url()
         if self.id:
             self.create_tags()
+
         market = self.indices if self.indices else "^GSPC"
         helper = TickerHelper(self.ticker, market)
-     
+
         data = helper.calculate_values()
         self.price = data['price']
         self.simply_return = data['simply_return']
@@ -108,10 +110,10 @@ class Ticker(models.Model):
         self.log_return = data['log_return']
         self.market_variance = data['market_variance']
         self.prediction = float(self.predict_next_day())
-      
-        self.date_predict = datetime.now() + timedelta(days=1)
+
+        self.date_predict = datetime.now() + timedelta(days = 1)
         # self._refresh_ticker(is_updated=True)
-        
+        self.created = True
         super().save(*args, **kwargs)
 
 
