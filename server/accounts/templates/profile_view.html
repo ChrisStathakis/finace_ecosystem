@@ -10,7 +10,7 @@
             <div class="card">
 
                 <div class="card-header">
-                    <h4>{{ user.username }}</h4>
+                    <h4>CURRENT</h4>
                 </div>
 
                 <div class="card-body">
@@ -77,6 +77,77 @@
                         </tbody>
                     </table>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">
+            <div class="card">
+
+                <div class="card-header">
+                    <h4>HISTORIC</h4>
+                </div>
+
+                <div class="card-body">
+                    <h5>Statistics</h5>
+                    <table class="table table-bordered">
+                        <thead>
+
+                            <tr>
+                                <th>INVESTMENT: </th>
+                                <th>{{ profile.tag_starting_value }}</th>
+                            </tr>
+
+                            <tr>
+                                <th>VALUE</th>
+                                <th>{{ profile.tag_current_value }}</th>
+                            </tr>
+
+                            <tr>
+                                <th>EARNINGS</th>
+                                <th>{{ profile.tag_earnings }}</th>
+                            </tr>
+
+                        </thead>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-4">
+            <div class="card">
+
+                <div class="card-header">
+                    <h4>{{ user.username }}</h4>
+                </div>
+
+                <div class="card-body">
+                    <h5>Statistics</h5>
+                    <table class="table table-bordered">
+                        <thead>
+
+                            <tr>
+                                <th>INVESTMENT: </th>
+                                <th>{{ profile.tag_starting_value }}</th>
+                            </tr>
+
+                            <tr>
+                                <th>VALUE</th>
+                                <th>{{ profile.tag_current_value }}</th>
+                            </tr>
+
+                            <tr>
+                                <th>EARNINGS</th>
+                                <th>{{ profile.tag_earnings }}</th>
+                            </tr>
+
+                        </thead>
+                    </table>
+                </div>
+
             </div>
         </div>
     </div>

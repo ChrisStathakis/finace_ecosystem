@@ -10,11 +10,12 @@
                  <th>Date</th>
                  <th>Title</th>
                  <th>Investment</th>
-                 <th>Current Value</th>
-                 <th>+/-</th>
                  <th>Buy Price</th>
                  <th>Current Price</th>
+                 <th>Current Value</th>
                  <th>+/-</th>
+
+
                  <th>-</th>
                  <th>-</th>
              </tr>
@@ -26,12 +27,13 @@
                  <td>{{ ele.ticker }}</td>
 
                  <td>{{ ele.tag_starting_value}}</td>
+                 <td>{{ ele.tag_starting_price }}</td>
+                 <td>{{ ele.tag_current_price }}</td>
                  <td>{{ ele.tag_current_value }}</td>
                  <td>{{ ele.tag_diff_value }}</td>
 
-                 <td>{{ ele.tag_starting_price }}</td>
-                 <td>{{ ele.tag_current_price }}</td>
-                 <td>{{ ele.tag_diff_price }}</td>
+
+
 
                  <td>{{ ele.tag_diff_pct }}</td>
                  <th><a href="{% url 'port:sell' ele.id %}" class="btn btn-warning">SELL</a> </th>

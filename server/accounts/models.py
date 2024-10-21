@@ -16,8 +16,8 @@ class Profile(models.Model):
 
     def save(self, *args, **kwargs):
         qs = self.user.port.port_tickers.all()
-        self.starting_value = qs.aggregate(Sum("starting_investment"))["starting_investment__sum"] or 0
-        self.starting_value = qs.aggregate(Sum("current_value"))["current_value__sum"] or 0
+        self.starting_value = qs.filter(is_sell=False).aggregate(Sum("starting_investment"))["starting_investment__sum"] or 0
+        self.current_value = qs.filter(is_sell=False).aggregate(Sum("current_value"))["current_value__sum"] or 0
         super().save(*args, **kwargs)
 
     def __str__(self):
