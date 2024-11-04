@@ -20,7 +20,7 @@
 
                             <tr>
                                 <th>INVESTMENT: </th>
-                                <th>{{ profile.tag_starting_value }}</th>
+                                <th>{{ profile.tag_current_investment }}</th>
                             </tr>
 
                             <tr>
@@ -30,7 +30,7 @@
 
                             <tr>
                                 <th>EARNINGS</th>
-                                <th>{{ profile.tag_earnings }}</th>
+                                <th>{{ profile.tag_current_diff }}</th>
                             </tr>
 
                         </thead>
@@ -57,20 +57,30 @@
                                 <th>Investment</th>
                                 <th>Current/ Sale Price</th>
                                 <th>Earnings</th>
-                                <th>Date Sale</th>
+                                <th>Is Closed</th>
                             </tr>
                         </thead>
 
                         <tbody>
                             {% for ele in user_tickers %}
                                 <tr>
-                                    <td>{{ ele.date_created }}</td>
+                                    <td>{{ ele.timestamp }}</td>
                                     <td>{{ ele.ticker }}</td>
                                     <td>{{ ele.tag_starting_price }}</td>
                                     <td>{{ ele.tag_starting_value }}</td>
                                     <td>{{ ele.tag_current_value }}</td>
-                                    <td>{{ ele.tag_diff_value }}</td>
-                                    <td>{{ ele.is_sell }}</td>
+                                    <td><span
+                                            {% if ele.diff_value > 0 %}
+                                                class="badge badge-success"
+                                            {% else %}
+                                                class="badge badge-danger"
+                                            {% endif %} >{{ ele.tag_diff_value }} / {{ ele.tag_diff_pct }}</span></td>
+                                    <td>
+                                        {% if ele.is_sell %}
+                                        <i class="fa fa-check" aria-hidden="true"></i>
+                                        {%  else %}
+                                        <i class="fa fa-ban" aria-hidden="true"></i>{% endif %}
+                                    </td>
 
                                 </tr>
                             {% endfor %}
@@ -95,53 +105,17 @@
 
                             <tr>
                                 <th>INVESTMENT: </th>
-                                <th>{{ profile.tag_starting_value }}</th>
+                                <th>{{ profile.tag_investment }}</th>
                             </tr>
 
                             <tr>
                                 <th>VALUE</th>
-                                <th>{{ profile.tag_current_value }}</th>
+                                <th>{{ profile.tag_value }}</th>
                             </tr>
 
                             <tr>
                                 <th>EARNINGS</th>
-                                <th>{{ profile.tag_earnings }}</th>
-                            </tr>
-
-                        </thead>
-                    </table>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-4">
-            <div class="card">
-
-                <div class="card-header">
-                    <h4>{{ user.username }}</h4>
-                </div>
-
-                <div class="card-body">
-                    <h5>Statistics</h5>
-                    <table class="table table-bordered">
-                        <thead>
-
-                            <tr>
-                                <th>INVESTMENT: </th>
-                                <th>{{ profile.tag_starting_value }}</th>
-                            </tr>
-
-                            <tr>
-                                <th>VALUE</th>
-                                <th>{{ profile.tag_current_value }}</th>
-                            </tr>
-
-                            <tr>
-                                <th>EARNINGS</th>
-                                <th>{{ profile.tag_earnings }}</th>
+                                <th>{{ profile.tag_diff }}</th>
                             </tr>
 
                         </thead>
