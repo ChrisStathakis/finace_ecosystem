@@ -7,10 +7,8 @@ from tickers.models import Ticker
 from portfolio.models import Portfolio
 
 
-
 @login_required
 def search_tickers_json_view(request, pk):
-
     instance = get_object_or_404(Portfolio, id=pk)
     tickers = Ticker.filter_data(Ticker.objects.all(), request)
     data = dict()

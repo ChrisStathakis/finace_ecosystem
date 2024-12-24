@@ -174,36 +174,31 @@ CHANNEL_LAYERS = {
     },
 }
 
-
-CELERY_BROKER_URL = "redis://localhost:6379" # "redis://localhost:6379/0"
-
+# CELERY_RESULT_BACKEND = "django-db"
+CELERY_BROKER_URL = "redis://localhost:6379/0" # "redis://localhost:6379/0"
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers.DatabaseScheduler'
 CELERY_TIMEZONE = 'UTC'
 CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 30 * 60
-CELERY_RESULT_BACKEND = 'django-db'
-CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers.DatabaseScheduler'
+# CELERY_RESULT_BACKEND = 'django-db'
 
-
-"""
 CELERY_BEAT_SCHEDULE = {
-    'refresh_rss_daily': {
-        'task': 'rss_component.tasks.refresh_rss',
-        'schedule': timedelta(seconds=60*60*24) # 86400
+    "refresh_ticker_every_ten_minutes": {
+        "task": "tickers.tasks.refresh_ticker_data",
+        "schedule": timedelta(seconds=10*60)
     },
-    "refresh_ticker_hourly": {
-        "task": "tickers.tasks.daily_update_data_task",
-        "schedule": timedelta(seconds=60*60)
+    "fetch_rss_data_daily": {
+        'task': "rss_component.tasks.refresh_rss",
+        "schedule": timedelta(days=1)
     }
 }
-"""
-
 
 
 CELERY_BEAT_LOG_FILE = 'celery_beat.log'
 
 
 REST_FRAMEWORK = {
-    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.BasicAuthentication',

@@ -6,7 +6,8 @@ const initialState = {
     portfolios: [],
     port_detail: {},
     port_tickers: [],
-    portfolio_id: localStorage.getItem(PORTFOLIO_ID)
+    portfolio_id: localStorage.getItem(PORTFOLIO_ID),
+    all_tickers: []
     
 }
 
@@ -37,6 +38,9 @@ const portfolioSlice = createSlice({
         selectPortfolioAction: (state, action) => {
             state.portfolio_id = action.payload;
             localStorage.setItem(PORTFOLIO_ID, action.payload);
+        },
+        fetch_all_user_tickers_action: (state, action) => {
+            state.all_tickers = action.payload.results;
         }
         
     }
@@ -44,7 +48,7 @@ const portfolioSlice = createSlice({
 
 export const {
     fetch_port_tickers_action, fetch_portfolio_action, fetch_portfolios_action, create_portfolio_action, 
-    create_port_ticker_action, update_port_ticker_action, selectPortfolioAction
+    create_port_ticker_action, update_port_ticker_action, selectPortfolioAction, fetch_all_user_tickers_action
 } = portfolioSlice.actions;
 
 export default portfolioSlice.reducer;

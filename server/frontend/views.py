@@ -13,7 +13,6 @@ def homepage_view(request):
     return render(request, 'index.html', context=context)
 
 
-
 def update_ticker_portfolio_view(request, pk):
     instance = get_object_or_404(Ticker, id=pk)
     instance.save()

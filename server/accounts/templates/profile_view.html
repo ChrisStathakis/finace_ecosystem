@@ -64,13 +64,13 @@
                         <tbody>
                             {% for ele in user_tickers %}
                                 <tr>
-                                    <td>{{ ele.date_created }}</td>
+                                    <td>{{ ele.timestamp }}</td>
                                     <td>{{ ele.ticker }}</td>
                                     <td>{{ ele.tag_starting_price }}</td>
                                     <td>{{ ele.tag_starting_value }}</td>
                                     <td>{{ ele.tag_current_value }}</td>
                                     <td>{{ ele.tag_diff_value }}</td>
-                                    <td>{{ ele.is_sell }}</td>
+                                    <td>{{ ele.tag_status|safe }}</td>
 
                                 </tr>
                             {% endfor %}
@@ -95,17 +95,17 @@
 
                             <tr>
                                 <th>INVESTMENT: </th>
-                                <th>{{ profile.tag_starting_value }}</th>
+                                <th>{{ profile.tag_withdraw_starting_value }}</th>
                             </tr>
 
                             <tr>
                                 <th>VALUE</th>
-                                <th>{{ profile.tag_current_value }}</th>
+                                <th>{{ profile.tag_withdraw_value }}</th>
                             </tr>
 
                             <tr>
                                 <th>EARNINGS</th>
-                                <th>{{ profile.tag_earnings }}</th>
+                                <th>{{ profile.tag_withdraw_earnings }}</th>
                             </tr>
 
                         </thead>
@@ -121,7 +121,7 @@
             <div class="card">
 
                 <div class="card-header">
-                    <h4>{{ user.username }}</h4>
+                    <h4>TOTAL</h4>
                 </div>
 
                 <div class="card-body">
@@ -131,17 +131,17 @@
 
                             <tr>
                                 <th>INVESTMENT: </th>
-                                <th>{{ profile.tag_starting_value }}</th>
+                                <th>{{ profile.tag_historic_deposits }}</th>
                             </tr>
 
                             <tr>
                                 <th>VALUE</th>
-                                <th>{{ profile.tag_current_value }}</th>
+                                <th>{{ profile.tag_historic_value }}</th>
                             </tr>
 
                             <tr>
                                 <th>EARNINGS</th>
-                                <th>{{ profile.tag_earnings }}</th>
+                                <th>{{ profile.tag_historic_earnings }}</th>
                             </tr>
 
                         </thead>

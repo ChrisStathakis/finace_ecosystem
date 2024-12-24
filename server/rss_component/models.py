@@ -16,6 +16,14 @@ RSS_URL = [
 ]
 
 
+ECONOMIST_ENDPOINTS = [
+    "https://www.economist.com/the-world-this-week/rss.xml",
+    "https://www.economist.com/finance-and-economics/rss.xml",
+    "https://www.economist.com/business/rss.xml"
+
+]
+
+
 
 def find_words(text: str) -> list:
     words = re.findall(r'\b\w+\b', text)
@@ -43,8 +51,23 @@ class RssFeed(models.Model):
         return " ".join(ticker.ticker for ticker in self.tickers.all())
 
     @staticmethod
+    def fetch_economist_data():
+        for endpoint in ECONOMIST_ENDPOINTS:
+            d = feedparser.parse(endpoint)
+            for feed in d.entries[:10]:
+                feed_id = feed.guid.split("content/")[1]
+                exists = RssFeed.objects.filter(rss_id=feed_id).exists()
+                if not exists:
+                    RssFeed.objects.create(
+                        title=feed.title,
+                        published=datetime.now(),
+                        summary=feed.description,
+                        rss_id=feed_id
+                    )
+
+    @staticmethod
     def create_data():
-        # downloads the new rss. Its better for use every day or some hours period
+        # downloads the new rss. It's better for use every day or some hours period
         for endpoint in RSS_URL:
             d = feedparser.parse(endpoint)
 

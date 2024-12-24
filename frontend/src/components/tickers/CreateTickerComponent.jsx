@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 export default function CreateTickerComponent(props){
     const [ticker, setTicker] = React.useState("");
     const [title, setTitle] = React.useState("");
-    const [indices, setIndices] = React.useState("");
+    
 
     const dispatch = useDispatch();
 
@@ -15,7 +15,7 @@ export default function CreateTickerComponent(props){
         const data = {
             title,
             ticker,
-            indices
+
         }
         tickerServices.createTicker(data, dispatch);
         props.closeWindow();
@@ -35,15 +35,15 @@ export default function CreateTickerComponent(props){
 
                             <div class="form-group">
                                 <label for="title">TITLE</label>
-                                <input type="text" value={title} onChange={(e)=> setTitle} className="form-control" id="title" placeholder="Enter Title" />   
+                                <input type="text" value={title} onChange={(e)=> setTitle(e.target.value)} className="form-control" id="title" placeholder="Enter Title" />   
                             </div>
 
                             <div class="form-group">
-                                <label for="code">CODE</label>
-                                <input type="text" className="form-control" id="code" placeholder="Enter Title" />   
+                                <label for="code">TICKER</label>
+                                <input onChange={(e) => setTicker(e.target.value)} value={ticker}   type="text" className="form-control" id="code" placeholder="Enter Ticker" />   
                             </div>
 
-                            <button className="btn btn-success">Save</button>
+                            <button onClick={()=> handleSubmit()} className="btn btn-success">Save</button>
                         </form>
                     </div>
                 </div>

@@ -95,11 +95,11 @@ class Ticker(models.Model):
         return self.title
     
     def save(self, *args, **kwargs):
+        # if self.id: self.update_ticker_data()
+        super().save(*args, **kwargs)
 
-        self.wikipedia_url = self.find_wikipedia_url()
-        if self.id:
-            self.create_tags()
 
+    def update_ticker_data(self):
         market = self.indices if self.indices else "^GSPC"
         helper = TickerHelper(self.ticker, market)
 
@@ -111,12 +111,9 @@ class Ticker(models.Model):
         self.market_variance = data['market_variance']
         self.prediction = float(self.predict_next_day())
 
-        self.date_predict = datetime.now() + timedelta(days = 1)
+        self.date_predict = datetime.now() + timedelta(days=1)
         # self._refresh_ticker(is_updated=True)
         self.created = True
-        super().save(*args, **kwargs)
-
-
 
     @staticmethod
     def search_entities(entities: list):
@@ -134,18 +131,6 @@ class Ticker(models.Model):
         print("------------")
             
         return response.url
-        if not self.wikipedia_url:
-            url = f"https://en.wikipedia.org/w/index.php?search={self.title}"
-            response = requests.get(url)
-            print("--------------")
-            print(response.url)
-            print(url)
-            print("------------")
-            
-            return response.url
-        return self.wikipedia_url
-
-
 
     def create_tags(self):
         market = self.indices if self.indices else "^GSPC"
@@ -154,7 +139,6 @@ class Ticker(models.Model):
         for result in results:
             new_result, created = Tags.objects.get_or_create(title=result[0], label=result[1])
             self.ticker_tags.add(new_result)
-
 
     def _refresh_ticker(self, is_updated: bool = True):
         indice, ticker = self.indices, self.ticker
@@ -310,17 +294,21 @@ class Ticker(models.Model):
                 data['regime'][i+1] = 1
             else:
                 data['regime'][i+1] = 0
-
         return data
 
+    def create_ticker_database(self):
+        last_day = self.ticker_df.first() if self.ticker_df.exists() else '2010-01-01'
+        df: pd.DataFrame = yf.download(self.ticker, start=last_day, end=datetime.now())
+        df.reset_index()
+        for _, row in df.iterrows():
+            TickerDataFrame.objects.create(date=row.name.date(), close=Decimal(row['Close']), ticker=self)
 
     @staticmethod
-    def create_ticker_database():
+    def create_tickers():
         dataframe = openpyxl.load_workbook("tickers/media/companies.xlsx")
         dataframe1 = dataframe.active
         for row in dataframe1:
             obj = Ticker.objects.create(ticker=row[0].value, title=row[1].value)
-
 
 
 

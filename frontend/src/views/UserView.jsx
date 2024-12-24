@@ -7,12 +7,12 @@ import userService from "../data/services/authServices";
 import NavbarComponent from "../components/navbar";
 import TopNavbarComponent from "../components/TopNavbar";
 import PortfolioListComponent from "../components/portfolios/PortfolioListComponent";
-import PortfolioCreateComponent from "../components/portfolios/PortofolioCreateComponent";
 import PortfolioDetailComponent from "../components/portfolios/PortfolioDetailComponent";
 import authServices from "../data/services/authServices";
+import UserTickerListComponent from "../components/user_page/UserTickerListComponent";
+
 
 export default function UserView(){
-    const [showList, setShowList] = React.useState(true);
     const [showDetail, setShowDetail] = React.useState(false);
     
     const navigate = useNavigate();
@@ -42,7 +42,7 @@ export default function UserView(){
     }, [])
 
     
-    const handleCreateView = () => {setShowList(!showList)}
+
     const handleShowDetail = () => {setShowDetail(true)}
 
     return (
@@ -60,11 +60,36 @@ export default function UserView(){
                                     <h4>{user.username}</h4>
                                 </div>
                                 <div className="card-body">
-                                    <ul>
-                                        <li>Starting Value: {profile_manager.starting_value}</li>
-                                        <li>Current Value: {profile_manager.current_value}</li>
-                                        
-                                    </ul>
+                                    <div className="row">
+                                        <div className="col-12">
+                                            <h4> CURRENT </h4>
+                                            <ul>
+                                                <li>Starting Value: {profile_manager.starting_value}</li>
+                                                <li>Current Value: {profile_manager.current_value}</li>
+                                                <li>Earnings Value: {profile_manager.earnings}  </li>
+                                            </ul>
+
+                                        </div>
+
+                                        <div className="col-12">
+                                            <h4> HISTORIC </h4>
+                                            <ul>
+                                                <li>Starting Value: {profile_manager.starting_withdraw_value}</li>
+                                                <li>Current Value: {profile_manager.withdraw_value}</li>
+                                                <li>Earnings Value: {profile_manager.withdraw_earnings} </li>
+                                            </ul>
+                                        </div>
+
+                                        <div className="col-12">
+                                            <h4> TOTAL </h4>
+                                            <ul>
+                                                <li>Starting Value: {profile_manager.historic_withdraw_value}</li>
+                                                <li>Current Value: {profile_manager.historic_value}</li>
+                                                <li>Earnings Value: {profile_manager.historic_earnings} </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -72,10 +97,10 @@ export default function UserView(){
                         <div className="col-8">
                             <div className="card">
                                 <div className="card-header">
-                                    <button onClick={handleCreateView} className="btn btn-sucess">CREATE PORTFOLIO</button>
+                                    <h4 className="btn btn-sucess">TICKERS</h4>
                                 </div>
                                 <div className="card-body">
-                                    {showList ? <PortfolioListComponent showDetail={handleShowDetail} /> : <PortfolioCreateComponent closeWindow={handleCreateView} />}
+                                    <UserTickerListComponent  />
                                 </div>
                             </div>
                             

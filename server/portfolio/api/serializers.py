@@ -22,14 +22,22 @@ class UserTickerBaseSerializer(serializers.ModelSerializer):
     code = serializers.CharField(source="ticker.ticker")
     difference = serializers.DecimalField(source="diff_value", decimal_places=2, max_digits=10)
     diff_percent = serializers.DecimalField(source="diff_pct", decimal_places=2, max_digits=10)
+    starting_investment = serializers.DecimalField(decimal_places=2, max_digits=10)
+    qty = serializers.DecimalField(decimal_places=2, max_digits=10)
+    current_value = serializers.DecimalField(decimal_places=2, max_digits=10)
+    ticker_status = serializers.SerializerMethodField()
 
     class Meta:
         model = UserTicker
         fields = ["id", 'title', "ticker", "portfolio", "starting_investment", "qty",
                   "code", "current_value", "difference", "diff_percent",
-                  "is_sell",
-
+                  "is_sell", "timestamp", "ticker_status"
                   ]
+
+    def get_ticker_status(self, obj: UserTicker):
+        if obj.is_sell:
+            return "Sell"
+        return "Active"
 
 
 class UserTickerEditSerializer(serializers.ModelSerializer):

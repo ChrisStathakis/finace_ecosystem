@@ -41,6 +41,7 @@ export const createTicker = (data, dispatch) => {
 
 const fetchTickerDataframe = (id, dispatch) => {
     const endpoint = `${TICKER_DATAFRAME_ENDPOINT}?ticker=${id}`;
+    console.log("ticker datafame", endpoint)
     axios.get(endpoint)
         .then(
             (response) => {

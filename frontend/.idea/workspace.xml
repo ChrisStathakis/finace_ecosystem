@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="b0b7a567-b937-499d-93b4-3ed8346f84c7" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/components/user_page/UserTickerListComponent.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../server/docker-compose-db.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../server/pdf_/bert_classifier.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../server/pdf_/data_test.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../server/pdf_/deep_learning/folder_2/hy_param.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../server/pdf_/deep_learning/folder_2/inference.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../server/pdf_/deep_learning/folder_2/minst_data.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../server/pdf_/deep_learning/folder_2/model.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../server/pdf_/folder_3/kmeans.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../server/pdf_/folder_3/newsgroup.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../server/pdf_/folder_3/utilities.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../server/pdf_/folder_4/bayes.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../server/pdf_/folder_4/enron1.tar.gz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../server/pdf_/tensorflow_examples/Bert.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../server/pdf_/tensorflow_examples/titanic.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../server/pdf_/titanic.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/tickers/CreateTickerComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tickers/CreateTickerComponent.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/tickers/TickerDetailComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tickers/TickerDetailComponent.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/tickers/TickerListComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/tickers/TickerListComponent.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/endpoints.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/endpoints.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/services/ticker.services.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/services/ticker.services.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/slices/profileSlice.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/slices/profileSlice.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/TickersView.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/TickersView.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/UserView.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/UserView.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/../server/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/accounts/api/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/../server/accounts/api/serializers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/accounts/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/../server/accounts/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/accounts/templates/profile_view.html" beforeDir="false" afterPath="$PROJECT_DIR$/../server/accounts/templates/profile_view.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/accounts/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/../server/accounts/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/docker-compose.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../server/docker-compose.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/frontend/ajax_views.py" beforeDir="false" afterPath="$PROJECT_DIR$/../server/frontend/ajax_views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/frontend/api/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/../server/frontend/api/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/frontend/templates/ajax/tickers_search_container.html" beforeDir="false" afterPath="$PROJECT_DIR$/../server/frontend/templates/ajax/tickers_search_container.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/frontend/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/../server/frontend/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/A.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/A.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/AA.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/AA.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/AAPL.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/AAPL.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/ABC.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/ABC.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/ABT.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/ABT.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/ACE.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/ACE.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/ACN.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/ACN.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/ADBE.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/ADBE.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/ADI.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/ADI.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/ADM.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/ADM.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/ADP.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/ADP.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/ADSK.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/ADSK.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/AEE.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/AEE.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/AEP.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/AEP.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/AES.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/AES.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/AET.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/AET.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/AFL.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/AFL.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/AGN.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/AGN.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/AIG.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/AIG.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/AIV.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/AIV.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/AIZ.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/AIZ.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/AKAM.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/AKAM.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/ALL.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/ALL.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/ALTR.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/ALTR.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/ALXN.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/ALXN.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/AMAT.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/AMAT.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/AMD.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/AMD.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/AMGN.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/AMGN.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/AMP.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/AMP.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/AMT.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/AMT.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/AMZN.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/AMZN.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/AN.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/AN.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/ANF.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/ANF.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/ANR.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/ANR.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/AON.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/AON.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/APA.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/APA.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/APC.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/APC.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/APD.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/APD.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/APH.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/APH.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/APOL.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/APOL.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/ARG.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/ARG.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/ATI.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/ATI.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/AVB.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/AVB.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/AVP.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/AVP.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/AVY.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/AVY.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/AXP.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/AXP.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/AZO.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/AZO.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/BA.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/BA.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/BAC.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/BAC.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/BAX.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/BAX.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/BBBY.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/BBBY.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/BBT.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/BBT.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/BBY.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/BBY.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/BCR.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/BCR.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/BDX.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/BDX.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/BEAM.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/BEAM.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/BEN.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/BEN.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/BF.B.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/BF.B.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/BHI.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/BHI.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/BIG.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/BIG.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/BIIB.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/BIIB.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/BK.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/BK.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/BLK.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/BLK.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/BLL.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/BLL.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/BMC.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/BMC.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/BMS.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/BMS.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/BMY.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/BMY.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/BRCM.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/BRCM.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/BRK.B.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/BRK.B.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/BSX.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/BSX.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/BWA.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/BWA.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/BXP.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/BXP.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/C.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/C.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/CA.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/CA.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/CAG.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/CAG.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/CAH.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/CAH.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/CAM.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/CAM.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/CAT.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/CAT.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/CB.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/CB.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/CBE.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/CBE.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/CBG.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/CBG.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/CBS.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/CBS.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/CCE.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/CCE.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/CCI.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/CCI.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/CCL.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/CCL.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/CELG.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/CELG.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/CERN.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/CERN.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/CF.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/CF.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/CFN.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/CFN.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/CHK.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/CHK.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/CHRW.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/CHRW.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/CI.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/CI.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/CINF.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/CINF.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/CL.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/CL.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/CLF.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/CLF.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/CLX.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/CLX.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/CMA.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/CMA.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/CMCSA.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/CMCSA.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/CME.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/CME.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/CMG.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/CMG.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/CMI.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/CMI.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/CMS.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/CMS.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/CNP.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/CNP.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/CNX.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/CNX.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/COF.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/COF.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/COG.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/COG.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/COH.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/COH.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/COP.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/COP.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/COST.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/COST.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/CPB.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/CPB.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/CSC.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/CSC.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/CSCO.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/CSCO.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/CSX.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/CSX.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/CTAS.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/CTAS.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/CTL.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/CTL.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/CTSH.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/CTSH.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/CTXS.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/CTXS.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/CVC.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/CVC.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/CVH.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/CVH.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/CVS.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/CVS.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/CVX.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/CVX.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/D.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/D.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/DD.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/DD.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/DE.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/DE.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/DFS.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/DFS.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/DHI.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/DHI.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/DHR.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/DHR.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/DISCA.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/DISCA.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/DLTR.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/DLTR.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/DOV.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/DOV.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/DOW.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/DOW.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/DRI.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/DRI.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/DTE.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/DTE.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/DUK.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/DUK.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/DVA.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/DVA.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/DVN.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/DVN.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/EA.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/EA.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/EBAY.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/EBAY.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/ECL.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/ECL.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/ED.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/ED.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/EFX.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/EFX.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/EIX.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/EIX.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/EL.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/EL.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/EMN.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/EMN.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/EMR.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/EMR.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/EOG.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/EOG.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/EQR.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/EQR.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/ETN.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/ETN.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/ETR.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/ETR.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/EW.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/EW.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/EXC.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/EXC.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/EXPD.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/EXPD.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/EXPE.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/EXPE.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/F.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/F.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/FAST.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/FAST.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/FCX.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/FCX.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/FDX.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/FDX.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/FE.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/FE.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/FFIV.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/FFIV.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/FIS.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/FIS.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/FISV.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/FISV.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/FITB.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/FITB.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/FMC.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/FMC.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/GAS.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/GAS.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/GD.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/GD.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/GE.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/GE.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/GLW.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/GLW.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/GOOG.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/GOOG.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/GPS.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/GPS.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/HRB.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/HRB.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/KMX.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/KMX.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/KO.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/KO.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/LLY.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/LLY.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/MMM.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/MMM.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/MO.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/MO.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/MSFT.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/MSFT.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/SCHW.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/SCHW.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/STZ.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/STZ.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/Symbol.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/Symbol.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/T.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/T.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/TSLA.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/TSLA.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/WDC.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/WDC.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/WFC.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/WFC.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/XOM.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/XOM.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/XRAY.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/XRAY.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/XYL.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/XYL.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/YHOO.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/YHOO.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/YUM.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/YUM.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/ZION.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/ZION.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/media/stock_df/ZMH.csv" beforeDir="false" afterPath="$PROJECT_DIR$/../server/media/stock_df/ZMH.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/portfolio/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/../server/portfolio/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/portfolio/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/../server/portfolio/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../server/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/rss_component/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/../server/rss_component/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/rss_component/rss_helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/../server/rss_component/rss_helper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/rss_component/tasks.py" beforeDir="false" afterPath="$PROJECT_DIR$/../server/rss_component/tasks.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/server/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/../server/server/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/server/celery.py" beforeDir="false" afterPath="$PROJECT_DIR$/../server/server/celery.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/server/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/../server/server/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/tickers/api/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/../server/tickers/api/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/tickers/api/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/../server/tickers/api/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/tickers/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/../server/tickers/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/tickers/signals.py" beforeDir="false" afterPath="$PROJECT_DIR$/../server/tickers/signals.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/tickers/tasks.py" beforeDir="false" afterPath="$PROJECT_DIR$/../server/tickers/tasks.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/tickers/templates/ticker_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/../server/tickers/templates/ticker_detail.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/tickers/templates/tickers_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/../server/tickers/templates/tickers_list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/tickers/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/../server/tickers/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../server/tickers/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/../server/tickers/views.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 0
+}]]></component>
+  <component name="ProjectId" id="2qfInJMLts03hwKZROPhtPrPHvp" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "D:/projects/finace_ecosystem/frontend"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="b0b7a567-b937-499d-93b4-3ed8346f84c7" name="Changes" comment="" />
+      <created>1735047367374</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1735047367374</updated>
+    </task>
+    <servers />
+  </component>
+</project>

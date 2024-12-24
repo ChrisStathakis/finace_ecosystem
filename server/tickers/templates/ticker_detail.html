@@ -20,7 +20,7 @@
                                 <div class="card text-black bg-secondary mb-3">
                                     <div class="card-header">
                                         <h4>Predictions </h4>
-                                        <a href="" class="btn btn-info"> UPDATE </a>
+                                        <a href="{% url 'tickers:refresh' instance.id %}" class="btn btn-info"> UPDATE </a>
                                     </div>
 
                                 </div>
@@ -41,6 +41,12 @@
                     </div>
                     <div class="card-body">
                         <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>INFO</th>
+                                    <th>VALUE</th>
+                                </tr>
+                            </thead>
                             <tbody>
                                 <tr>
                                     <th>Simply Return</th>
@@ -82,7 +88,7 @@
                         <h4>Feed</h4>
                     </div>
                     <div class="card-body">
-                        <table class="table" style="display: block; width: 100%; height: 600px; overflow: auto;">
+                        <table class="table">
                             <thead>
                                 <tr>
                                     <th>Date</th>
@@ -90,7 +96,7 @@
                                     <th>ID</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody style="height: 300px; overflow:auto;">
                                 {% for ele in feed %}
                                     <tr>
                                         <td>{{ ele.published  }}</td>
@@ -134,48 +140,13 @@
             <div class="col-4">
                  <div class="card">
                     <div class="card-header">
-                        <h4>Tags</h4>
-                        <ul>
-                            {% for tag in instance.ticker_tags.all %}
-                            <li> {{ tag.title }}  </li>
-                            {% endfor %}
-                        </ul>
-
+                        <p>Wiki Page: {{ instance.wikipedia_url }}</p>
                     </div>
                     <div class="card-body">
-                        <table class="table">
-                            <tbody>
-                                <tr>
-                                    <th>Simply Return</th>
-                                    <th>{{ instance.simply_return }}</th>
-                                </tr>
-
-                                <tr>
-                                    <th>Log Return</th>
-                                    <th>{{ instance.log_return }}</th>
-                                </tr>
-
-                                <tr>
-                                    <th>Beta</th>
-                                    <th>{{ instance.beta }}</th>
-                                </tr>
-
-                                <tr>
-                                    <th>Market Variance</th>
-                                    <th>{{ instance.market_variance }}</th>
-                                </tr>
-
-                                <tr>
-                                    <th>Simply Return</th>
-                                    <th>{{ instance.simply_return }}</th>
-                                </tr>
-
-                                <tr>
-                                    <th>Simply Return</th>
-                                    <th>{{ instance.simply_return }}</th>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <h4>Tags</h4>
+                        <ul style="height: 300px; overflow:auto;">
+                            {% for tag in instance.ticker_tags.all %} <li> {{ tag.title }}  </li> {% endfor %}
+                        </ul>
                     </div>
                 </div>
             </div>

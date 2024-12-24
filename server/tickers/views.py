@@ -16,6 +16,12 @@ class TickerListView(ListView):
     def get_queryset(self):
         return Ticker.filter_data(Ticker.objects.all(), self.request)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        total_tickers = self.model.objects.all().count()
+        context['total_tickers'] = total_tickers
+        return context
+
 
 def ticker_detail_view(request, pk):
     instance = get_object_or_404(Ticker, id=pk)
@@ -38,6 +44,17 @@ def ticker_detail_view(request, pk):
                 )
 
 
+def ticker_refresh_view(request, pk: int):
+    # hard update to ticker data, this view should be hidden from public
+    instance: Ticker = get_object_or_404(Ticker, id=pk)
+    instance.wikipedia_url = instance.find_wikipedia_url()
+    instance.update_ticker_data()
+    instance.create_tags()
+    instance.save()
+    instance.create_ticker_database()
+    return HttpResponseRedirect(instance.get_absolute_url())
+
+
 @method_decorator(login_required, name="dispatch")
 class CreateTickerView(CreateView):
     model = Ticker
@@ -53,8 +70,8 @@ class CreateTickerView(CreateView):
 
 
 def initial_data_view(request):
-    Ticker.create_ticker_database()
-    
+    Ticker.create_tickers()
+
     return render(request, "initial_data.html")
 
 

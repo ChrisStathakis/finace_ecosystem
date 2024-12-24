@@ -6,9 +6,19 @@ import yfinance as yf
 from datetime import datetime
 from decimal import Decimal
 from .models import Ticker, TickerDataFrame
+from .tasks import refresh_unique_ticker_data
 from portfolio.models import UserTicker
 
 
+@receiver(post_save, sender=Ticker)
+def update_ticker_progress(sender, instance: Ticker, created, **kwargs):
+    if created:
+        # create starting data when object is created
+        refresh_unique_ticker_data.delay(instance.id)
+
+
+
+"""
 @receiver(post_save, sender=Ticker)
 def create_dataframe_sql_data(sender, instance: Ticker, **kwargs):
     TickerDataFrame.objects.all().delete()
@@ -19,19 +29,4 @@ def create_dataframe_sql_data(sender, instance: Ticker, **kwargs):
 
 
 
-@receiver(post_save, sender=Ticker)
-def update_user_tickers(sender, instance: Ticker, **kwargs):
-    user_tickers = UserTicker.objects.filter(ticker=instance)
-    for tic in user_tickers:
-        tic.save()
-
-
-
-@receiver(post_save, sender=UserTicker)
-def create_and_update_user_ticker(sender, instance: UserTicker, created,  **kwargs):
-    if created:
-        ticker = instance.ticker
-        instance.starting_value_of_ticker = instance.ticker.price if instance.starting_value_of_ticker == 0 \
-            else instance.starting_value_of_ticker
-        instance.qty = instance.starting_investment/instance.starting_value_of_ticker if instance.starting_value_of_ticker !=0 else 0
-        instance.save()
+"""

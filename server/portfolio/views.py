@@ -50,7 +50,7 @@ def sell_ticker_view(request, pk):
 
 @login_required
 def delete_ticker_view(request, pk):
-    instance = get_object_or_404(Ticker, id=pk)
+    instance = get_object_or_404(UserTicker, id=pk)
     if request.user != instance.portfolio.user:
         raise Http404
     instance.delete()

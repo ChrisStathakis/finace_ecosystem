@@ -16,7 +16,7 @@ def ticker_homepage_api_view(request, format=None):
     return Response({
         "portfolios": reverse("api_port:list", request=request, format=format),
         "user_ticker_list": reverse("api_port:user_ticker_list", request=request, format=format),
-        "efficient_frontier": reverse("api_port:efficient_frontier", request = request, format = format),
+        "efficient_frontier": reverse("api_port:efficient_frontier", request=request, format=format),
     })
 
 

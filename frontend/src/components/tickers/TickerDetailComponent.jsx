@@ -63,6 +63,7 @@ export default function TickerDetailComponent(props){
 
     }, [tickerID])
 
+    console.log("fetch data", tickerDataframe)
 
     React.useEffect(()=>{
         for (let i = 0; i < tickerDataframe.length; i++) {
@@ -90,6 +91,8 @@ export default function TickerDetailComponent(props){
     return(
         <div className="container-fluid py-4">
             <div className="row">
+                
+
                 <div className="col-8">
                     <div style={{maxHeight:"5%"}} className="card">
                         <div className="card-header"><h4>{ticker.title}</h4></div>
@@ -116,7 +119,7 @@ export default function TickerDetailComponent(props){
                             </tr>
                         </thead>
                         <tbody>
-                            {tickerDataframe.map((ele)=> {
+                            {tickerDataframe.map((ele, index)=> {
                                     return (
                                         <tr>
                                             <td>{ele.date}</td>

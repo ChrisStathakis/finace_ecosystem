@@ -51,6 +51,8 @@ class TickerDataFrameListApiView(ListAPIView):
     queryset = TickerDataFrame.objects.all()
     serializer_class = TickerDataFrameSerializer
     permission_classes = [AllowAny, ]
+    # filter_backends = [DjangoFilterBackend, ]
+    # filter_fields = ["ticker", ]
 
     def get_queryset(self):
         qs = self.queryset

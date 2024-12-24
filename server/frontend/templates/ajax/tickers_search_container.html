@@ -13,7 +13,7 @@
             <td>{{ ticker.title }}</td>
             <td>{{ ticker.ticker }}</td>
             <td>{{ ticker.simply_return }}</td>
-            <td> <a href="{% url 'create_item_portfolio' object.id ticker.id  %}" class="btn btn-success"> Add </a> </td>
+            <td> <a href="{% url 'port:add_item' object.id ticker.id  %}" class="btn btn-success"> Add </a> </td>
         </tr>
 
     {% endfor %}

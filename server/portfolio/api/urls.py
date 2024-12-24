@@ -2,13 +2,14 @@ from django.urls import path
 
 from .views import (UserTickerDeleteApiView, PortfolioListApiView, PortfolioUpdateRetrieveApiView, UserTickerListApiView,
                     UserTickerCreateApiView, UserTickerUpdateDeleteApiView, efficient_frontier_view,
-                    UserTickerRetrieveApiView
+                    UserTickerRetrieveApiView, ticker_homepage_api_view
 
                     )
 
 app_name = "api_port"
 
 urlpatterns = [
+    path("", ticker_homepage_api_view, name="homepage"),
     path("portfolios/list/", PortfolioListApiView.as_view(), name="list"),
     path("portfolio/detail/<int:pk>/", PortfolioUpdateRetrieveApiView.as_view(), name="portfolio_update"),
 

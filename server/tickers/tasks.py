@@ -15,8 +15,35 @@ from .StockManager import StockManager
 logger = logging.getLogger(__name__)
 
 
+@shared_task
+def refresh_unique_ticker_data(ticker_id: int):
+    # refresh the data from ticker on signal to avoid delay
+    ticker: Ticker = get_object_or_404(Ticker, id=ticker_id)
+    ticker.update_ticker_data()
+    ticker.wikipedia_url = ticker.find_wikipedia_url()
+    ticker.create_tags()
+    ticker.save()
+    ticker.create_ticker_database()
+    return f"f{Ticker.ticker} saved"
 
 
+@shared_task
+def refresh_ticker_data():
+    tickers = Ticker.objects.all()
+    for ticker in tickers:
+        print("Ticker: " + ticker.title)
+        try:
+            ticker.update_ticker_data()
+            ticker.create_ticker_database()
+            ticker.save()
+        except Exception as e:
+            print("Failed:" + ticker.title)
+            print("Exception: ", e)
+
+
+
+
+"""
 @shared_task
 def daily_update_data_task():
     
@@ -30,19 +57,15 @@ def daily_update_data_task():
             ticker.save()
         except:
             ticker.delete()
+"""
 
+"""
 
-@shared_task
-def update_user_tickers():
-    user_tickers = UserTicker.objects.all()
-    for ticker in user_tickers:
-        ticker.ticker.save()
-        ticker.save()
-
+"""
+"""
 @shared_task 
 def refresh_ticker_data():
     logger.info("==work!")
-    print("--------------worked--------------------------------------------")
     tickers = Ticker.objects.all()
     for ele in tickers:
         print("Ticker: " + ele.title)
@@ -86,3 +109,5 @@ def refresh_portfolio_tickers(port_id):
 def update_ticker_from_detail_page(ticker_id: id):
     instance = get_object_or_404(Ticker, id=ticker_id)
     instance.save()
+    
+"""

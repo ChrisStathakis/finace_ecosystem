@@ -31,10 +31,13 @@ def profile_view(request):
     user = request.user
     profile, created = Profile.objects.get_or_create(user=user)
     user_tickers = user.port.port_tickers.all()
+    active_user_tickers = user_tickers.filter(is_sell=False)
+
     return render(request, "profile_view.html",
                   context={
                         "user": user,
                         "profile": profile,
-                        "user_tickers": user_tickers
+                        "user_tickers": user_tickers,
+                        "active_user_tickers": active_user_tickers
                     }
                   )

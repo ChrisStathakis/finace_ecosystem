@@ -154,6 +154,11 @@ class UserTicker(models.Model):
         super().save(*args, **kwargs)
         self.portfolio.save()
 
+    def tag_status(self):
+        if self.is_sell:
+            return '<span class="badge badge-success">Closed</span>'
+        return '<span class="badge badge-info">Active</span>'
+
     def tag_starting_price(self):
         return f"{round(self.starting_value_of_ticker, 2)} {CURRENCY}"
 

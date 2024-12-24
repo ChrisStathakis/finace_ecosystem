@@ -7,8 +7,8 @@ export const PROFILE_ENDPOINT = BASE_URL + "profile/";
 
 
 export const TICKERS_LIST_ENDPOINT = BASE_URL +  "tickers/tickers/list/";
-export const TICKER_DETAIL_ENDPOINT = BASE_URL + "tickers/detail";
-export const TICKER_CREATE_ENDPOINT = BASE_URL + "tickers/create/";
+export const TICKER_DETAIL_ENDPOINT = BASE_URL + "tickers/ticker/detail";
+export const TICKER_CREATE_ENDPOINT = BASE_URL + "tickers/ticker/create/";
 
 export const TICKER_DATAFRAME_ENDPOINT = BASE_URL + "tickers/tickers/dataframe/";
 export const RSS_FEED_TICKER_ENDPOINT = BASE_URL + "rss-feed/";

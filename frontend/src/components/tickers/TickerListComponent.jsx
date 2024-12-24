@@ -7,6 +7,8 @@ import CreateTickerComponent from "./CreateTickerComponent";
 
 export default function TickerListComponent(props){
     const [showCreateView, setShowCreateView] = React.useState(false);
+    
+
     const tickerManager = useSelector(state => state.tickers);
     const dispatch = useDispatch();
 
@@ -23,6 +25,7 @@ export default function TickerListComponent(props){
 
     return (
         <div className="container-fluid py-4">
+            
                     <div className="row">
                         <div className="col-12">
                             <div className="card">
