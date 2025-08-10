@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
 from .models import Ticker, TickerDataFrame
-from .ticker_helper import TickerHelper
+from tickers.helpers_folder.StockManager import TickerHelper
 from .forms import TickerForm
 
 
@@ -47,9 +47,9 @@ def ticker_detail_view(request, pk):
 def ticker_refresh_view(request, pk: int):
     # hard update to ticker data, this view should be hidden from public
     instance: Ticker = get_object_or_404(Ticker, id=pk)
-    instance.wikipedia_url = instance.find_wikipedia_url()
+    # instance.wikipedia_url = instance.find_wikipedia_url()
     instance.update_ticker_data()
-    instance.create_tags()
+    # instance.create_tags()
     instance.save()
     instance.create_ticker_database()
     return HttpResponseRedirect(instance.get_absolute_url())

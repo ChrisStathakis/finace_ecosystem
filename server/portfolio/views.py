@@ -23,11 +23,13 @@ def portfolio_view(request):
 @login_required
 def create_portfolio_item_view(request, pk, dk):
     portfolio = get_object_or_404(Portfolio, id=pk)
-    ticker = get_object_or_404(Ticker, id=dk)
+    ticker: Ticker = get_object_or_404(Ticker, id=dk)
     context = dict()
     context['form'] = form = UserTickerForm(request.POST or None, initial={
         'ticker': ticker,
-        'portfolio': portfolio
+        'portfolio': portfolio,
+        "starting_value_of_ticker": ticker.price,
+        "current_value": ticker.price
     })
 
     context['page_title'] = f'Add {ticker} to {portfolio}'

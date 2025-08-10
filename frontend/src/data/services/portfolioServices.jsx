@@ -21,7 +21,6 @@ function fetch_portfolios(dispatch){
     axiosInstance.get(PORTFOLIO_LIST_ENDPOINT)
         .then(
             (response) => {
-                console.log("response portfolio", response.data)
                 dispatch(fetch_portfolios_action(response.data));
             }
         )
@@ -70,15 +69,17 @@ function fetch_user_active_tickers(id, dispatch){
         )
 };
 
-function create_user_ticker(data, dispatch){
+function create_user_ticker(data, port, dispatch){
     axiosInstance.post(USER_TICKER_CREATE_ENDPOINT, data).then(
         (response)=>{
             dispatch(create_port_ticker_action(response.data))
+            fetch_user_active_tickers(port, dispatch);
+            fetch_portfolio(port, dispatch);
         }
     )
 }
 
-function edit_user_ticker(data, dispatch) {
+function edit_user_ticker(data, port_id,dispatch) {
     console.log("Begins")
     console.log(data);
     console.log(data.id)
@@ -86,10 +87,12 @@ function edit_user_ticker(data, dispatch) {
     
     console.log(endpoint);
     axiosInstance.put(endpoint, data)
+        console.log(data)
         .then(
             (response) => {
                 dispatch(update_port_ticker_action(response.data))
-                fetch_portfolio(data.portfolio, dispatch);
+                fetch_portfolio(port_id, dispatch);
+                fetch_user_active_tickers(port_id, dispatch)
             }
         )
 };

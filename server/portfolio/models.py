@@ -8,7 +8,7 @@ from django.urls import reverse
 import numpy as np
 from decimal import Decimal
 import pandas as pd
-from tickers.helpers import read_stock_data
+from tickers.helpers_folder.helpers import read_stock_data
 from accounts.models import Profile
 from tickers.manager import PortfolioManager
 from tickers.models import Ticker, TickerDataFrame
@@ -49,19 +49,26 @@ class Portfolio(models.Model):
             self.current_value: float = qs.aggregate(Sum('current_value'))[
                     'current_value__sum'] if qs.exists() else 0 or 0
             self.withdraw_value = qs.aggregate(Sum("close_value"))["close_value__sum"] or 0
-                # self.expected_portfolio_return, self.expected_portfolio_variance, self.expected_portfolio_volatility = self.calculate_returns_and_volatility()
+            self.annual_returns = self.calculate_annual_returns()
+            self.calculate_data()
         super().save(*args, **kwargs)
         user = self.user
         profile_qs = Profile.objects.filter(user=user).all()
         if profile_qs.exists():
             profile_qs.first().save()
 
-
     def show_diff(self):
         return self.current_value - self.starting_investment
 
     def show_diff_percent(self):
-        return (self.current_value / self.starting_investment) * 100 if self.starting_investment != 0 else 0
+        return ((self.current_value - self.starting_investment) / self.starting_investment) * 100 if self.starting_investment != 0 else 0
+
+    def calculate_annual_returns(self):
+        total, count = 0, 0
+        for ticker in self.port_tickers.all():
+            total += ticker.ticker.simply_return
+            count += 1
+        return total/count if count > 0 else 0
 
     def calculate_data(self):
         qs = self.port_tickers.all()
@@ -71,6 +78,7 @@ class Portfolio(models.Model):
         for ticker in qs:
             weights.append(round(ticker.current_value / self.current_value if self.current_value != 0 else 0, 2))
             new_df = pd.DataFrame(list(TickerDataFrame.objects.filter(ticker=ticker.ticker)))
+            new_df = new_df.add_suffix(f'_{ticker.ticker}')
             df = df.join(new_df, how="outer")
         weights = np.array(weights)
 
@@ -132,7 +140,7 @@ class UserTicker(models.Model):
     date_buy = models.DateTimeField(blank=True, null=True)
 
     is_sell = models.BooleanField(default=False)
-    ticker = models.ForeignKey(Ticker, on_delete=models.CASCADE, null=True)
+    ticker = models.ForeignKey(Ticker, on_delete=models.PROTECT)
     portfolio = models.ForeignKey(Portfolio, on_delete=models.CASCADE, null=True, related_name='port_tickers')
 
     starting_investment = models.DecimalField(max_digits=30, decimal_places=8, default=0)
@@ -146,6 +154,7 @@ class UserTicker(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.is_sell:
+            print("is sell?")
             self.qty = self.starting_investment / self.starting_value_of_ticker if self.starting_value_of_ticker != 0 else 0
             self.current_value_of_ticker = self.ticker.price
             self.current_value = Decimal(self.qty) * Decimal(self.current_value_of_ticker)
@@ -158,6 +167,9 @@ class UserTicker(models.Model):
         if self.is_sell:
             return '<span class="badge badge-success">Closed</span>'
         return '<span class="badge badge-info">Active</span>'
+
+    def tag_ticker(self):
+        return self.ticker.title if self.ticker else "No ticker"
 
     def tag_starting_price(self):
         return f"{round(self.starting_value_of_ticker, 2)} {CURRENCY}"
@@ -189,6 +201,9 @@ class UserTicker(models.Model):
         first_step = self.current_value / self.starting_investment
         first_step = first_step - 1
         return first_step*100
+
+    def tag_winning_loosing_situation(self):
+        return True if self.current_value_of_ticker - self.starting_value_of_ticker > 0 else False
 
     def tag_ticker_title(self):
         return f"{self.ticker.title}"

@@ -3,6 +3,9 @@ from django.shortcuts import reverse
 import feedparser
 import re
 from datetime import datetime
+import xml.etree.ElementTree  as ET
+import requests
+from io import StringIO
 
 from tickers.models import Ticker
 from .rss_helper import WordEditor
@@ -22,7 +25,6 @@ ECONOMIST_ENDPOINTS = [
     "https://www.economist.com/business/rss.xml"
 
 ]
-
 
 
 def find_words(text: str) -> list:
@@ -49,6 +51,18 @@ class RssFeed(models.Model):
 
     def tag_tickers(self):
         return " ".join(ticker.ticker for ticker in self.tickers.all())
+
+    @staticmethod
+    def fetch_xml_website():
+        endpoint = RSS_URL[0]
+        response = requests.get(endpoint)
+        response.raise_for_status()
+
+        root = ET.fromstring(response.text)
+
+        for element in root.iter():
+            print(element.items)
+            print("--------------------------------------")
 
     @staticmethod
     def fetch_economist_data():
@@ -98,8 +112,8 @@ class RssFeed(models.Model):
         for ele in qs:
             print(analyzer.textblob_sentimental_analysis(ele.title))
             print(ele.id, ele.title)
-            is_positive = analyzer.textblob_sentimental_analysis(ele.title)
-            ele.is_positive = is_positive
+            # is_positive = analyzer.textblob_sentimental_analysis(ele.title)
+            ele.is_positive = analyzer.llm_check_if_positive(ele.title)
             entities = analyzer.find_entities(ele.title)
             qs = Ticker.search_entities(entities)
             for ticker in qs:

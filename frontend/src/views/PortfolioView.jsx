@@ -5,18 +5,15 @@ import NavbarComponent from "../components/navbar";
 import TopNavbarComponent from "../components/TopNavbar";
 import portfolioServices from "../data/services/portfolioServices"
 import tickerServices from "../data/services/ticker.services";
-import { current } from "@reduxjs/toolkit";
 import CreateTickerComponent from "../components/tickers/CreateTickerComponent";
-import AddTickerToPortfolioComponent from "../components/portfolios/AddTickerToPortfolio";
+import PortfolioAddTickerComponent from "../components/portfolios/PortfolioAddTickerComponent";
 
 
 export default function PortfolioView(){
     const [selectTickerId, setSelectTickerID] = React.useState(0);
     const [createTicker, setCreateTicker] = React.useState(false)
     const [addTickerForm, setAddTickerForm] = React.useState(false);
-    const [showEditTicker, setShowEditTicker] = React.useState(false);
     const [searchName, setSearchName ] = React.useState("");
-    const [qty, setQty] = React.useState(0);
 
     const dispatch = useDispatch();
 
@@ -49,33 +46,22 @@ export default function PortfolioView(){
     const selectTicker = (id) => {
         setAddTickerForm(true);
         setSelectTickerID(id);
-    }
 
-    const sellTicker = (data) => {
-        const new_data = {...data, is_sell: true};
-        console.log("Data", new_data)
-        portfolioServices.edit_user_ticker(new_data, dispatch);
-    }
+    };
 
-    const addTickerToPortfolio = (e) => {
-        e.preventDefault();
+    const handleSell = (ticker) => {
         const data = {
-            starting_investment: qty,
-            ticker: Number(ticker.id),
-            portfolio: portfolio_id,
-            qty: 0,
-            starting_value_of_ticker: ticker.price,
-            current_value: ticker.price,
-            is_sell: false,
-            price: 0
-        }
-        console.log("Data to add", data);
-        portfolioServices.create_user_ticker(data, dispatch);
+            ...ticker,
+            is_sell: true
+        };
+        portfolioServices.edit_user_ticker(data, portfolio_id, dispatch);
+        
     };
 
     const handleDelete = (id) => {
         portfolioServices.delete_user_ticker(id, portfolio_id, dispatch);
-    }
+        
+    };
     
 
     return (
@@ -97,13 +83,10 @@ export default function PortfolioView(){
                                         <thead>
                                             <tr>
                                                 <th>--</th>
-                                                <th>TICKER</th>
-                                                <th>CODE</th>
-                                                <th>STARTING VALUE</th>
-                                                <th>QTY</th>
-                                                <th>CURRENT VALUE</th>
-                                                <th>+/-</th>
-                                                <th>+/- %</th>
+                                                <th>CODE | TITLE</th>
+                                                <th>STARTING INVESTMENT | QTY</th>
+                                                <th>STARTING VALUE | CURRENT VALUE</th>
+                                                <th>+/- | +/- % </th>
                                                 <th>-</th>
                                             </tr>
                                         </thead>
@@ -112,15 +95,22 @@ export default function PortfolioView(){
                                                 return (
                                                     <tr>
                                                         <td><button onClick={() => handleDelete(ele.id)} className="btn btn-danger">DELETE</button></td>
-                                                        <td>{ ele.title }</td>
-                                                        <td>{ ele.code }</td>
-                                                        <td>{ ele.starting_investment }</td>
-                                                        <td>{ ele.qty }</td>
-                                                        <td>{ ele.current_value }</td>
-                                                        <td>{ ele.ticker }</td>
-                                                        <td>{ ele.ticker }</td>
+                                                        <td>{ ele.code } | {ele.title}</td>
+                                                        <td>{ ele.starting_investment } | { ele.qty } %</td>
                                                         <td>
-                                                            <button onClick={() => sellTicker(ele)} className="btn btn-success">Close </button>
+                                                            <span style={{'color': 'red'}}>{ ele.starting_value_of_ticker } € </span> |  
+                                                            <span style={{'color': 'green'}}> { ele.current_value_of_ticker } € </span>
+                                                        </td>
+                                                        <td>
+                                                            
+                                                            { ele.winning_loosing_situation 
+                                                            ? <span style={{'color': 'green'}}> { ele.difference } € | { ele.diff_percent } % </span>
+                                                            : <span style={{'color': 'red'}}> { ele.difference } € | { ele.diff_percent } % </span> 
+                                                            } 
+                                                        </td>
+                                                        <td>
+                                                            <button onClick={() => handleSell(ele)} className="btn btn-success">SELL</button>
+                                                           
                                                         </td>
                                                     </tr>
                                                 )
@@ -142,12 +132,11 @@ export default function PortfolioView(){
                                 </div>
                                 <div className="card-body">
                                     <ul class="list-group">
-                                        <li class="list-group-item">Current Value: {portfolio.current_value}</li>
-                                        <li class="list-group-item">Starting Investment: {portfolio.starting_investment}</li>
-                                        <li class="list-group-item">Sells: {portfolio.withdraw_value}</li>
-                                        <li class="list-group-item">Diff: {portfolio.difference}</li>
-                                        <li class="list-group-item">Diff %: {portfolio.diff_percent}</li>
-                                        <li class="list-group-item">Annual Returns: {portfolio.annual_returns}</li>
+                                        <li class="list-group-item">Current Value: {portfolio.current_value} €</li>
+                                        <li class="list-group-item">Starting Investment: {portfolio.starting_investment} €</li>
+                                        <li class="list-group-item">+/- %: {portfolio.diff_percent} % | +/-: {portfolio.difference} €</li>
+                                        <li class="list-group-item">Annual Returns %: {portfolio.annual_returns} %</li>
+                                        
                                     </ul>
                                 </div>
                             </div>
@@ -164,7 +153,7 @@ export default function PortfolioView(){
                         </div>
 
                         <div className="col-8">
-                            {addTickerForm ? <AddTickerToPortfolioComponent ticker={selectTickerId} />
+                            {addTickerForm ? <PortfolioAddTickerComponent ticker={selectTickerId} port={portfolio.id} handleClose={() => setAddTickerForm(false)} />
                             
                         : 
                         
@@ -191,7 +180,9 @@ export default function PortfolioView(){
                                                     <td>{ele.ticker}</td>
                                                     <td>{ele.price}</td>
                                                     <td>{ele.annual_returns}</td>
-                                                    <td><button onClick={() => selectTicker(ele.id)} className="btn btn-success">Add</button></td>
+                                                    <td>
+                                                        <button onClick={() => selectTicker(ele)} className="btn btn-success">ADD</button>
+                                                    </td>
                                                 </tr>
                                             )
                                         })}

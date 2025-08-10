@@ -3,9 +3,9 @@ from django.contrib.auth import get_user_model
 import datetime
 from datetime import timedelta
 import pandas as pd
-
+from tickers.helpers_folder.helpers import read_stock_data
 from tickers.models import Ticker
-from tickers.helpers import read_stock_data, get_stock_data
+
 
 
 User = get_user_model()

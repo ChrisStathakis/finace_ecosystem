@@ -8,7 +8,9 @@ from rest_framework.reverse import reverse
 from django_filters.rest_framework import DjangoFilterBackend
 from .permissions import IsAuthenticatedCustom
 from ..models import UserTicker, Portfolio
-from .serializers import UserTickerSerializer, PortfolioSerializer, UserTickerBaseSerializer, UserTickerEditSerializer
+from .serializers import (UserTickerSerializer, PortfolioSerializer, UserTickerBaseSerializer, UserTickerEditSerializer,
+                          UserTickerCreateSerializer
+                          )
 
 
 @api_view(['GET'])
@@ -17,6 +19,7 @@ def ticker_homepage_api_view(request, format=None):
         "portfolios": reverse("api_port:list", request=request, format=format),
         "user_ticker_list": reverse("api_port:user_ticker_list", request=request, format=format),
         "efficient_frontier": reverse("api_port:efficient_frontier", request=request, format=format),
+        "create_user_ticker": reverse("api_port:user_ticker_create", request=request, format=format)
     })
 
 
@@ -40,14 +43,14 @@ class UserTickerListApiView(ListCreateAPIView):
     serializer_class = UserTickerBaseSerializer
     permission_classes = [IsAuthenticatedCustom, ]
     filter_backends = [DjangoFilterBackend, ]
-    filterset_fields = ['portfolio', "is_sell"]
+    # filterset_fields = ['portfolio', "is_sell"]
 
     def get_queryset(self):
         return UserTicker.objects.filter(portfolio__user=self.request.user)
 
 
 class UserTickerCreateApiView(CreateAPIView):
-    serializer_class = UserTickerEditSerializer
+    serializer_class = UserTickerCreateSerializer
     permission_classes = [IsAuthenticatedCustom, ]
 
 

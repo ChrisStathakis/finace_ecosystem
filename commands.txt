@@ -1,0 +1,2 @@
+celery -A server  worker -l info --pool=solo  
+celery -A backend_server flower

@@ -11,13 +11,9 @@ class BaseForm(forms.Form):
             field.widget.attrs["class"] = "form-control"
 
 
-
-
-    
-
 class UserTickerForm(BaseForm, forms.ModelForm):
 
     class Meta:
         model = UserTicker
-        fields = ['ticker', 'portfolio', 'starting_investment', 'starting_value_of_ticker']
+        fields = ['ticker', 'portfolio', 'starting_investment', 'starting_value_of_ticker', "current_value"]
         widgets = {'ticker': forms.HiddenInput(), 'portfolio': forms.HiddenInput()}

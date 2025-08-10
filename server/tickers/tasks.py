@@ -9,10 +9,21 @@ from asgiref.sync import async_to_sync
 import json
 from django.core.serializers import serialize
 import logging
-from .models import Ticker
+from .models import Ticker, TickerDataFrame
 from portfolio.models import Portfolio, UserTicker
-from .StockManager import StockManager
+from tickers.helpers_folder.StockManager import StockManager
 logger = logging.getLogger(__name__)
+
+
+@shared_task
+def update_tickers_price_and_price_change():
+    qs = Ticker.objects.all()
+    for ticker in qs:
+        ticker.soft_update()
+        TickerDataFrame._create_dataframe(
+            is_period=True,
+            period="7d"
+        )
 
 
 @shared_task

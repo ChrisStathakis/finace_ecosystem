@@ -1,0 +1,156 @@
+{% extends "index.html" %}
+
+
+{% block content %}
+
+<div class="container-fluid">
+    <div class="row">
+
+        <div class="col-4">
+            <div class="card">
+
+                <div class="card-header">
+                    <h4>CURRENT</h4>
+                </div>
+
+                <div class="card-body">
+                    <h5>Statistics</h5>
+                    <table class="table table-bordered">
+                        <thead>
+
+                            <tr>
+                                <th>INVESTMENT: </th>
+                                <th>{{ profile.tag_starting_value }}</th>
+                            </tr>
+
+                            <tr>
+                                <th>VALUE</th>
+                                <th>{{ profile.tag_current_value }}</th>
+                            </tr>
+
+                            <tr>
+                                <th>EARNINGS</th>
+                                <th>{{ profile.tag_earnings }}</th>
+                            </tr>
+
+                        </thead>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-8">
+            <div class="card">
+
+                <div class="card-header">
+                    <h4>Movements</h4>
+                </div>
+
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Date buyed</th>
+                                <th>Ticker</th>
+                                <th>Starting Price</th>
+                                <th>Investment</th>
+                                <th>Current/ Sale Price</th>
+                                <th>Earnings</th>
+                                <th>Date Sale</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {% for ele in user_tickers %}
+                                <tr>
+                                    <td>{{ ele.timestamp }}</td>
+                                    <td>{{ ele.ticker }}</td>
+                                    <td>{{ ele.tag_starting_price }}</td>
+                                    <td>{{ ele.tag_starting_value }}</td>
+                                    <td>{{ ele.tag_current_value }}</td>
+                                    <td>{{ ele.tag_diff_value }}</td>
+                                    <td>{{ ele.tag_status|safe }}</td>
+
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">
+            <div class="card">
+
+                <div class="card-header">
+                    <h4>HISTORIC</h4>
+                </div>
+
+                <div class="card-body">
+                    <h5>Statistics</h5>
+                    <table class="table table-bordered">
+                        <thead>
+
+                            <tr>
+                                <th>INVESTMENT: </th>
+                                <th>{{ profile.tag_withdraw_starting_value }}</th>
+                            </tr>
+
+                            <tr>
+                                <th>VALUE</th>
+                                <th>{{ profile.tag_withdraw_value }}</th>
+                            </tr>
+
+                            <tr>
+                                <th>EARNINGS</th>
+                                <th>{{ profile.tag_withdraw_earnings }}</th>
+                            </tr>
+
+                        </thead>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-4">
+            <div class="card">
+
+                <div class="card-header">
+                    <h4>TOTAL</h4>
+                </div>
+
+                <div class="card-body">
+                    <h5>Statistics</h5>
+                    <table class="table table-bordered">
+                        <thead>
+
+                            <tr>
+                                <th>INVESTMENT: </th>
+                                <th>{{ profile.tag_historic_deposits }}</th>
+                            </tr>
+
+                            <tr>
+                                <th>VALUE</th>
+                                <th>{{ profile.tag_historic_value }}</th>
+                            </tr>
+
+                            <tr>
+                                <th>EARNINGS</th>
+                                <th>{{ profile.tag_historic_earnings }}</th>
+                            </tr>
+
+                        </thead>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
