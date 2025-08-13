@@ -6,7 +6,7 @@ import yfinance as yf
 from datetime import datetime
 from decimal import Decimal
 from .models import Ticker, TickerDataFrame
-from .tasks import refresh_unique_ticker_data
+from .tasks import update_tickers_price_and_price_change
 from portfolio.models import UserTicker
 
 
@@ -14,7 +14,7 @@ from portfolio.models import UserTicker
 def update_ticker_progress(sender, instance: Ticker, created, **kwargs):
     if created:
         # create starting data when object is created
-        refresh_unique_ticker_data.delay(instance.id)
+        update_tickers_price_and_price_change.delay(instance.id)
 
 
 

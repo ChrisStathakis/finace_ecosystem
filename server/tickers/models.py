@@ -122,11 +122,11 @@ class Ticker(models.Model):
         self.market_variance = data['market_variance']
         self.price_change = data['price_change']
         self.save()
-        TickerDataFrame._create_dataframe(ticker=str(self.ticker),
+
+        TickerDataFrame._create_dataframe(ticker=self,
                                           is_period=True,
                                           period="10y"
                                           )
-
 
     def sentimental_analysis_update(self):
         # update wiki data and rss
@@ -378,27 +378,35 @@ class TickerDataFrame(models.Model):
     def __str__(self):
         return self.date
 
-    def _create_dataframe(self,
+    @staticmethod
+    def _create_dataframe(
+                          ticker: Ticker,
                           is_period: bool = True,
                           period: str = "10y",
                           date_start: str = "",
                           date_end: str = ""
                           ):
-        qs = TickerDataFrame.objects.filter(ticker=self.ticker)
-        helper = TickerHelper(str(self.ticker), str(self.ticker.indices))
-        df = helper.read_data(update_data=True, is_period=is_period, period=period, date_start=date_start,
-                              date_end=date_end)
-        df['pct_change'] = ((df['Close'] - df['Close'].shift(1)) / df['Close'].shift(1))
+        qs = TickerDataFrame.objects.filter(ticker=ticker)
+        helper = TickerHelper(str(ticker.ticker), "^GSPC")
+        df = helper.read_data(update_data=True,
+                              is_period=is_period,
+                              period=period,
+                              date_start=date_start,
+                              date_end=date_end
+                              )
+        df['pct_change'] = ((df[ticker.ticker] - df[ticker.ticker].shift(1)) / df[ticker.ticker].shift(1))
+
         for _, row in df.iterrows():
             pct_change = row['pct_change'] # if isinstance(row['pct_change'], decimal.Decimal) else 0
-            if not qs.filter(date=row['Date']).exists():
-                TickerDataFrame.objects.create(date=row['Date'],
-                                               close=Decimal(row['Close']),
-                                               pct_change=pct_change,
-                                               ticker=self
+            new_date = datetime.fromisoformat(_)
+            print("createdatabase", new_date, Decimal(row[ticker.ticker]), pct_change)
+            if not qs.filter(date=new_date).exists():
+                TickerDataFrame.objects.create(date=new_date,
+                                               close=Decimal(row[ticker.ticker]),
+                                               pct_change=0,
+                                               ticker=ticker
                                                )
-            else:
-                continue
+
 
 
 

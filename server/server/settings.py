@@ -177,20 +177,6 @@ CHANNEL_LAYERS = {
 
 CELERY_BROKER_URL = "redis://localhost:6379/0"
 CELERY_RESULT_BACKEND = "redis://localhost:6379/0"
-
-
-CELERY_BEAT_SCHEDULE = {
-    "refresh_ticker_every_ten_minutes": {
-        "task": "tickers.tasks.refresh_ticker_data",
-        "schedule": timedelta(seconds=10*60)
-    },
-    "fetch_rss_data_daily": {
-        'task': "rss_component.tasks.refresh_rss",
-        "schedule": timedelta(days=1)
-    }
-}
-
-
 CELERY_BEAT_LOG_FILE = 'celery_beat.log'
 
 
