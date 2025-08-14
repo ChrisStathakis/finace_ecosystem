@@ -131,8 +131,8 @@ class Ticker(models.Model):
     def sentimental_analysis_update(self):
         # update wiki data and rss
         self.wikipedia_url = self.find_wikipedia_url()
-
-
+        self.create_tags()
+        self.save()
 
     @staticmethod
     def search_entities(entities: list):
@@ -148,7 +148,7 @@ class Ticker(models.Model):
 
     def create_tags(self):
         market = self.indices if self.indices else "^GSPC"
-        ticker_helper = TickerHelper(ticker=self.ticker, market=market)
+        ticker_helper = TickerHelper(str(self.ticker), market=market)
         results = ticker_helper.analyze_ticker_wiki(self.wikipedia_url)
         for result in results:
             new_result, created = Tags.objects.get_or_create(title=result[0], label=result[1])
@@ -394,16 +394,15 @@ class TickerDataFrame(models.Model):
                               date_start=date_start,
                               date_end=date_end
                               )
-        df['pct_change'] = ((df[ticker.ticker] - df[ticker.ticker].shift(1)) / df[ticker.ticker].shift(1))
+        df['pct_change'] = df[f"{ticker.ticker}"].pct_change().fillna(0)
 
         for _, row in df.iterrows():
-            pct_change = row['pct_change'] # if isinstance(row['pct_change'], decimal.Decimal) else 0
             new_date = datetime.fromisoformat(_)
-            print("createdatabase", new_date, Decimal(row[ticker.ticker]), pct_change)
+            print("createdatabase", new_date, Decimal(row[ticker.ticker]), row['pct_change'])
             if not qs.filter(date=new_date).exists():
                 TickerDataFrame.objects.create(date=new_date,
                                                close=Decimal(row[ticker.ticker]),
-                                               pct_change=0,
+                                               pct_change=row['pct_change'],
                                                ticker=ticker
                                                )
 

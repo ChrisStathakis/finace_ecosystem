@@ -12,8 +12,11 @@ from torch.utils.data import TensorDataset, DataLoader
 import spacy, os, datetime, requests
 from bs4 import BeautifulSoup
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
-
+import torch
 from tickers.helpers_folder.calculate_averages import *
+
+
+nlp = spacy.load("en_core_web_sm")
 
 
 class TickerHelper:
@@ -22,6 +25,23 @@ class TickerHelper:
         self.ticker = ticker
         self.market = market
         self.price = 0
+
+    @staticmethod
+    def analyze_ticker_wiki(url):
+        response = requests.get(url)
+        soup = BeautifulSoup(response.content, 'html.parser')
+
+        # Find the main content div
+        content = soup.find(id="mw-content-text")
+
+        # Extract text from paragraphs
+        text = ''.join([p.get_text() for p in content.find_all('p')])
+        doc = nlp(text)
+        results = []
+        for ent in doc.ents:
+            if ent.label_ in ["PERSON", "ORG"]:
+                results.append([ent.text, ent.label_])
+        return results
 
     def download_data(self,
                       ticker='',
@@ -54,7 +74,6 @@ class TickerHelper:
             self.download_data(ticker=self.ticker, is_period=is_period, period=period, date_start=date_start,
                                date_end=date_end)
         df = pd.read_csv(f'media/stock_df/{self.ticker}.csv', index_col='Date')
-        print("my df", df)
         if 'Stock Splits' in df.columns:
             df.drop(labels=['Open', 'High', 'Low', 'Volume', 'Dividends', 'Stock Splits'], axis=1, inplace=True)
         else:
@@ -64,7 +83,6 @@ class TickerHelper:
         return df
 
     def read_market(self):
-        print('Read market', self.market)
         if not os.path.exists(f'media/stock_df/{self.market}.csv'):
             self.download_data(self.market)
 
@@ -111,7 +129,6 @@ class TickerHelper:
         group, tic = [self.market, self.ticker]
         stock_data, indice_data = [self.read_data(update_data=False), self.read_market()]
         stock_return, indice_return = [stock_data[tic].pct_change(), indice_data[group].pct_change()]
-        print(stock_data.columns)
         indice_data['daily_rtn'] = indice_return
         stock_data['daily_rtn'] = stock_return
 
@@ -140,6 +157,7 @@ class TickerHelper:
             "price_change": price_change
 
         }
+
 
 class StockManager(nn.Module):
 

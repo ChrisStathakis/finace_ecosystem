@@ -14,7 +14,7 @@ from portfolio.models import UserTicker
 def update_ticker_progress(sender, instance: Ticker, created, **kwargs):
     if created:
         # create starting data when object is created
-        update_tickers_price_and_price_change.delay(instance.id)
+        update_tickers_price_and_price_change.delay()
 
 
 

@@ -12,18 +12,12 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-8">
+                            <div class="col-6">
                                 <canvas id="myChart"></canvas>
                             </div>
-                            
-                            <div class="col-4">
-                                <div class="card text-black bg-secondary mb-3">
-                                    <div class="card-header">
-                                        <h4>Predictions </h4>
-                                        <a href="{% url 'tickers:refresh' instance.id %}" class="btn btn-info"> UPDATE </a>
-                                    </div>
 
-                                </div>
+                            <div class="col-6">
+                                <canvas id="myChart2"></canvas>
                             </div>
                         </div>
                                           
@@ -32,6 +26,7 @@
                 </div>
             </div>
         </div>
+
         <div class="row">
             <div class="col-6">
                 <div class="card">
@@ -174,6 +169,40 @@
 			fill: false,
             data: [{% for ele in prices_chart %} {% if forloop.last %} {{ ele.1 }} {% else %} {{ ele.1 }},  {% endif %}{% endfor %}]
          
+        }
+        ]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  </script>
+
+<script>
+    const ctx2 = document.getElementById('myChart2');
+
+    new Chart(ctx2, {
+      type: 'line',
+      scales:{
+        y: {
+            min: -1,
+            max: 1
+          }
+      },
+      data: {
+        labels: [{% for ele in returns_chart %} {% if forloop.last %} "{{ ele.0 }}" {% else %} "{{ ele.0 }}",  {% endif %}{% endfor %}],
+        datasets: [
+        {
+            label: '# Return %',
+            backgroundColor: 'Blue',
+		    borderColor: 'Blue',
+			fill: false,
+            data: [{% for ele in returns_chart %} {% if forloop.last %} {{ ele.1 }} {% else %} {{ ele.1 }},  {% endif %}{% endfor %}]
+
         }
         ]
       },

@@ -213,3 +213,6 @@ SIMPLY_JWT = {
     "REFRESH_TOKEN_LIFETIME": timedelta(days=10),
 }
 
+FLOWER_URL = "http://localhost:5555"
+FLOWER_URL_PREFIX = "flower"
+

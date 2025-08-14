@@ -30,8 +30,8 @@ def ticker_detail_view(request, pk):
     feed = instance.rss.all()
     prices = TickerDataFrame.objects.filter(ticker=instance)[:30]
     prices_chart = [[price.date.split(" ")[0], price.close] for price in reversed(prices)]
-
-
+    returns_chart = [[price.date.split(" ")[0], price.pct_change] for price in reversed(prices)]
+    print("returns_chart", returns_chart)
     return render(
                 request,
                 'ticker_detail.html',
@@ -39,7 +39,8 @@ def ticker_detail_view(request, pk):
                     "instance": instance,
                     "feed": feed,
                     "prices": prices,
-                    "prices_chart": prices_chart
+                    "prices_chart": prices_chart,
+                    "returns_chart": returns_chart,
                 }
                 )
 
