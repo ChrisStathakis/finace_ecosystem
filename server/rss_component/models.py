@@ -102,12 +102,12 @@ class RssFeed(models.Model):
 
 
     @staticmethod
-    def analysis_rss_feed():
+    def analysis_rss_feed(qs):
         """
             We call all the no analysed rss, after that we initialize the analyzer and
             we check if any ticker is relevant  and if is positive etc
         """
-        qs = RssFeed.objects.all() # filter(is_analysed=False)
+
         analyzer = RssAnalyzer()
         for ele in qs:
             print(analyzer.textblob_sentimental_analysis(ele.title))

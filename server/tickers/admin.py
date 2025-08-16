@@ -3,6 +3,7 @@ from django.contrib import admin
 from .models import Ticker, TickerDataFrame, Tags
 from import_export.admin import ImportExportModelAdmin
 
+
 @admin.action(description="SOFT UPDATE")
 def ticker_soft_update_action(modeladmin, request, queryset):
     for ticker in queryset:
@@ -55,9 +56,6 @@ class TickerAdmin(ImportExportModelAdmin):
 class TickerDataFrameAdmin(admin.ModelAdmin):
     list_display = ['date', 'close', 'ticker']
     list_filter = ['ticker', ]
-
-
-
 
 
 @admin.register(Tags)

@@ -45,12 +45,12 @@
                             <tbody>
                                 <tr>
                                     <th>Simply Return</th>
-                                    <th>{{ instance.simply_return }}</th>
+                                    <th>{{ instance.simply_return }} % </th>
                                 </tr>
 
                                 <tr>
                                     <th>Log Return</th>
-                                    <th>{{ instance.log_return }}</th>
+                                    <th>{{ instance.log_return }}  % </th>
                                 </tr>
 
                                 <tr>
@@ -64,14 +64,28 @@
                                 </tr>
 
                                 <tr>
-                                    <th>Simply Return</th>
-                                    <th>{{ instance.simply_return }}</th>
+                                    <th>CAMP</th>
+                                    <th>{{ instance.camp }}</th>
                                 </tr>
 
                                 <tr>
-                                    <th>Simply Return</th>
-                                    <th>{{ instance.simply_return }}</th>
+                                    <th>COVERAGE</th>
+                                    <th>{{ instance.coverage }}</th>
                                 </tr>
+
+                                <tr>
+                                    <th>STANDARD DEVIATION</th>
+                                    <th>{{ instance.standard_deviation }}</th>
+                                </tr>
+
+                                <tr>
+                                    <th>sharp</th>
+                                    <th>{{ instance.sharp }}</th>
+                                </tr>
+
+
+
+
                             </tbody>
                         </table>
                     </div>
@@ -122,8 +136,8 @@
                                 {% for price in prices %}
                                     <tr>
                                         <td>{{ price.date  }}</td>
-                                        <td>{{ price.close  }}</td>
-                                        <td>{{ price.pct_change  }}</td>
+                                        <td>{{ price.close  }} {{ currency }}</td>
+                                        <td>{{ price.pct_change  }} %</td>
                                     </tr>
                                 {% endfor %}
                             </tbody>

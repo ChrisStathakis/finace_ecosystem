@@ -10,6 +10,7 @@ def update_tickers_price_and_price_change():
     for ticker in qs:
         ticker.soft_update()
         TickerDataFrame._create_dataframe(
+            ticker=ticker,
             is_period=True,
             period="7d"
         )

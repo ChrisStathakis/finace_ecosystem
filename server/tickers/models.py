@@ -84,11 +84,29 @@ class Ticker(models.Model):
     simply_return = models.DecimalField(max_digits=30, decimal_places=3, default=0, help_text='Simply Rate of Return')
     log_return = models.DecimalField(max_digits=30, decimal_places=8, default=0, help_text='Log Return')
     standard_deviation = models.DecimalField(max_digits=30, decimal_places=8, default=0)
-    sharp = models.DecimalField(max_digits=30, decimal_places=8, default=0)
+    sharp = models.DecimalField(max_digits=30, decimal_places=8, default=0,
+                                help_text="The Sharpe ratio is a measure of the risk-adjusted return of an investment A"
+                                          "higher Sharpe ratio indicates that an investment provides higher returns for"
+                                          "a given level of risk compared to other investments with a lower Sharpe ratio"
+                                          "In general, a Sharpe ratio under 1.0 is considered bad, equal to 1.0 is "
+                                          "considered acceptable or good, 2.0 or higher is rated as very good, and 3.0 "
+                                          "or higher is considered excellent."
+                                )
+
     wikipedia_url = models.URLField(blank=True, null=True)
     prediction = models.DecimalField(max_digits=10, decimal_places=3, default=0)
     date_predict = models.DateField(blank=True, null=True)
     ticker_tags = models.ManyToManyField(Tags)
+
+    skewness = models.DecimalField(max_digits=10, decimal_places=4, default=0.000,
+                                   help_text="Negative value chance for big damages,"
+                                             " positive chance for unexpected winnings"
+                                   )
+    kurtosis = models.DecimalField(max_digits=10, decimal_places=4, default=0.000,
+                                   help_text="3> chances for big movements either plus "
+    )
+    correlation = models.DecimalField(max_digits=10, decimal_places=4, default=0.00, help_text="Against the market")
+
     objects = models.Manager()
     my_query = TickerManager()
 
@@ -121,6 +139,10 @@ class Ticker(models.Model):
         self.beta = data['beta']
         self.market_variance = data['market_variance']
         self.price_change = data['price_change']
+        self.coverage = data['coverage']
+        self.correlation = data['correlation']
+        self.sharp = data['sharp']
+        self.kurtosis, self.skewness = self.calculate_kurtosis_and_skewness()
         self.save()
 
         TickerDataFrame._create_dataframe(ticker=self,
@@ -130,9 +152,20 @@ class Ticker(models.Model):
 
     def sentimental_analysis_update(self):
         # update wiki data and rss
-        self.wikipedia_url = self.find_wikipedia_url()
+        if not self.wikipedia_url:
+            self.wikipedia_url = self.find_wikipedia_url()
         self.create_tags()
         self.save()
+
+    def calculate_kurtosis_and_skewness(self) -> list:
+        # returns [kurtosis, skewness]
+        end_date = pd.Timestamp.today().normalize()
+        start_date = end_date - pd.DateOffset(years=10)
+        ticker = qs.utils.download_returns(str(self.ticker))
+        ticker = ticker.loc[start_date:end_date]
+        kurtosis = qs.stats.kurtosis(ticker)
+        skewness = qs.stats.skew(ticker)
+        return [kurtosis, skewness]
 
     @staticmethod
     def search_entities(entities: list):

@@ -16,21 +16,13 @@ class RssFeedListView(ListView):
         return context
 
 
-def refresh_tickers_view(request):
-    RssFeed.create_data()
-    return HttpResponseRedirect(reverse('rss:list'))
-
-
 def rss_detail_view(request, pk):
     instance: RssFeed = get_object_or_404(RssFeed, id=pk)
     analyzer = RssAnalyzer()
     result = analyzer.llm_check_if_positive(instance.title)
-    print(result)
     return render(request, 'rss_detail_view.html', context={"instance": instance})
 
 
-def analysis_rss_view(request):
-    RssFeed.analysis_rss_feed()
-    return HttpResponseRedirect(reverse('rss:list'))
+
 
 

@@ -1,10 +1,12 @@
 import pandas as pd
+import quantstats as qs
 import numpy as np
 import yfinance as yf
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import GridSearchCV
 from sklearn.linear_model import SGDRegressor
 from torch import nn, optim
@@ -125,6 +127,20 @@ class TickerHelper:
         market_return = self.read_ticker(group)[group].pct_change()
 
     def calculate_values(self) -> dict:
+        # add new method to calaculate data
+        end_date = pd.Timestamp.today().normalize()
+        start_date = end_date - pd.DateOffset(years=10)
+        qs_ticker_df = qs.utils.download_returns(self.ticker).loc[start_date:end_date]
+        qs_market_df = qs.utils.download_returns(self.market).loc[start_date:end_date]
+        qs_merged_df = pd.concat([qs_ticker_df, qs_market_df], join="outer", axis=1)
+        qs_ticker_df_no_index = qs_ticker_df.reset_index(drop=True)
+        qs_market_df_no_index = qs_market_df.reset_index(drop=True)
+        X, y = qs_market_df_no_index.values.reshape(-1, 1), qs_ticker_df_no_index.values.reshape(-1, 1)
+        linreg = LinearRegression().fit(X, y)
+        beta = linreg.coef_[0]
+        alpha = linreg.intercept_
+        print("qs beta", beta)
+
         # group => the code of the market you want to go against
         group, tic = [self.market, self.ticker]
         stock_data, indice_data = [self.read_data(update_data=False), self.read_market()]
@@ -140,9 +156,9 @@ class TickerHelper:
         indice_return, stock_return = [indice_return.dropna(), stock_return.dropna()]
 
         market_variance = indice_return.var()
-        covariance = stock_return.cov(indice_return)
-
-        beta = covariance / market_variance if market_variance != 0 else 0
+        coverage = qs_merged_df.cov()
+        correlation = qs_merged_df.corr()
+        beta = coverage / market_variance if market_variance != 0 else 0
 
         price = round(float(stock_data[tic].iloc[-1]), 8) if isinstance(stock_data[tic].iloc[-1], float) else 0
         self.price = 0 if np.isnan(price) else price if isinstance(price, str) else price
@@ -153,8 +169,12 @@ class TickerHelper:
             "price": price,
             "simply_return": simply_return,
             "beta": beta,
+            "alpha": alpha,
+            "sharp": qs.stats.sharpe(qs_ticker_df),
             "market_variance": market_variance,
-            "price_change": price_change
+            "price_change": price_change,
+            "correlation": correlation,
+            "coverage": coverage
 
         }
 

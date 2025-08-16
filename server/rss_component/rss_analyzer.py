@@ -11,7 +11,7 @@ import json
 class RssAnalyzer:
     df: pd.DataFrame
 
-    def __init__(self, llm_model: str = "llama2"):
+    def __init__(self, llm_model: str = "llama3.2:1b"):
         self.nlp = spacy.load("en_core_web_lg")
         self.analyzer = SentimentIntensityAnalyzer()
         self.ollama_llm = OllamaLLM(model=llm_model)
